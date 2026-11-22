@@ -106,3 +106,295 @@
             <path d="M50 13 L79 25 L79 51 C79 69 50 86 50 86 C50 86 21 69 21 51 L21 25 Z" fill="#ffffff" stroke="#8e9eab" stroke-width="1.5"/>
             <text x="50" y="57" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="#4a5568" text-anchor="middle" letter-spacing="-1">CM</text>
         </symbol>
+        <symbol id="crest-compromisso" viewBox="0 0 100 100">
+            <path d="M18 75 C8 60 8 35 22 20" fill="none" stroke="#b8860b" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 4"/>
+            <path d="M82 75 C92 60 92 35 78 20" fill="none" stroke="#b8860b" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 4"/>
+            <path d="M50 10 L80 22 L80 50 C80 70 50 88 50 88 C50 88 20 70 20 50 L20 22 Z" fill="#d4af37" stroke="#7a5210" stroke-width="3.5"/>
+            <path d="M50 16 L74 26 L74 49 C74 66 50 81 50 81 C50 81 26 66 26 49 L26 26 Z" fill="#fffdf5" stroke="#d4af37" stroke-width="1.5"/>
+            <circle cx="43" cy="48" r="11" fill="none" stroke="#b8860b" stroke-width="3.5"/>
+            <circle cx="57" cy="48" r="11" fill="none" stroke="#d4af37" stroke-width="3.5"/>
+        </symbol>
+        <symbol id="crest-noivado" viewBox="0 0 100 100">
+            <path d="M34 16 L38 6 L45 13 L50 4 L55 13 L62 6 L66 16 Z" fill="#d4af37" stroke="#7a5210" stroke-width="1.5"/>
+            <path d="M50 18 L82 28 L82 54 C82 74 50 92 50 92 C50 92 18 74 18 54 L18 28 Z" fill="#142850" stroke="#d4af37" stroke-width="4"/>
+            <polygon points="50,34 64,46 50,70 36,46" fill="#e0f7fa" stroke="#80deea" stroke-width="2"/>
+            <line x1="36" y1="46" x2="64" y2="46" stroke="#4dd0e1" stroke-width="1.5"/>
+        </symbol>
+    </svg>
+
+    <div id="login-screen" class="window">
+        <div class="title-bar">
+            <div class="logo-area">
+                <span class="msn-buddy status-online"></span>
+                <span>Corte Messenger</span>
+            </div>
+            <span>v1.0</span>
+        </div>
+        <div class="login-body">
+            <div class="brand-crest-login">
+                <svg width="68" height="68"><use href="#crest-conhecendo"></use></svg>
+            </div>
+            <h1 class="brand-title">Corte Messenger</h1>
+            <p class="brand-slogan">"Onde cada conversa começa com respeito e intenção"</p>
+            <div class="privacy-badge">
+                <strong>Sem fotos públicas:</strong> A conexão começa pela conversa. Os selos evoluem conforme o diálogo avança com respeito.
+            </div>
+            <div class="form-group">
+                <label>Seu Nome ou Apelido:</label>
+                <input type="text" id="login-name" placeholder="Ex: João, 30 - Curitiba">
+            </div>
+            <div class="form-group">
+                <label>Sua Intenção (Subnick inicial):</label>
+                <input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café">
+            </div>
+            <div class="form-group">
+                <label>Entrar como:</label>
+                <select id="login-status">
+                    <option value="online">🟢 Online (Disponível para conversar)</option>
+                    <option value="busy">🔴 Ocupado</option>
+                    <option value="away">🟡 Ausente</option>
+                </select>
+            </div>
+            <button class="btn-msn" onclick="entrarNoCorte()">Entrar</button>
+        </div>
+    </div>
+    <div id="app-container">
+        <div class="window contacts-window">
+            <div class="title-bar">
+                <div class="logo-area">
+                    <span class="msn-buddy status-online"></span>
+                    <span>Corte Messenger</span>
+                </div>
+                <span style="font-size: 11px; cursor: pointer;" onclick="location.reload()">Sair</span>
+            </div>
+            <div class="brand-banner">
+                <svg><use href="#crest-conhecendo"></use></svg>
+                <div>
+                    <div style="font-weight: bold; font-size: 14px;">Corte Messenger</div>
+                    <div style="font-size: 10px; opacity: 0.9;">Onde cada conversa começa com respeito e intenção</div>
+                </div>
+            </div>
+            <div class="user-header">
+                <div class="user-info-top">
+                    <span id="my-status-icon" class="msn-buddy status-online"></span>
+                    <span id="my-name-display" class="user-name">Usuário</span>
+                    <select id="change-status" onchange="mudarMeuStatus()" style="font-size: 11px; margin-left: auto;">
+                        <option value="online">Online</option>
+                        <option value="busy">Ocupado</option>
+                        <option value="away">Ausente</option>
+                    </select>
+                </div>
+                <input type="text" id="my-subnick-display" class="subnick-input" placeholder="Digite sua frase de intenção...">
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" onkeyup="filtrarContatos()" placeholder="🔍 Buscar por interesse, cidade ou nome...">
+            </div>
+            <div class="contact-list" id="contact-list-area"></div>
+        </div>
+
+        <div class="window chat-window" id="chat-window-box">
+            <div class="title-bar">
+                <div class="logo-area">
+                    <span id="chat-header-icon" class="msn-buddy status-offline"></span>
+                    <span id="chat-header-title">Nenhuma conversa aberta</span>
+                </div>
+            </div>
+            <div class="chat-header" id="chat-sub-header" style="display: none;">
+                <div>
+                    <strong id="active-contact-name" style="color: #103c66; font-size: 14px;">Nome</strong>
+                    <div id="active-contact-subnick" style="font-size: 11px; color: #555;">Subnick</div>
+                </div>
+                <div class="stage-selector-box">
+                    <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
+                    <div>
+                        <div style="font-size: 9px; color: #666; text-transform: uppercase;">Estágio de Corte</div>
+                        <select id="stage-select" onchange="alterarEstagio()">
+                            <option value="conhecendo">Conhecendo</option>
+                            <option value="compromisso">Compromisso Sério</option>
+                            <option value="noivado">Possível Noivado</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-messages" id="chat-messages">
+                <div class="empty-chat">
+                    <p style="font-size: 15px; font-weight: bold; color: #1e5799; margin-bottom: 8px;">Bem-vindo ao Corte Messenger</p>
+                    <p style="font-size: 12px;">Escolha alguém na lista ao lado. Toda conversa começa no estágio neutro e pode evoluir conforme a afinidade.</p>
+                    <div class="crest-showcase">
+                        <div class="crest-card"><svg><use href="#crest-conhecendo"></use></svg><span>1. Conhecendo</span></div>
+                        <div class="crest-card"><svg><use href="#crest-compromisso"></use></svg><span>2. Compromisso Sério</span></div>
+                        <div class="crest-card"><svg><use href="#crest-noivado"></use></svg><span>3. Possível Noivado</span></div>
+                    </div>
+                </div>
+            </div>
+            <div class="chat-toolbar" id="chat-toolbar" style="display: none;">
+                <button class="tool-btn" onclick="chamarAtencao()">⚡ Chamar atenção</button>
+                <button class="tool-btn" onclick="inserirEmoticon('😊')">😊</button>
+                <button class="tool-btn" onclick="inserirEmoticon('☕')">☕</button>
+                <button class="tool-btn" onclick="inserirEmoticon('🤝')">🤝</button>
+                <button class="tool-btn" onclick="inserirEmoticon('✨')">✨</button>
+                <label class="tool-btn" style="margin-left: auto; background: #e8f7e6; border-color: #8fd188; color: #1e6b18;">
+                    📷 Enviar Foto Privada
+                    <input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)">
+                </label>
+            </div>
+            <div class="chat-input-area" id="chat-input-area" style="display: none;">
+                <input type="text" id="message-input" placeholder="Escreva sua mensagem com respeito..." onkeypress="if(event.key==='Enter') enviarMensagem()">
+                <button class="btn-msn" onclick="enviarMensagem()">Enviar</button>
+            </div>
+        </div>
+    </div>
+    <script>
+        let meuNome = "";
+        let contatoAtual = null;
+        const nomesEstagios = { conhecendo: "Conhecendo", compromisso: "Compromisso Sério", noivado: "Possível Noivado" };
+        const contatos = [
+            { id: 1, nome: "Mariana, 27 - Maringá", status: "online", subnick: "Gosto de livros, café coado e conversas sinceras ☕", aceito: true, estagio: "conhecendo", mensagens: [{ remetente: "Mariana, 27 - Maringá", texto: "Olá! Gostei da sua proposta no Corte. O que você busca por aqui?", tipo: "texto" }] },
+            { id: 2, nome: "Rafael, 31 - Londrina", status: "online", subnick: "Paciência e sinceridade. Buscando relacionamento sério.", aceito: false, estagio: "conhecendo", mensagens: [] },
+            { id: 3, nome: "Camila, 26 - Curitiba", status: "away", subnick: "Estudando agora. Sem pressa, com intenção.", aceito: false, estagio: "conhecendo", mensagens: [] },
+            { id: 4, nome: "Thiago, 29 - Maringá", status: "busy", subnick: "Reunião. Respondo depois!", aceito: true, estagio: "compromisso", mensagens: [{ remetente: "Thiago, 29 - Maringá", texto: "Muito bom poder conversar sem a pressão de fotos logo no início.", tipo: "texto" }] },
+            { id: 5, nome: "Beatriz, 30 - São Paulo", status: "offline", subnick: "Valorizo educação, bom humor e clareza.", aceito: false, estagio: "conhecendo", mensagens: [] }
+        ];
+
+        function entrarNoCorte() {
+            const nomeInput = document.getElementById("login-name").value.trim();
+            const subnickInput = document.getElementById("login-subnick").value.trim();
+            const statusInput = document.getElementById("login-status").value;
+            meuNome = nomeInput || "Visitante";
+            document.getElementById("my-name-display").innerText = meuNome;
+            document.getElementById("my-subnick-display").value = subnickInput || "Onde cada conversa começa com respeito e intenção";
+            document.getElementById("change-status").value = statusInput;
+            mudarMeuStatus();
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("app-container").style.display = "flex";
+            renderizarContatos();
+        }
+
+        function mudarMeuStatus() {
+            document.getElementById("my-status-icon").className = `msn-buddy status-${document.getElementById("change-status").value}`;
+        }
+
+        function renderizarContatos(filtro = "") {
+            const area = document.getElementById("contact-list-area");
+            area.innerHTML = "";
+            const filtrados = contatos.filter(c => c.nome.toLowerCase().includes(filtro.toLowerCase()) || c.subnick.toLowerCase().includes(filtro.toLowerCase()));
+            const meusContatos = filtrados.filter(c => c.aceito);
+            const descobrir = filtrados.filter(c => !c.aceito);
+
+            area.innerHTML += `<div class="group-title">▾ Meus Contatos (${meusContatos.length})</div>`;
+            meusContatos.forEach(c => {
+                const activeClass = (contatoAtual && contatoAtual.id === c.id) ? "active" : "";
+                area.innerHTML += `<div class="contact-item ${activeClass}" onclick="abrirChat(${c.id})"><div class="contact-details"><span class="msn-buddy status-${c.status}" style="margin-top: 3px;"></span><div class="contact-text"><div class="contact-name"><span>${c.nome}</span><span class="mini-crest"><svg><use href="#crest-${c.estagio}"></use></svg></span></div><div class="contact-subnick">${c.subnick}</div></div></div></div>`;
+            });
+
+            area.innerHTML += `<div class="group-title" style="margin-top: 15px;">▾ Descobrir Pessoas (${descobrir.length})</div>`;
+            descobrir.forEach(c => {
+                area.innerHTML += `<div class="contact-item"><div class="contact-details"><span class="msn-buddy status-${c.status}" style="margin-top: 3px;"></span><div class="contact-text"><div class="contact-name">${c.nome}</div><div class="contact-subnick">${c.subnick}</div></div></div><button class="btn-invite" onclick="enviarSolicitacao(${c.id})">+ Convidar</button></div>`;
+            });
+        }
+
+        function filtrarContatos() { renderizarContatos(document.getElementById("search-input").value); }
+
+        function enviarSolicitacao(id) {
+            const pessoa = contatos.find(c => c.id === id);
+            if (!pessoa) return;
+            alert(`Solicitação enviada para ${pessoa.nome}!`);
+            pessoa.aceito = true;
+            pessoa.estagio = "conhecendo";
+            pessoa.mensagens.push({ remetente: "Sistema", texto: `Conversa iniciada no estágio "Conhecendo".`, tipo: "sistema", estagio: "conhecendo" });
+            renderizarContatos();
+            abrirChat(id);
+        }
+
+        function abrirChat(id) {
+            contatoAtual = contatos.find(c => c.id === id);
+            if (!contatoAtual) return;
+            renderizarContatos(document.getElementById("search-input").value);
+            document.getElementById("chat-header-icon").className = `msn-buddy status-${contatoAtual.status}`;
+            document.getElementById("chat-header-title").innerText = `${contatoAtual.nome} - Conversa`;
+            document.getElementById("chat-sub-header").style.display = "flex";
+            document.getElementById("active-contact-name").innerText = contatoAtual.nome;
+            document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick;
+            document.getElementById("stage-select").value = contatoAtual.estagio;
+            atualizarIconeEstagio(contatoAtual.estagio);
+            document.getElementById("chat-toolbar").style.display = "flex";
+            document.getElementById("chat-input-area").style.display = "flex";
+            renderizarMensagens();
+        }
+
+        function atualizarIconeEstagio(estagio) {
+            document.querySelector("#active-stage-svg use").setAttribute("href", `#crest-${estagio}`);
+        }
+
+        function alterarEstagio() {
+            if (!contatoAtual) return;
+            const novoEstagio = document.getElementById("stage-select").value;
+            contatoAtual.estagio = novoEstagio;
+            atualizarIconeEstagio(novoEstagio);
+            renderizarContatos(document.getElementById("search-input").value);
+            contatoAtual.mensagens.push({ remetente: "Sistema", texto: `${meuNome} atualizou o selo desta conversa para: ${nomesEstagios[novoEstagio]}.`, tipo: "sistema", estagio: novoEstagio });
+            renderizarMensagens();
+        }
+
+        function renderizarMensagens() {
+            const box = document.getElementById("chat-messages");
+            box.innerHTML = "";
+            contatoAtual.mensagens.forEach(m => {
+                if (m.tipo === "sistema") {
+                    const iconeHtml = m.estagio ? `<svg width="18" height="18"><use href="#crest-${m.estagio}"></use></svg>` : "";
+                    box.innerHTML += `<div class="msg-system">${iconeHtml}<span>${m.texto}</span></div>`;
+                } else if (m.tipo === "foto") {
+                    const isMe = m.remetente === meuNome ? "me" : "";
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente} compartilhou uma foto privada:</div><div class="msg-bubble"><img src="${m.url}" class="chat-photo"></div></div>`;
+                } else {
+                    const isMe = m.remetente === meuNome ? "me" : "";
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente} diz:</div><div class="msg-bubble">${m.texto}</div></div>`;
+                }
+            });
+            box.scrollTop = box.scrollHeight;
+        }
+
+        function enviarMensagem() {
+            const input = document.getElementById("message-input");
+            const texto = input.value.trim();
+            if (!texto || !contatoAtual) return;
+            contatoAtual.mensagens.push({ remetente: meuNome, texto: texto, tipo: "texto" });
+            input.value = "";
+            renderizarMensagens();
+            setTimeout(() => {
+                if (!contatoAtual) return;
+                contatoAtual.mensagens.push({ remetente: contatoAtual.nome, texto: "Concordo plenamente. Gosto de conversar com calma para conhecer os valores de cada um.", tipo: "texto" });
+                renderizarMensagens();
+            }, 1200);
+        }
+
+        function inserirEmoticon(emoji) {
+            const input = document.getElementById("message-input");
+            input.value += emoji;
+            input.focus();
+        }
+
+        function chamarAtencao() {
+            if (!contatoAtual) return;
+            const janela = document.getElementById("chat-window-box");
+            janela.classList.remove("shake");
+            void janela.offsetWidth;
+            janela.classList.add("shake");
+            contatoAtual.mensagens.push({ remetente: "Sistema", texto: `⚡ Você chamou a atenção de ${contatoAtual.nome.split(',')}.`, tipo: "sistema" });
+            renderizarMensagens();
+        }
+
+        function enviarFotoPrivada(event) {
+            const file = event.target.files;
+            if (!file || !contatoAtual) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                contatoAtual.mensagens.push({ remetente: meuNome, url: e.target.result, tipo: "foto" });
+                renderizarMensagens();
+            };
+            reader.readAsDataURL(file);
+            event.target.value = "";
+        }
+    </script>
+</body>
+</html>
