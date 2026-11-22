@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corte Messenger - Onde cada conversa começa com respeito e intenção</title>
-    <script src="https://jsdelivr.net"></script>
+    <script src="https://gstatic.com"></script>
+    <script src="https://gstatic.com"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
@@ -26,7 +27,10 @@
         .hero-crest { width: 76px; height: 76px; margin: 0 auto 6px auto; }
         .my-status-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: bold; color: #112d4e; }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
-        .dot-online { background: #4cd137; } .dot-busy { background: #e84118; } .dot-away { background: #fbc531; } .dot-offline { background: #95a5a6; }
+        .dot-online { background: #4cd137; }
+        .dot-busy { background: #e84118; }
+        .dot-away { background: #fbc531; }
+        .dot-offline { background: #95a5a6; }
         .subnick-edit { width: 100%; margin-top: 6px; background: rgba(255,255,255,0.65); border: 1px solid transparent; border-radius: 4px; padding: 3px 6px; font-size: 11px; color: #4a637d; text-align: center; }
         .search-box { padding: 8px 10px; border-bottom: 1px solid #d5e5f5; }
         .search-box input { width: 100%; padding: 5px 10px; border: 1px solid #a6c5e3; border-radius: 4px; font-size: 12px; }
@@ -73,7 +77,12 @@
         .btn-send-aero { background: linear-gradient(180deg, #f8fbff 0%, #d4e7fa 100%); border: 1px solid #8cb4d8; color: #174978; font-weight: bold; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; }
         @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-7px, -5px); } 40% { transform: translate(7px, 5px); } 60% { transform: translate(-7px, 5px); } 80% { transform: translate(7px, -5px); } }
         .shake { animation: nudgeShake 0.45s ease-in-out; }
-        @media (max-width: 768px) { .main-workspace { flex-direction: column; height: auto; } .left-sidebar { width: 100%; max-height: 270px; border-right: none; border-bottom: 1px solid #b5d1eb; } .right-stage { min-height: 460px; } .crest-item svg { width: 62px; height: 62px; } }
+        @media (max-width: 768px) {
+            .main-workspace { flex-direction: column; height: auto; }
+            .left-sidebar { width: 100%; max-height: 270px; border-right: none; border-bottom: 1px solid #b5d1eb; }
+            .right-stage { min-height: 460px; }
+            .crest-item svg { width: 62px; height: 62px; }
+        }
     </style>
 </head>
 
@@ -164,14 +173,26 @@
     </div>
 
             <script>
-        const SUPABASE_URL = "https://supabase.co";
-        const SUPABASE_KEY = "sb_publishable_gqA88DnjSBxEjY8LIVViDQ_u4-Mu9aP";
-        const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+        const firebaseConfig = {
+            databaseURL: "https://firebaseio.com"
+        };
+
+        firebase.initializeApp(firebaseConfig);
+        const rtdb = firebase.database();
 
         let meuUsuario = null;
         let listaUsuarios = [];
         let contatoAtual = null;
+        let refChatAtual = null;
         const nomesEstagios = { conhecendo: "Conhecendo", compromisso: "Compromisso Sério", noivado: "Possível Noivado" };
+
+        function escaparHTML(str) {
+            return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
+        }
+
+        function gerarIdSala(id1, id2) {
+            return [id1, id2].sort().join("__");
+        }
 
         function tocarSom(tipo) {
             try {
@@ -200,22 +221,30 @@
             const subnick = document.getElementById("login-subnick").value.trim() || "Buscando conversas reais e café ☕";
             const status = document.getElementById("login-status").value;
             if (!nome) { alert("Digite seu nome para entrar."); return; }
+
             const btn = document.getElementById("btn-entrar");
             btn.innerText = "Conectando..."; btn.disabled = true;
 
-            const { data, error } = await db.from("usuarios").insert([{ nome, subnick, status }]).select().single();
-            if (error) { alert("Erro: " + error.message); btn.innerText = "Entrar no Corte"; btn.disabled = false; return; }
+            try {
+                const novoRef = rtdb.ref("usuarios").push();
+                meuUsuario = { id: novoRef.key, nome, subnick, status };
+                await novoRef.set(meuUsuario);
 
-            meuUsuario = data;
-            document.getElementById("my-name-display").innerText = meuUsuario.nome;
-            document.getElementById("my-subnick-display").value = meuUsuario.subnick;
-            document.getElementById("change-status").value = meuUsuario.status;
-            document.getElementById("my-status-dot").className = `status-dot dot-${meuUsuario.status}`;
-            document.getElementById("login-screen").style.display = "none";
-            document.getElementById("app-container").style.display = "block";
-            tocarSom("msg");
-            await carregarUsuarios();
-            iniciarTempoReal();
+                novoRef.child("status").onDisconnect().set("offline");
+
+                document.getElementById("my-name-display").innerText = meuUsuario.nome;
+                document.getElementById("my-subnick-display").value = meuUsuario.subnick;
+                document.getElementById("change-status").value = meuUsuario.status;
+                document.getElementById("my-status-dot").className = `status-dot dot-${meuUsuario.status}`;
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("app-container").style.display = "block";
+                tocarSom("msg");
+
+                iniciarTempoReal();
+            } catch (err) {
+                alert("Erro ao conectar no Firebase: " + err.message);
+                btn.innerText = "Entrar no Corte"; btn.disabled = false;
+            }
         }
 
         async function atualizarMeuPerfil() {
@@ -223,32 +252,40 @@
             const status = document.getElementById("change-status").value;
             const subnick = document.getElementById("my-subnick-display").value;
             document.getElementById("my-status-dot").className = `status-dot dot-${status}`;
-            await db.from("usuarios").update({ status, subnick }).eq("id", meuUsuario.id);
+            await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status, subnick });
         }
 
         async function sairDoCorte() {
-            if (meuUsuario) await db.from("usuarios").update({ status: "offline" }).eq("id", meuUsuario.id);
+            if (meuUsuario) await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status: "offline" });
             location.reload();
-        }
-
-        async function carregarUsuarios() {
-            const { data } = await db.from("usuarios").select("*").order("nome", { ascending: true });
-            if (data) { listaUsuarios = data.filter(u => u.id !== meuUsuario.id); renderizarContatos(); }
         }
 
         function renderizarContatos() {
             const area = document.getElementById("contact-list-area");
             const filtro = document.getElementById("search-input").value.toLowerCase();
             area.innerHTML = "";
-            const filtrados = listaUsuarios.filter(u => u.nome.toLowerCase().includes(filtro) || (u.subnick && u.subnick.toLowerCase().includes(filtro)));
+            const filtrados = listaUsuarios.filter(u =>
+                u.nome.toLowerCase().includes(filtro) ||
+                (u.subnick && u.subnick.toLowerCase().includes(filtro))
+            );
             area.innerHTML += `<div class="contacts-header">▾ Contatos (${filtrados.length})</div>`;
             filtrados.forEach(u => {
                 const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
-                area.innerHTML += `<div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')"><div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${u.status}"></span></div><div class="contact-info"><div class="contact-title">${u.nome}</div><div class="contact-sub">${u.subnick || ""}</div></div></div>`;
+                area.innerHTML += `
+                    <div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')">
+                        <div class="contact-crest-avatar">
+                            <svg><use href="#crest-conhecendo"></use></svg>
+                            <span class="status-dot dot-${u.status || 'offline'}"></span>
+                        </div>
+                        <div class="contact-info">
+                            <div class="contact-title">${escaparHTML(u.nome)}</div>
+                            <div class="contact-sub">${escaparHTML(u.subnick || "")}</div>
+                        </div>
+                    </div>`;
             });
         }
 
-        async function abrirChat(id) {
+                        function abrirChat(id) {
             contatoAtual = listaUsuarios.find(u => u.id === id);
             if (!contatoAtual) return;
             renderizarContatos();
@@ -256,13 +293,34 @@
             document.getElementById("topbar-active").style.display = "flex";
             document.getElementById("active-contact-name").innerText = contatoAtual.nome;
             document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
-            await carregarMensagens();
-        }
 
-          async function carregarMensagens() {
-            if (!contatoAtual || !meuUsuario) return;
-            const { data } = await db.from("mensagens").select("*").or(`and(remetente_id.eq.${meuUsuario.id},destinatario_id.eq.${contatoAtual.id}),and(remetente_id.eq.${contatoAtual.id},destinatario_id.eq.${meuUsuario.id})`).order("id", { ascending: true });
-            if (data) exibirMensagensNaTela(data);
+            if (refChatAtual) refChatAtual.off();
+
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            refChatAtual = rtdb.ref(`mensagens/${salaId}`);
+            let primeiraCarga = true;
+
+            refChatAtual.on("value", (snapshot) => {
+                const dados = snapshot.val();
+                const lista = dados ? Object.values(dados) : [];
+                exibirMensagensNaTela(lista);
+
+                if (!primeiraCarga && lista.length > 0) {
+                    const ultima = lista[lista.length - 1];
+                    if (ultima.remetente_id !== meuUsuario.id) {
+                        if (ultima.texto && ultima.texto.includes("chamou a atenção")) {
+                            tocarSom("nudge");
+                            const box = document.getElementById("workspace-box");
+                            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+                        } else if (ultima.texto && ultima.texto.startsWith("[ACEITO]")) {
+                            tocarSom("selo");
+                        } else {
+                            tocarSom("msg");
+                        }
+                    }
+                }
+                primeiraCarga = false;
+            });
         }
 
         function exibirMensagensNaTela(lista) {
@@ -279,25 +337,38 @@
                         box.innerHTML += `<div class="msg-system"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span></div>`;
                     } else {
                         const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
-                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span><strong>${m.remetente_nome}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
+                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
                     }
                 } else if (m.texto && m.texto.startsWith("[ACEITO]")) {
                     box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="18" height="18"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[RECUSADO]")) {
-                    box.innerHTML += `<div class="msg-system"><span>${m.texto.replace("[RECUSADO]", "")}</span></div>`;
+                    box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
-                    box.innerHTML += `<div class="msg-system"><span>${m.texto.replace("[SISTEMA]", "")}</span></div>`;
+                    box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`;
                 } else if (m.foto_url) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente_nome} enviou uma foto privada:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou uma foto privada:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div></div>`;
                 } else {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente_nome} diz:</div><div class="msg-bubble">${m.texto}</div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`;
                 }
             });
+
             document.getElementById("stage-select").value = estagioConfirmado;
             document.querySelector("#active-stage-svg use").setAttribute("href", `#crest-${estagioConfirmado}`);
             box.scrollTop = box.scrollHeight;
+        }
+
+        async function gravarEventoNoChat(dados) {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`mensagens/${salaId}`).push({
+                remetente_id: meuUsuario.id,
+                remetente_nome: meuUsuario.nome,
+                destinatario_id: contatoAtual.id,
+                timestamp: Date.now(),
+                ...dados
+            });
         }
 
         async function enviarMensagem() {
@@ -305,22 +376,21 @@
             const texto = input.value.trim();
             if (!texto || !contatoAtual || !meuUsuario) return;
             input.value = "";
-            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto, estagio: document.getElementById("stage-select").value }]);
+            await gravarEventoNoChat({ texto, estagio: document.getElementById("stage-select").value });
         }
 
         async function alterarEstagio() {
             if (!contatoAtual || !meuUsuario) return;
-            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: "[PROPOSTA]", estagio: document.getElementById("stage-select").value }]);
-            await carregarMensagens();
+            await gravarEventoNoChat({ texto: "[PROPOSTA]", estagio: document.getElementById("stage-select").value });
         }
 
         async function responderProposta(est, aceito) {
             if (!contatoAtual || !meuUsuario) return;
             if (aceito) {
                 tocarSom("selo");
-                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: "[ACEITO]", estagio: est }]);
+                await gravarEventoNoChat({ texto: "[ACEITO]", estagio: est });
             } else {
-                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio atual.`, estagio: "conhecendo" }]);
+                await gravarEventoNoChat({ texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio atual.`, estagio: "conhecendo" });
             }
         }
 
@@ -329,7 +399,7 @@
             tocarSom("nudge");
             const box = document.getElementById("workspace-box");
             box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: document.getElementById("stage-select").value }]);
+            await gravarEventoNoChat({ texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: document.getElementById("stage-select").value });
         }
 
         function inserirEmoticon(emoji) {
@@ -342,33 +412,21 @@
             if (!file || !contatoAtual || !meuUsuario) return;
             const reader = new FileReader();
             reader.onload = async function(e) {
-                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, foto_url: e.target.result, estagio: document.getElementById("stage-select").value }]);
+                await gravarEventoNoChat({ foto_url: e.target.result, estagio: document.getElementById("stage-select").value });
             };
             reader.readAsDataURL(file);
             event.target.value = "";
         }
 
         function iniciarTempoReal() {
-            db.channel("corte-ao-vivo")
-                .on("postgres_changes", { event: "*", schema: "public", table: "usuarios" }, () => carregarUsuarios())
-                .on("postgres_changes", { event: "INSERT", schema: "public", table: "mensagens" }, (payload) => {
-                    const nova = payload.new;
-                    if (nova.destinatario_id === meuUsuario.id) {
-                        if (nova.texto && nova.texto.includes("chamou a atenção")) tocarSom("nudge");
-                        else if (nova.texto && nova.texto.startsWith("[ACEITO]")) tocarSom("selo");
-                        else tocarSom("msg");
-                    }
-                    if (contatoAtual && ((nova.remetente_id === meuUsuario.id && nova.destinatario_id === contatoAtual.id) || (nova.remetente_id === contatoAtual.id && nova.destinatario_id === meuUsuario.id))) {
-                        carregarMensagens();
-                        if (nova.texto && nova.texto.includes("chamou a atenção") && nova.remetente_id !== meuUsuario.id) {
-                            const box = document.getElementById("workspace-box");
-                            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-                        }
-                    }
-                })
-                .subscribe();
+            rtdb.ref("usuarios").on("value", (snapshot) => {
+                const dados = snapshot.val() || {};
+                listaUsuarios = Object.values(dados)
+                    .filter(u => u.id !== meuUsuario.id)
+                    .sort((a, b) => a.nome.localeCompare(b.nome));
+                renderizarContatos();
+            });
         }
     </script>
 </body>
 </html>
-              
