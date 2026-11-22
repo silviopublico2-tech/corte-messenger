@@ -6,191 +6,164 @@
     <title>Corte Messenger - Onde cada conversa começa com respeito e intenção</title>
     <script src="https://jsdelivr.net"></script>
     <style>
-        :root { --msn-blue-dark: #1e5799; --msn-blue-mid: #2989d8; --online: #4cd137; --busy: #e84118; --away: #fbc531; --offline: #7f8fa6; }
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 15px; }
-        .window { background: rgba(255, 255, 255, 0.94); border: 2px solid #5b9bd5; border-radius: 10px; box-shadow: 0 10px 25px rgba(0, 40, 90, 0.25); overflow: hidden; display: flex; flex-direction: column; }
-        .title-bar { background: linear-gradient(to bottom, #7db9e8 0%, #2989d8 50%, #1e5799 100%); color: white; padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; font-weight: bold; font-size: 14px; }
-        .title-bar .logo-area { display: flex; align-items: center; gap: 8px; }
-        .msn-buddy { display: inline-block; width: 14px; height: 14px; position: relative; flex-shrink: 0; }
-        .msn-buddy::before { content: ''; position: absolute; top: 0; left: 3px; width: 8px; height: 8px; border-radius: 50%; background: currentColor; }
-        .msn-buddy::after { content: ''; position: absolute; bottom: 0; left: 1px; width: 12px; height: 6px; border-radius: 6px 6px 0 0; background: currentColor; }
-        .status-online { color: var(--online); } .status-busy { color: var(--busy); } .status-away { color: var(--away); } .status-offline { color: var(--offline); }
-        #login-screen { width: 100%; max-width: 400px; }
-        .login-body { padding: 25px 20px; text-align: center; background: linear-gradient(to bottom, #d9ebfa 0%, #ffffff 45%); }
-        .brand-crest-login { width: 68px; height: 68px; margin: 0 auto 10px auto; }
-        .brand-title { font-size: 24px; color: #1e5799; margin-bottom: 4px; }
-        .brand-slogan { font-size: 12px; color: #4a6b82; font-style: italic; margin-bottom: 18px; }
-        .privacy-badge { background: #e1f0ff; border: 1px solid #b3d7ff; color: #1e5799; font-size: 11px; padding: 8px 10px; border-radius: 6px; margin-bottom: 18px; line-height: 1.4; }
+        body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
+        .aero-frame { background: linear-gradient(180deg, rgba(215, 238, 255, 0.88) 0%, rgba(160, 205, 245, 0.82) 100%); border: 1px solid #ffffff; border-radius: 10px; box-shadow: 0 12px 32px rgba(10, 35, 70, 0.45); padding: 6px; width: 100%; max-width: 1020px; }
+        .aero-titlebar { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px 7px 8px; color: #0d2b4e; font-size: 12px; font-weight: 600; }
+        .win-controls { display: flex; gap: 3px; }
+        .win-btn { width: 24px; height: 18px; border-radius: 3px; border: 1px solid #6b93b8; background: linear-gradient(180deg, #f7fbff 0%, #cce0f5 100%); color: #1e3a5f; font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
+        .win-btn.close { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); color: white; border-color: #8f2d2d; }
+        #login-screen { max-width: 410px; }
+        .login-inner { background: linear-gradient(180deg, #eef6fd 0%, #ffffff 100%); border: 1px solid #8eb6db; border-radius: 6px; padding: 24px 20px; text-align: center; }
         .form-group { text-align: left; margin-bottom: 12px; }
-        .form-group label { display: block; font-size: 12px; color: #333; margin-bottom: 4px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 8px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; }
-        .btn-msn { background: linear-gradient(to bottom, #f5f9fc 0%, #d2e6f7 50%, #b5d6f2 100%); border: 1px solid #689cc9; color: #103c66; font-weight: bold; padding: 8px 22px; border-radius: 5px; cursor: pointer; font-size: 13px; }
-        #app-container { display: none; width: 100%; max-width: 980px; height: 620px; gap: 15px; }
-        .contacts-window { width: 340px; flex-shrink: 0; }
-        .brand-banner { background: linear-gradient(to right, #1e5799, #2989d8); color: white; padding: 10px 12px; display: flex; align-items: center; gap: 10px; }
-        .brand-banner svg { width: 40px; height: 40px; flex-shrink: 0; }
-        .user-header { background: #eef5fc; padding: 10px 12px; border-bottom: 1px solid #b8d4ed; }
-        .user-info-top { display: flex; align-items: center; gap: 8px; margin-bottom: 6px; }
-        .user-name { font-weight: bold; color: #103c66; font-size: 14px; }
-        .subnick-input { width: 100%; background: rgba(255,255,255,0.8); border: 1px dashed #8cb4d8; padding: 4px 8px; font-size: 12px; color: #444; border-radius: 4px; }
-        .search-bar { padding: 8px 12px; background: #f7fbff; border-bottom: 1px solid #d5e5f2; }
-        .search-bar input { width: 100%; padding: 6px 10px; border: 1px solid #a3c4e0; border-radius: 15px; font-size: 12px; }
-        .contact-list { flex: 1; overflow-y: auto; padding: 10px; background: white; }
-        .group-title { font-size: 12px; font-weight: bold; color: #1e5799; margin: 8px 0 6px 0; }
-        .contact-item { display: flex; justify-content: space-between; align-items: center; padding: 8px; border-radius: 6px; cursor: pointer; border: 1px solid transparent; margin-bottom: 4px; }
-        .contact-item:hover { background: #eef6fc; border-color: #c2dff7; }
-        .contact-item.active { background: #d9ecfa; border-color: #8cb4d8; }
-        .contact-details { display: flex; align-items: flex-start; gap: 8px; overflow: hidden; }
-        .contact-text { overflow: hidden; }
-        .contact-name { font-size: 13px; font-weight: 600; color: #222; display: flex; align-items: center; gap: 5px; }
-        .contact-subnick { font-size: 11px; color: #666; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 210px; }
-        .chat-window { flex: 1; display: flex; flex-direction: column; }
-        .chat-header { background: #eef5fc; padding: 10px 15px; border-bottom: 1px solid #b8d4ed; display: flex; justify-content: space-between; align-items: center; gap: 10px; }
-        .stage-selector-box { display: flex; align-items: center; gap: 8px; background: white; border: 1px solid #9ec2e6; padding: 4px 10px; border-radius: 8px; }
-        .stage-selector-box svg { width: 30px; height: 30px; }
-        .stage-selector-box select { border: none; font-size: 12px; font-weight: bold; color: #103c66; background: transparent; cursor: pointer; outline: none; }
-        .chat-messages { flex: 1; padding: 15px; overflow-y: auto; background: #ffffff; display: flex; flex-direction: column; gap: 10px; }
-        .empty-chat { margin: auto; text-align: center; color: #5b7894; max-width: 390px; }
-        .crest-showcase { display: flex; justify-content: center; gap: 18px; margin-top: 16px; padding-top: 14px; border-top: 1px solid #d5e5f2; }
-        .crest-card { text-align: center; width: 95px; }
-        .crest-card svg { width: 48px; height: 48px; margin-bottom: 4px; }
-        .crest-card span { display: block; font-size: 11px; font-weight: 600; color: #1e5799; }
-        .dict-card { background: #fdfbf7; border: 1px solid #e6dcc8; border-left: 3px solid #d4af37; padding: 10px 14px; margin-top: 16px; text-align: left; border-radius: 6px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); }
-        .msg { font-size: 13px; line-height: 1.4; }
-        .msg-sender { font-size: 11px; color: #555; margin-bottom: 2px; }
-        .msg-bubble { background: #f1f7fc; border: 1px solid #d0e3f5; padding: 8px 12px; border-radius: 8px; display: inline-block; max-width: 80%; color: #111; }
-        .msg.me .msg-bubble { background: #e8f4fd; border-color: #a8d1f5; }
-        .msg-system { text-align: center; font-size: 11px; color: #1e5799; background: #eef6fc; border: 1px solid #cce3f8; padding: 6px 12px; border-radius: 12px; align-self: center; display: flex; align-items: center; gap: 6px; }
+        .form-group label { display: block; font-size: 12px; color: #1e3a5f; margin-bottom: 4px; font-weight: 600; }
+        .form-group input, .form-group select { width: 100%; padding: 8px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; background: white; }
+        .btn-aero { background: linear-gradient(180deg, #ffffff 0%, #d9ecfc 50%, #b6d8f5 100%); border: 1px solid #5c8ec2; color: #0f3863; font-weight: bold; padding: 8px 24px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+        #app-container { display: none; }
+        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 600px; overflow: hidden; }
+        .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
+        .profile-hero { padding: 14px 12px 10px 12px; text-align: center; border-bottom: 1px solid #cde0f2; }
+        .hero-crest { width: 76px; height: 76px; margin: 0 auto 6px auto; }
+        .my-status-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: bold; color: #112d4e; }
+        .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+        .dot-online { background: #4cd137; } .dot-busy { background: #e84118; } .dot-away { background: #fbc531; } .dot-offline { background: #95a5a6; }
+        .subnick-edit { width: 100%; margin-top: 6px; background: rgba(255,255,255,0.65); border: 1px solid transparent; border-radius: 4px; padding: 3px 6px; font-size: 11px; color: #4a637d; text-align: center; }
+        .search-box { padding: 8px 10px; border-bottom: 1px solid #d5e5f5; }
+        .search-box input { width: 100%; padding: 5px 10px; border: 1px solid #a6c5e3; border-radius: 4px; font-size: 12px; }
+        .contacts-scroll { flex: 1; overflow-y: auto; padding: 8px; }
+        .contacts-header { font-size: 11px; font-weight: bold; color: #2b547e; padding: 2px 4px 6px 4px; }
+        .contact-row { display: flex; align-items: center; gap: 9px; padding: 7px 8px; border-radius: 5px; cursor: pointer; margin-bottom: 3px; }
+        .contact-row:hover { background: #dcecfb; }
+        .contact-row.active { background: #cbe4fa; border: 1px solid #8cbce8; }
+        .contact-crest-avatar { position: relative; width: 32px; height: 32px; flex-shrink: 0; }
+        .contact-crest-avatar svg { width: 32px; height: 32px; }
+        .contact-crest-avatar .status-dot { position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; }
+        .contact-info { overflow: hidden; }
+        .contact-title { font-size: 12px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-sub { font-size: 11px; color: #5c7691; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; }
+        .stage-topbar { background: linear-gradient(180deg, #f2f8fe 0%, #dcebfa 100%); border-bottom: 1px solid #b5d1eb; padding: 9px 15px; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
+        .stage-topbar-title { font-size: 13px; font-weight: 600; color: #1e4268; margin: auto; }
+        .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .stage-pill { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #8cbce8; padding: 3px 10px; border-radius: 6px; }
+        .stage-pill svg { width: 24px; height: 24px; }
+        .stage-pill select { border: none; font-size: 12px; font-weight: bold; color: #103c66; background: transparent; outline: none; }
+        .messages-canvas { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
+        .welcome-board { margin: auto; text-align: center; max-width: 500px; width: 100%; }
+        .welcome-board h2 { font-family: Georgia, serif; font-size: 24px; color: #1a2b3c; margin-bottom: 18px; font-weight: normal; }
+        .three-crests-row { display: flex; justify-content: space-around; gap: 10px; margin-bottom: 22px; }
+        .crest-item { text-align: center; flex: 1; }
+        .crest-item svg { width: 82px; height: 82px; margin-bottom: 6px; }
+        .crest-item div { font-family: Georgia, serif; font-size: 13px; color: #1e2d3d; font-weight: 600; }
+        .corte-definition-box { background: linear-gradient(180deg, #fcf9f2 0%, #f5eedc 100%); border: 1px solid #dfd3b8; border-left: 5px solid #c9a236; border-radius: 6px; padding: 14px 18px; text-align: left; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .corte-definition-box .word { font-family: Georgia, serif; font-size: 18px; color: #1b2a38; margin-bottom: 5px; }
+        .corte-definition-box .word span { font-style: italic; font-size: 14px; color: #555; }
+        .corte-definition-box .meaning { font-size: 13px; color: #2c3e50; line-height: 1.45; }
+        .msg { font-size: 13px; }
+        .msg-sender { font-size: 11px; color: #5c7691; margin-bottom: 2px; }
+        .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; }
+        .msg.me .msg-bubble { background: #e3f2fd; border-color: #9ec9f0; }
+        .msg-system { align-self: center; background: #eef6fc; border: 1px solid #c5dff7; color: #174978; font-size: 11px; padding: 6px 12px; border-radius: 10px; display: flex; align-items: center; gap: 6px; text-align: center; }
         .chat-photo { max-width: 220px; border-radius: 6px; border: 2px solid #8cb4d8; margin-top: 4px; display: block; }
-        .chat-toolbar { background: #e4f0fa; padding: 6px 12px; border-top: 1px solid #b8d4ed; display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
-        .tool-btn { background: white; border: 1px solid #9ec2e6; padding: 4px 9px; border-radius: 4px; font-size: 12px; cursor: pointer; color: #1e5799; display: flex; align-items: center; gap: 4px; }
-        .chat-input-area { padding: 10px; background: #f4f9fd; display: flex; gap: 8px; }
-        .chat-input-area input { flex: 1; padding: 8px 12px; border: 1px solid #8cb4d8; border-radius: 5px; font-size: 13px; }
-        @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 15% { transform: translate(-8px, -6px); } 30% { transform: translate(8px, 6px); } 45% { transform: translate(-8px, 6px); } 60% { transform: translate(8px, -6px); } 75% { transform: translate(-5px, 0); } }
+        .bottom-composer { border-top: 1px solid #c2dcf2; background: #f3f8fd; }
+        .composer-tools { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-bottom: 1px solid #dcebfa; background: #eaf3fc; flex-wrap: wrap; }
+        .icon-tool { background: transparent; border: 1px solid transparent; border-radius: 4px; padding: 3px 7px; font-size: 12px; cursor: pointer; color: #1e4268; display: flex; align-items: center; gap: 4px; }
+        .composer-input-row { display: flex; gap: 8px; padding: 8px 12px; background: white; }
+        .composer-input-row input { flex: 1; border: none; outline: none; font-size: 13px; padding: 4px; }
+        .btn-send-aero { background: linear-gradient(180deg, #f8fbff 0%, #d4e7fa 100%); border: 1px solid #8cb4d8; color: #174978; font-weight: bold; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-7px, -5px); } 40% { transform: translate(7px, 5px); } 60% { transform: translate(-7px, 5px); } 80% { transform: translate(7px, -5px); } }
         .shake { animation: nudgeShake 0.45s ease-in-out; }
-        @media (max-width: 768px) { #app-container { flex-direction: column; height: auto; } .contacts-window { width: 100%; max-height: 280px; } .chat-window { height: 460px; } }
+        @media (max-width: 768px) { .main-workspace { flex-direction: column; height: auto; } .left-sidebar { width: 100%; max-height: 270px; border-right: none; border-bottom: 1px solid #b5d1eb; } .right-stage { min-height: 460px; } .crest-item svg { width: 62px; height: 62px; } }
     </style>
 </head>
 
-   <body>
+    <body>
     <svg style="display: none;">
         <symbol id="crest-conhecendo" viewBox="0 0 100 100">
-            <path d="M50 6 L86 20 L86 52 C86 74 50 94 50 94 C50 94 14 74 14 52 L14 20 Z" fill="#c3cfe2" stroke="#5c6b7a" stroke-width="4"/>
-            <path d="M50 13 L79 25 L79 51 C79 69 50 86 50 86 C50 86 21 69 21 51 L21 25 Z" fill="#ffffff" stroke="#8e9eab" stroke-width="1.5"/>
-            <text x="50" y="57" font-family="Georgia, serif" font-size="26" font-weight="bold" fill="#4a5568" text-anchor="middle">CM</text>
+            <path d="M36 14 L42 6 L50 12 L58 6 L64 14 Z" fill="#b0bec5" stroke="#546e7a" stroke-width="1.5"/>
+            <path d="M50 14 L84 26 L84 54 C84 75 50 94 50 94 C50 94 16 75 16 54 L16 26 Z" fill="#c3cfe2" stroke="#546e7a" stroke-width="3.5"/>
+            <path d="M50 20 L77 30 L77 53 C77 70 50 86 50 86 C50 86 23 70 23 53 L23 30 Z" fill="#f8fafc" stroke="#90a4ae" stroke-width="1.5"/>
+            <text x="50" y="61" font-family="Georgia, serif" font-size="25" font-weight="bold" fill="#455a64" text-anchor="middle">CM</text>
         </symbol>
         <symbol id="crest-compromisso" viewBox="0 0 100 100">
-            <path d="M18 75 C8 60 8 35 22 20" fill="none" stroke="#b8860b" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 4"/>
-            <path d="M82 75 C92 60 92 35 78 20" fill="none" stroke="#b8860b" stroke-width="4" stroke-linecap="round" stroke-dasharray="6 4"/>
-            <path d="M50 10 L80 22 L80 50 C80 70 50 88 50 88 C50 88 20 70 20 50 L20 22 Z" fill="#d4af37" stroke="#7a5210" stroke-width="3.5"/>
-            <path d="M50 16 L74 26 L74 49 C74 66 50 81 50 81 C50 81 26 66 26 49 L26 26 Z" fill="#fffdf5" stroke="#d4af37" stroke-width="1.5"/>
-            <circle cx="43" cy="48" r="11" fill="none" stroke="#b8860b" stroke-width="3.5"/>
-            <circle cx="57" cy="48" r="11" fill="none" stroke="#d4af37" stroke-width="3.5"/>
+            <path d="M22 82 C8 65 8 36 24 18" fill="none" stroke="#b8860b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+            <path d="M78 82 C92 65 92 36 76 18" fill="none" stroke="#b8860b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+            <path d="M38 14 L44 6 L50 12 L56 6 L62 14 Z" fill="#d4af37" stroke="#7a5210" stroke-width="1.5"/>
+            <path d="M50 14 L78 25 L78 52 C78 71 50 88 50 88 C50 88 22 71 22 52 L22 25 Z" fill="#d4af37" stroke="#7a5210" stroke-width="3"/>
+            <path d="M50 20 L72 29 L72 51 C72 67 50 81 50 81 C50 81 28 67 28 51 L28 29 Z" fill="#fffdf5" stroke="#d4af37" stroke-width="1.5"/>
+            <circle cx="43" cy="51" r="10" fill="none" stroke="#996515" stroke-width="3.5"/>
+            <circle cx="57" cy="51" r="10" fill="none" stroke="#d4af37" stroke-width="3.5"/>
         </symbol>
         <symbol id="crest-noivado" viewBox="0 0 100 100">
-            <path d="M34 16 L38 6 L45 13 L50 4 L55 13 L62 6 L66 16 Z" fill="#d4af37" stroke="#7a5210" stroke-width="1.5"/>
-            <path d="M50 18 L82 28 L82 54 C82 74 50 92 50 92 C50 92 18 74 18 54 L18 28 Z" fill="#142850" stroke="#d4af37" stroke-width="4"/>
-            <polygon points="50,34 64,46 50,70 36,46" fill="#e0f7fa" stroke="#80deea" stroke-width="2"/>
-            <line x1="36" y1="46" x2="64" y2="46" stroke="#4dd0e1" stroke-width="1.5"/>
+            <path d="M22 82 C8 65 8 36 24 18" fill="none" stroke="#1e4268" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+            <path d="M78 82 C92 65 92 36 76 18" fill="none" stroke="#1e4268" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
+            <path d="M35 16 L40 6 L50 13 L60 6 L65 16 Z" fill="#d4af37" stroke="#7a5210" stroke-width="1.5"/>
+            <path d="M50 16 L79 26 L79 53 C79 72 50 90 50 90 C50 90 21 72 21 53 L21 26 Z" fill="#102542" stroke="#d4af37" stroke-width="3.5"/>
+            <polygon points="50,35 63,46 50,69 37,46" fill="#e0f7fa" stroke="#80deea" stroke-width="2"/>
+            <line x1="37" y1="46" x2="63" y2="46" stroke="#4dd0e1" stroke-width="1.5"/>
         </symbol>
     </svg>
 
-    <div id="login-screen" class="window">
-        <div class="title-bar">
-            <div class="logo-area"><span class="msn-buddy status-online"></span><span>Corte Messenger</span></div>
-            <span>Online</span>
-        </div>
-        <div class="login-body">
-            <div class="brand-crest-login"><svg width="68" height="68"><use href="#crest-conhecendo"></use></svg></div>
-            <h1 class="brand-title">Corte Messenger</h1>
-            <p class="brand-slogan">"Onde cada conversa começa com respeito e intenção"</p>
-            <div class="privacy-badge"><strong>Sem fotos públicas:</strong> A conexão começa pela conversa. Os selos evoluem conforme o diálogo avança com respeito.</div>
-            <div class="form-group"><label>Seu Nome ou Apelido:</label><input type="text" id="login-name" placeholder="Ex: João, 30 - Maringá"></div>
-            <div class="form-group"><label>Sua Intenção (Subnick inicial):</label><input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café"></div>
-            <div class="form-group"><label>Entrar como:</label>
-                <select id="login-status">
-                    <option value="online">🟢 Online (Disponível para conversar)</option>
-                    <option value="busy">🔴 Ocupado</option>
-                    <option value="away">🟡 Ausente</option>
-                </select>
-            </div>
-            <button class="btn-msn" id="btn-entrar" onclick="entrarNoCorte()">Entrar</button>
+    <div id="login-screen" class="aero-frame">
+        <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn close">✕</span></div></div>
+        <div class="login-inner">
+            <svg width="76" height="76" style="margin-bottom: 8px;"><use href="#crest-conhecendo"></use></svg>
+            <h1 style="font-family: Georgia, serif; font-size: 24px; color: #174978; margin-bottom: 4px;">Corte Messenger</h1>
+            <p style="font-size: 12px; color: #4a6b82; font-style: italic; margin-bottom: 16px;">"Onde cada conversa começa com respeito e intenção"</p>
+            <div class="form-group"><label>Seu Nome e Cidade:</label><input type="text" id="login-name" placeholder="Ex: João Silva (João, 30 - Curitiba)"></div>
+            <div class="form-group"><label>Sua Frase de Intenção (Subnick):</label><input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕"></div>
+            <div class="form-group"><label>Status Inicial:</label><select id="login-status"><option value="online">🟢 Online</option><option value="busy">🔴 Ocupado</option><option value="away">🟡 Ausente</option></select></div>
+            <button class="btn-aero" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte</button>
         </div>
     </div>
 
-    <div id="app-container">
-        <div class="window contacts-window">
-            <div class="title-bar">
-                <div class="logo-area"><span class="msn-buddy status-online"></span><span>Corte Messenger</span></div>
-                <span style="font-size: 11px; cursor: pointer;" onclick="sairDoCorte()">Sair</span>
-            </div>
-            <div class="brand-banner">
-                <svg><use href="#crest-conhecendo"></use></svg>
-                <div><div style="font-weight: bold; font-size: 14px;">Corte Messenger</div><div style="font-size: 10px; opacity: 0.9;">Onde cada conversa começa com respeito e intenção</div></div>
-            </div>
-            <div class="user-header">
-                <div class="user-info-top">
-                    <span id="my-status-icon" class="msn-buddy status-online"></span>
-                    <span id="my-name-display" class="user-name">Usuário</span>
-                    <select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 11px; margin-left: auto;">
-                        <option value="online">Online</option><option value="busy">Ocupado</option><option value="away">Ausente</option>
-                    </select>
+    <div id="app-container" class="aero-frame">
+        <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div></div>
+        <div class="main-workspace" id="workspace-box">
+            <div class="left-sidebar">
+                <div class="profile-hero">
+                    <div class="hero-crest"><svg width="76" height="76"><use href="#crest-conhecendo"></use></svg></div>
+                    <div class="my-status-row"><span id="my-status-dot" class="status-dot dot-online"></span><span id="my-name-display">Usuário</span><select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 10px; border: 1px solid #a6c5e3; border-radius: 3px;"><option value="online">Online</option><option value="busy">Ocupado</option><option value="away">Ausente</option></select></div>
+                    <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
                 </div>
-                <input type="text" id="my-subnick-display" class="subnick-input" onchange="atualizarMeuPerfil()" placeholder="Digite sua frase de intenção...">
+                <div class="search-box"><input type="text" id="search-input" onkeyup="renderizarContatos()" placeholder="🔍 Buscar contato..."></div>
+                <div class="contacts-scroll" id="contact-list-area"></div>
             </div>
-            <div class="search-bar"><input type="text" id="search-input" onkeyup="renderizarContatos()" placeholder="🔍 Buscar por interesse, cidade ou nome..."></div>
-            <div class="contact-list" id="contact-list-area"></div>
-        </div>
-
-        <div class="window chat-window" id="chat-window-box">
-            <div class="title-bar"><div class="logo-area"><span id="chat-header-icon" class="msn-buddy status-offline"></span><span id="chat-header-title">Nenhuma conversa aberta</span></div></div>
-            <div class="chat-header" id="chat-sub-header" style="display: none;">
-                <div><strong id="active-contact-name" style="color: #103c66; font-size: 14px;">Nome</strong><div id="active-contact-subnick" style="font-size: 11px; color: #555;">Subnick</div></div>
-                <div class="stage-selector-box">
-                    <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
-                    <div>
-                        <div style="font-size: 9px; color: #666; text-transform: uppercase;">Estágio de Corte</div>
-                        <select id="stage-select" onchange="alterarEstagio()">
-                            <option value="conhecendo">Conhecendo</option><option value="compromisso">Compromisso Sério</option><option value="noivado">Possível Noivado</option>
-                        </select>
+            <div class="right-stage">
+                <div class="stage-topbar">
+                    <div id="topbar-empty" class="stage-topbar-title">Nenhuma conversa selecionada</div>
+                    <div id="topbar-active" class="active-chat-bar" style="display: none;">
+                        <div><strong id="active-contact-name" style="font-size: 13px; color: #103c66;">Nome</strong><div id="active-contact-subnick" style="font-size: 11px; color: #5c7691;">Subnick</div></div>
+                        <div class="stage-pill"><svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg><select id="stage-select" onchange="alterarEstagio()"><option value="conhecendo">1. Conhecendo</option><option value="compromisso">2. Compromisso Sério</option><option value="noivado">3. Possível Noivado</option></select></div>
                     </div>
                 </div>
-            </div>
-            <div class="chat-messages" id="chat-messages">
-                <div class="empty-chat">
-                    <p style="font-size: 15px; font-weight: bold; color: #1e5799; margin-bottom: 6px;">Bem-vindo ao Corte Messenger</p>
-                    <p style="font-size: 12px;">Escolha alguém na lista ao lado para conversar ao vivo. Toda conversa começa no estágio neutro.</p>
-                    <div class="crest-showcase">
-                        <div class="crest-card"><svg><use href="#crest-conhecendo"></use></svg><span>1. Conhecendo</span></div>
-                        <div class="crest-card"><svg><use href="#crest-compromisso"></use></svg><span>2. Compromisso Sério</span></div>
-                        <div class="crest-card"><svg><use href="#crest-noivado"></use></svg><span>3. Possível Noivado</span></div>
-                    </div>
-                    <div class="dict-card">
-                        <div style="font-family: Georgia, serif; font-weight: bold; font-size: 13px; color: #1e5799; margin-bottom: 3px;">Corte <span style="font-weight: normal; font-style: italic; font-size: 11px; color: #666;">(s.f.)</span></div>
-                        <div style="font-size: 11px; color: #444; line-height: 1.45;">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
+                <div class="messages-canvas" id="chat-messages">
+                    <div class="welcome-board">
+                        <h2>Bem-vindo ao Corte Messenger</h2>
+                        <div class="three-crests-row">
+                            <div class="crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>1. Conhecendo</div></div>
+                            <div class="crest-item"><svg><use href="#crest-compromisso"></use></svg><div>2. Compromisso Sério</div></div>
+                            <div class="crest-item"><svg><use href="#crest-noivado"></use></svg><div>3. Possível Noivado</div></div>
+                        </div>
+                        <div class="corte-definition-box">
+                            <div class="word">Corte <span>(s.f.)</span></div>
+                            <div class="meaning">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="chat-toolbar" id="chat-toolbar" style="display: none;">
-                <button class="tool-btn" onclick="chamarAtencao()">⚡ Chamar atenção</button>
-                <button class="tool-btn" onclick="inserirEmoticon('😊')">😊</button>
-                <button class="tool-btn" onclick="inserirEmoticon('☕')">☕</button>
-                <button class="tool-btn" onclick="inserirEmoticon('🤝')">🤝</button>
-                <button class="tool-btn" onclick="inserirEmoticon('✨')">✨</button>
-                <label class="tool-btn" style="margin-left: auto; background: #e8f7e6; border-color: #8fd188; color: #1e6b18;">
-                    📷 Enviar Foto Privada
-                    <input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)">
-                </label>
-            </div>
-            <div class="chat-input-area" id="chat-input-area" style="display: none;">
-                <input type="text" id="message-input" placeholder="Escreva sua mensagem com respeito..." onkeypress="if(event.key==='Enter') enviarMensagem()">
-                <button class="btn-msn" onclick="enviarMensagem()">Enviar</button>
+                <div class="bottom-composer">
+                    <div class="composer-tools">
+                        <button class="icon-tool" onclick="chamarAtencao()">⚡ Chamar atenção</button>
+                        <label class="icon-tool">📎 Foto Privada<input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)"></label>
+                        <button class="icon-tool" onclick="inserirEmoticon('😊')">😊</button><button class="icon-tool" onclick="inserirEmoticon('☕')">☕</button><button class="icon-tool" onclick="inserirEmoticon('🤝')">🤝</button>
+                    </div>
+                    <div class="composer-input-row"><input type="text" id="message-input" placeholder="Escreva sua mensagem com respeito..." onkeypress="if(event.key==='Enter') enviarMensagem()"><button class="btn-send-aero" onclick="enviarMensagem()">➤ Enviar</button></div>
+                </div>
             </div>
         </div>
     </div>
 
-          <script>
+            <script>
         const SUPABASE_URL = "https://supabase.co";
         const SUPABASE_KEY = "sb_publishable_gqA88DnjSBxEjY8LIVViDQ_u4-Mu9aP";
         const db = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -205,29 +178,18 @@
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
-                osc.connect(gain);
-                gain.connect(ctx.destination);
+                osc.connect(gain); gain.connect(ctx.destination);
                 if (tipo === "msg") {
-                    osc.type = "sine";
-                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+                    osc.type = "sine"; osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
                     osc.start(); osc.stop(ctx.currentTime + 0.35);
                 } else if (tipo === "nudge") {
-                    osc.type = "sawtooth";
-                    osc.frequency.setValueAtTime(160, ctx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
-                    gain.gain.setValueAtTime(0.18, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+                    osc.type = "sawtooth"; osc.frequency.setValueAtTime(160, ctx.currentTime); osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
                     osc.start(); osc.stop(ctx.currentTime + 0.45);
                 } else if (tipo === "selo") {
-                    osc.type = "triangle";
-                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
-                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12);
-                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
-                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+                    osc.type = "triangle"; osc.frequency.setValueAtTime(523.25, ctx.currentTime); osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12); osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
                     osc.start(); osc.stop(ctx.currentTime + 0.55);
                 }
             } catch (e) {}
@@ -235,25 +197,22 @@
 
         async function entrarNoCorte() {
             const nome = document.getElementById("login-name").value.trim();
-            const subnick = document.getElementById("login-subnick").value.trim() || "Onde cada conversa começa com respeito e intenção";
+            const subnick = document.getElementById("login-subnick").value.trim() || "Buscando conversas reais e café ☕";
             const status = document.getElementById("login-status").value;
-            if (!nome) { alert("Por favor, digite seu nome ou apelido."); return; }
-
+            if (!nome) { alert("Digite seu nome para entrar."); return; }
             const btn = document.getElementById("btn-entrar");
             btn.innerText = "Conectando..."; btn.disabled = true;
 
             const { data, error } = await db.from("usuarios").insert([{ nome, subnick, status }]).select().single();
-            if (error) { alert("Erro ao conectar: " + error.message); btn.innerText = "Entrar"; btn.disabled = false; return; }
+            if (error) { alert("Erro: " + error.message); btn.innerText = "Entrar no Corte"; btn.disabled = false; return; }
 
             meuUsuario = data;
             document.getElementById("my-name-display").innerText = meuUsuario.nome;
             document.getElementById("my-subnick-display").value = meuUsuario.subnick;
             document.getElementById("change-status").value = meuUsuario.status;
-            document.getElementById("my-status-icon").className = `msn-buddy status-${meuUsuario.status}`;
-
+            document.getElementById("my-status-dot").className = `status-dot dot-${meuUsuario.status}`;
             document.getElementById("login-screen").style.display = "none";
-            document.getElementById("app-container").style.display = "flex";
-
+            document.getElementById("app-container").style.display = "block";
             tocarSom("msg");
             await carregarUsuarios();
             iniciarTempoReal();
@@ -263,7 +222,7 @@
             if (!meuUsuario) return;
             const status = document.getElementById("change-status").value;
             const subnick = document.getElementById("my-subnick-display").value;
-            document.getElementById("my-status-icon").className = `msn-buddy status-${status}`;
+            document.getElementById("my-status-dot").className = `status-dot dot-${status}`;
             await db.from("usuarios").update({ status, subnick }).eq("id", meuUsuario.id);
         }
 
@@ -282,14 +241,10 @@
             const filtro = document.getElementById("search-input").value.toLowerCase();
             area.innerHTML = "";
             const filtrados = listaUsuarios.filter(u => u.nome.toLowerCase().includes(filtro) || (u.subnick && u.subnick.toLowerCase().includes(filtro)));
-
-            area.innerHTML += `<div class="group-title">▾ Pessoas no Corte (${filtrados.length})</div>`;
-            if (filtrados.length === 0) {
-                area.innerHTML += `<div style="font-size: 12px; color: #777; padding: 10px;">Ninguém encontrado ainda. Abra o link em outra aba ou envie para um amigo entrar!</div>`;
-            }
+            area.innerHTML += `<div class="contacts-header">▾ Contatos (${filtrados.length})</div>`;
             filtrados.forEach(u => {
                 const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
-                area.innerHTML += `<div class="contact-item ${activeClass}" onclick="abrirChat('${u.id}')"><div class="contact-details"><span class="msn-buddy status-${u.status}" style="margin-top: 3px;"></span><div class="contact-text"><div class="contact-name"><span>${u.nome}</span></div><div class="contact-subnick">${u.subnick || ""}</div></div></div></div>`;
+                area.innerHTML += `<div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')"><div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${u.status}"></span></div><div class="contact-info"><div class="contact-title">${u.nome}</div><div class="contact-sub">${u.subnick || ""}</div></div></div>`;
             });
         }
 
@@ -297,22 +252,16 @@
             contatoAtual = listaUsuarios.find(u => u.id === id);
             if (!contatoAtual) return;
             renderizarContatos();
-            document.getElementById("chat-header-icon").className = `msn-buddy status-${contatoAtual.status}`;
-            document.getElementById("chat-header-title").innerText = `${contatoAtual.nome} - Conversa`;
-            document.getElementById("chat-sub-header").style.display = "flex";
+            document.getElementById("topbar-empty").style.display = "none";
+            document.getElementById("topbar-active").style.display = "flex";
             document.getElementById("active-contact-name").innerText = contatoAtual.nome;
             document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
-            document.getElementById("chat-toolbar").style.display = "flex";
-            document.getElementById("chat-input-area").style.display = "flex";
             await carregarMensagens();
         }
 
-        async function carregarMensagens() {
+          async function carregarMensagens() {
             if (!contatoAtual || !meuUsuario) return;
-            const { data } = await db.from("mensagens")
-                .select("*")
-                .or(`and(remetente_id.eq.${meuUsuario.id},destinatario_id.eq.${contatoAtual.id}),and(remetente_id.eq.${contatoAtual.id},destinatario_id.eq.${meuUsuario.id})`)
-                .order("id", { ascending: true });
+            const { data } = await db.from("mensagens").select("*").or(`and(remetente_id.eq.${meuUsuario.id},destinatario_id.eq.${contatoAtual.id}),and(remetente_id.eq.${contatoAtual.id},destinatario_id.eq.${meuUsuario.id})`).order("id", { ascending: true });
             if (data) exibirMensagensNaTela(data);
         }
 
@@ -320,36 +269,32 @@
             const box = document.getElementById("chat-messages");
             box.innerHTML = "";
             let estagioConfirmado = "conhecendo";
-
-            lista.forEach(m => {
-                if (m.texto && m.texto.startsWith("[ACEITO]")) estagioConfirmado = m.estagio || "conhecendo";
-            });
+            lista.forEach(m => { if (m.texto && m.texto.startsWith("[ACEITO]")) estagioConfirmado = m.estagio || "conhecendo"; });
 
             lista.forEach((m, index) => {
                 if (m.texto && m.texto.startsWith("[PROPOSTA]")) {
-                    const estagioProposto = m.estagio;
-                    const jaRespondido = lista.slice(index + 1).some(next => next.texto && (next.texto.startsWith("[ACEITO]") || next.texto.startsWith("[RECUSADO]")));
+                    const est = m.estagio;
+                    const jaResp = lista.slice(index + 1).some(n => n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]")));
                     if (m.remetente_id === meuUsuario.id) {
-                        box.innerHTML += `<div class="msg-system"><svg width="18" height="18"><use href="#crest-${estagioProposto}"></use></svg><span>Você propôs evoluir o selo para <strong>${nomesEstagios[estagioProposto]}</strong>. Aguardando confirmação...</span></div>`;
+                        box.innerHTML += `<div class="msg-system"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span></div>`;
                     } else {
-                        const botoesHtml = jaRespondido ? "" : `<div style="margin-top: 6px; display: flex; gap: 6px; justify-content: center;"><button onclick="responderProposta('${estagioProposto}', true)" style="background: #2e8b57; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px;">✓ Aceitar Selo</button><button onclick="responderProposta('${estagioProposto}', false)" style="background: #b22222; color: white; border: none; padding: 4px 10px; border-radius: 4px; cursor: pointer; font-size: 11px;">✕ Manter Atual</button></div>`;
-                        box.innerHTML += `<div class="msg-system" style="flex-direction: column; padding: 10px;"><div style="display:flex; align-items:center; gap:6px;"><svg width="20" height="20"><use href="#crest-${estagioProposto}"></use></svg><span><strong>${m.remetente_nome}</strong> propôs evoluir para <strong>${nomesEstagios[estagioProposto]}</strong></span></div>${botoesHtml}</div>`;
+                        const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
+                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span><strong>${m.remetente_nome}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
                     }
                 } else if (m.texto && m.texto.startsWith("[ACEITO]")) {
-                    box.innerHTML += `<div class="msg-system" style="background: #e6f7e6; border-color: #9cd99c; color: #1b5e20;"><svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg><span><strong>Acordo mútuo confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
+                    box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="18" height="18"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[RECUSADO]")) {
                     box.innerHTML += `<div class="msg-system"><span>${m.texto.replace("[RECUSADO]", "")}</span></div>`;
-                                    } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
+                } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
                     box.innerHTML += `<div class="msg-system"><span>${m.texto.replace("[SISTEMA]", "")}</span></div>`;
                 } else if (m.foto_url) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente_nome} compartilhou uma foto privada:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente_nome} enviou uma foto privada:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div></div>`;
                 } else {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
                     box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${m.remetente_nome} diz:</div><div class="msg-bubble">${m.texto}</div></div>`;
                 }
             });
-
             document.getElementById("stage-select").value = estagioConfirmado;
             document.querySelector("#active-stage-svg use").setAttribute("href", `#crest-${estagioConfirmado}`);
             box.scrollTop = box.scrollHeight;
@@ -360,33 +305,31 @@
             const texto = input.value.trim();
             if (!texto || !contatoAtual || !meuUsuario) return;
             input.value = "";
-            const estagioAtual = document.getElementById("stage-select").value;
-            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: texto, estagio: estagioAtual }]);
+            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto, estagio: document.getElementById("stage-select").value }]);
         }
 
         async function alterarEstagio() {
             if (!contatoAtual || !meuUsuario) return;
-            const novoEstagio = document.getElementById("stage-select").value;
-            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[PROPOSTA]`, estagio: novoEstagio }]);
+            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: "[PROPOSTA]", estagio: document.getElementById("stage-select").value }]);
             await carregarMensagens();
         }
-        async function responderProposta(estagioProposto, aceito) {
+
+        async function responderProposta(est, aceito) {
             if (!contatoAtual || !meuUsuario) return;
             if (aceito) {
                 tocarSom("selo");
-                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[ACEITO]`, estagio: estagioProposto }]);
+                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: "[ACEITO]", estagio: est }]);
             } else {
-                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o diálogo no estágio atual com calma.`, estagio: "conhecendo" }]);
+                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio atual.`, estagio: "conhecendo" }]);
             }
         }
 
         async function chamarAtencao() {
             if (!contatoAtual || !meuUsuario) return;
             tocarSom("nudge");
-            const janela = document.getElementById("chat-window-box");
-            janela.classList.remove("shake"); void janela.offsetWidth; janela.classList.add("shake");
-            const estagioAtual = document.getElementById("stage-select").value;
-            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: estagioAtual }]);
+            const box = document.getElementById("workspace-box");
+            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+            await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: document.getElementById("stage-select").value }]);
         }
 
         function inserirEmoticon(emoji) {
@@ -399,8 +342,7 @@
             if (!file || !contatoAtual || !meuUsuario) return;
             const reader = new FileReader();
             reader.onload = async function(e) {
-                const estagioAtual = document.getElementById("stage-select").value;
-                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, foto_url: e.target.result, estagio: estagioAtual }]);
+                await db.from("mensagens").insert([{ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, foto_url: e.target.result, estagio: document.getElementById("stage-select").value }]);
             };
             reader.readAsDataURL(file);
             event.target.value = "";
@@ -408,7 +350,7 @@
 
         function iniciarTempoReal() {
             db.channel("corte-ao-vivo")
-                .on("postgres_changes", { event: "*", schema: "public", table: "usuarios" }, () => { carregarUsuarios(); })
+                .on("postgres_changes", { event: "*", schema: "public", table: "usuarios" }, () => carregarUsuarios())
                 .on("postgres_changes", { event: "INSERT", schema: "public", table: "mensagens" }, (payload) => {
                     const nova = payload.new;
                     if (nova.destinatario_id === meuUsuario.id) {
@@ -419,8 +361,8 @@
                     if (contatoAtual && ((nova.remetente_id === meuUsuario.id && nova.destinatario_id === contatoAtual.id) || (nova.remetente_id === contatoAtual.id && nova.destinatario_id === meuUsuario.id))) {
                         carregarMensagens();
                         if (nova.texto && nova.texto.includes("chamou a atenção") && nova.remetente_id !== meuUsuario.id) {
-                            const janela = document.getElementById("chat-window-box");
-                            janela.classList.remove("shake"); void janela.offsetWidth; janela.classList.add("shake");
+                            const box = document.getElementById("workspace-box");
+                            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
                         }
                     }
                 })
@@ -429,3 +371,4 @@
     </script>
 </body>
 </html>
+              
