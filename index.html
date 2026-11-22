@@ -14,12 +14,17 @@
         .win-controls { display: flex; gap: 3px; }
         .win-btn { width: 24px; height: 18px; border-radius: 3px; border: 1px solid #6b93b8; background: linear-gradient(180deg, #f7fbff 0%, #cce0f5 100%); color: #1e3a5f; font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .win-btn.close { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); color: white; border-color: #8f2d2d; }
-        #login-screen { max-width: 410px; }
-        .login-inner { background: linear-gradient(180deg, #eef6fd 0%, #ffffff 100%); border: 1px solid #8eb6db; border-radius: 6px; padding: 24px 20px; text-align: center; }
-        .form-group { text-align: left; margin-bottom: 12px; }
+        #login-screen { max-width: 540px; }
+        .login-inner { background: linear-gradient(180deg, #eef6fd 0%, #ffffff 100%); border: 1px solid #8eb6db; border-radius: 6px; padding: 22px 24px; text-align: center; }
+        .login-crests-row { display: flex; justify-content: space-around; gap: 8px; margin-bottom: 14px; }
+        .login-crest-item { text-align: center; flex: 1; }
+        .login-crest-item svg { width: 74px; height: 74px; margin-bottom: 4px; }
+        .login-crest-item div { font-family: Georgia, serif; font-size: 13px; color: #1e2d3d; font-weight: 600; }
+        .login-form-box { max-width: 390px; margin: 14px auto 0 auto; }
+        .form-group { text-align: left; margin-bottom: 11px; }
         .form-group label { display: block; font-size: 12px; color: #1e3a5f; margin-bottom: 4px; font-weight: 600; }
         .form-group input, .form-group select { width: 100%; padding: 8px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; background: white; }
-        .btn-aero { background: linear-gradient(180deg, #ffffff 0%, #d9ecfc 50%, #b6d8f5 100%); border: 1px solid #5c8ec2; color: #0f3863; font-weight: bold; padding: 8px 24px; border-radius: 4px; cursor: pointer; font-size: 13px; }
+        .btn-aero { background: linear-gradient(180deg, #ffffff 0%, #d9ecfc 50%, #b6d8f5 100%); border: 1px solid #5c8ec2; color: #0f3863; font-weight: bold; padding: 8px 26px; border-radius: 4px; cursor: pointer; font-size: 13px; margin-top: 4px; }
         #app-container { display: none; }
         .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 600px; overflow: hidden; }
         .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
@@ -59,10 +64,10 @@
         .crest-item { text-align: center; flex: 1; }
         .crest-item svg { width: 82px; height: 82px; margin-bottom: 6px; }
         .crest-item div { font-family: Georgia, serif; font-size: 13px; color: #1e2d3d; font-weight: 600; }
-        .corte-definition-box { background: linear-gradient(180deg, #fcf9f2 0%, #f5eedc 100%); border: 1px solid #dfd3b8; border-left: 5px solid #c9a236; border-radius: 6px; padding: 14px 18px; text-align: left; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
-        .corte-definition-box .word { font-family: Georgia, serif; font-size: 18px; color: #1b2a38; margin-bottom: 5px; }
-        .corte-definition-box .word span { font-style: italic; font-size: 14px; color: #555; }
-        .corte-definition-box .meaning { font-size: 13px; color: #2c3e50; line-height: 1.45; }
+        .corte-definition-box { background: linear-gradient(180deg, #fcf9f2 0%, #f5eedc 100%); border: 1px solid #dfd3b8; border-left: 5px solid #c9a236; border-radius: 6px; padding: 12px 16px; text-align: left; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
+        .corte-definition-box .word { font-family: Georgia, serif; font-size: 17px; color: #1b2a38; margin-bottom: 4px; }
+        .corte-definition-box .word span { font-style: italic; font-size: 13px; color: #555; }
+        .corte-definition-box .meaning { font-size: 12.5px; color: #2c3e50; line-height: 1.45; }
         .msg { font-size: 13px; }
         .msg-sender { font-size: 11px; color: #5c7691; margin-bottom: 2px; }
         .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; }
@@ -81,7 +86,7 @@
             .main-workspace { flex-direction: column; height: auto; }
             .left-sidebar { width: 100%; max-height: 270px; border-right: none; border-bottom: 1px solid #b5d1eb; }
             .right-stage { min-height: 460px; }
-            .crest-item svg { width: 62px; height: 62px; }
+            .crest-item svg, .login-crest-item svg { width: 58px; height: 58px; }
         }
     </style>
 </head>
@@ -114,15 +119,28 @@
     </svg>
 
     <div id="login-screen" class="aero-frame">
-        <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn close">✕</span></div></div>
+        <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div></div>
         <div class="login-inner">
-            <svg width="76" height="76" style="margin-bottom: 8px;"><use href="#crest-conhecendo"></use></svg>
-            <h1 style="font-family: Georgia, serif; font-size: 24px; color: #174978; margin-bottom: 4px;">Corte Messenger</h1>
-            <p style="font-size: 12px; color: #4a6b82; font-style: italic; margin-bottom: 16px;">"Onde cada conversa começa com respeito e intenção"</p>
-            <div class="form-group"><label>Seu Nome e Cidade:</label><input type="text" id="login-name" placeholder="Ex: João Silva (João, 30 - Curitiba)"></div>
-            <div class="form-group"><label>Sua Frase de Intenção (Subnick):</label><input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕"></div>
-            <div class="form-group"><label>Status Inicial:</label><select id="login-status"><option value="online">🟢 Online</option><option value="busy">🔴 Ocupado</option><option value="away">🟡 Ausente</option></select></div>
-            <button class="btn-aero" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte</button>
+            <h1 style="font-family: Georgia, serif; font-size: 24px; color: #174978; margin-bottom: 2px;">Corte Messenger</h1>
+            <p style="font-size: 12px; color: #4a6b82; font-style: italic; margin-bottom: 14px;">"Onde cada conversa começa com respeito e intenção"</p>
+
+            <div class="login-crests-row">
+                <div class="login-crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>Conversar</div></div>
+                <div class="login-crest-item"><svg><use href="#crest-compromisso"></use></svg><div>Compromisso</div></div>
+                <div class="login-crest-item"><svg><use href="#crest-noivado"></use></svg><div>Noivado</div></div>
+            </div>
+
+            <div class="corte-definition-box">
+                <div class="word">Corte <span>(s.f.)</span></div>
+                <div class="meaning">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
+            </div>
+
+            <div class="login-form-box">
+                <div class="form-group"><label>Seu Nome e Cidade:</label><input type="text" id="login-name" placeholder="Ex: João Silva (João, 30 - Curitiba)"></div>
+                <div class="form-group"><label>Sua Frase de Intenção (Subnick):</label><input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕"></div>
+                <div class="form-group"><label>Status Inicial:</label><select id="login-status"><option value="online">🟢 Online</option><option value="busy">🔴 Ocupado</option><option value="away">🟡 Ausente</option></select></div>
+                <button class="btn-aero" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte ➤</button>
+            </div>
         </div>
     </div>
 
@@ -143,16 +161,16 @@
                     <div id="topbar-empty" class="stage-topbar-title">Nenhuma conversa selecionada</div>
                     <div id="topbar-active" class="active-chat-bar" style="display: none;">
                         <div><strong id="active-contact-name" style="font-size: 13px; color: #103c66;">Nome</strong><div id="active-contact-subnick" style="font-size: 11px; color: #5c7691;">Subnick</div></div>
-                        <div class="stage-pill"><svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg><select id="stage-select" onchange="alterarEstagio()"><option value="conhecendo">1. Conhecendo</option><option value="compromisso">2. Compromisso Sério</option><option value="noivado">3. Possível Noivado</option></select></div>
+                        <div class="stage-pill"><svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg><select id="stage-select" onchange="alterarEstagio()"><option value="conhecendo">1. Conversar</option><option value="compromisso">2. Compromisso</option><option value="noivado">3. Noivado</option></select></div>
                     </div>
                 </div>
                 <div class="messages-canvas" id="chat-messages">
                     <div class="welcome-board">
                         <h2>Bem-vindo ao Corte Messenger</h2>
                         <div class="three-crests-row">
-                            <div class="crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>1. Conhecendo</div></div>
-                            <div class="crest-item"><svg><use href="#crest-compromisso"></use></svg><div>2. Compromisso Sério</div></div>
-                            <div class="crest-item"><svg><use href="#crest-noivado"></use></svg><div>3. Possível Noivado</div></div>
+                            <div class="crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>1. Conversar</div></div>
+                            <div class="crest-item"><svg><use href="#crest-compromisso"></use></svg><div>2. Compromisso</div></div>
+                            <div class="crest-item"><svg><use href="#crest-noivado"></use></svg><div>3. Noivado</div></div>
                         </div>
                         <div class="corte-definition-box">
                             <div class="word">Corte <span>(s.f.)</span></div>
@@ -174,7 +192,13 @@
 
             <script>
         const firebaseConfig = {
-            databaseURL: "https://firebaseio.com"
+            apiKey: "AIzaSyB9WgHtsxYgiQt5JqpzSTqh7tiHuYkJbvc",
+            authDomain: "://firebaseapp.com",
+            databaseURL: "https://firebaseio.com",
+            projectId: "corte-messenger",
+            storageBucket: "corte-messenger.firebasestorage.app",
+            messagingSenderId: "380964750701",
+            appId: "1:380964750701:web:85e7ef7f83772143da4664"
         };
 
         firebase.initializeApp(firebaseConfig);
@@ -184,7 +208,7 @@
         let listaUsuarios = [];
         let contatoAtual = null;
         let refChatAtual = null;
-        const nomesEstagios = { conhecendo: "Conhecendo", compromisso: "Compromisso Sério", noivado: "Possível Noivado" };
+        const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
 
         function escaparHTML(str) {
             return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
@@ -243,7 +267,7 @@
                 iniciarTempoReal();
             } catch (err) {
                 alert("Erro ao conectar no Firebase: " + err.message);
-                btn.innerText = "Entrar no Corte"; btn.disabled = false;
+                btn.innerText = "Entrar no Corte ➤"; btn.disabled = false;
             }
         }
 
