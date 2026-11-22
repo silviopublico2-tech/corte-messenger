@@ -9,27 +9,33 @@
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
-        .aero-frame { background: linear-gradient(180deg, rgba(215, 238, 255, 0.88) 0%, rgba(160, 205, 245, 0.82) 100%); border: 1px solid #ffffff; border-radius: 10px; box-shadow: 0 12px 32px rgba(10, 35, 70, 0.45); padding: 6px; width: 100%; max-width: 1020px; }
+        .aero-frame { background: linear-gradient(180deg, rgba(215, 238, 255, 0.9) 0%, rgba(160, 205, 245, 0.85) 100%); border: 1px solid #ffffff; border-radius: 10px; box-shadow: 0 12px 32px rgba(10, 35, 70, 0.45); padding: 6px; width: 100%; max-width: 1020px; }
         .aero-titlebar { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px 7px 8px; color: #0d2b4e; font-size: 12px; font-weight: 600; }
         .win-controls { display: flex; gap: 3px; }
         .win-btn { width: 24px; height: 18px; border-radius: 3px; border: 1px solid #6b93b8; background: linear-gradient(180deg, #f7fbff 0%, #cce0f5 100%); color: #1e3a5f; font-size: 11px; display: flex; align-items: center; justify-content: center; cursor: pointer; }
         .win-btn.close { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); color: white; border-color: #8f2d2d; }
-        #login-screen { max-width: 540px; }
-        .login-inner { background: linear-gradient(180deg, #eef6fd 0%, #ffffff 100%); border: 1px solid #8eb6db; border-radius: 6px; padding: 22px 24px; text-align: center; }
-        .login-crests-row { display: flex; justify-content: space-around; gap: 8px; margin-bottom: 14px; }
+        #login-screen { max-width: 680px; }
+        .login-inner { background: linear-gradient(180deg, #eef6fd 0%, #dcebf9 100%); border: 1px solid #8eb6db; border-radius: 6px; padding: 20px 26px; text-align: center; }
+        .login-crests-row { display: flex; justify-content: space-around; gap: 12px; margin: 6px 0 14px 0; }
         .login-crest-item { text-align: center; flex: 1; }
-        .login-crest-item svg { width: 74px; height: 74px; margin-bottom: 4px; }
-        .login-crest-item div { font-family: Georgia, serif; font-size: 13px; color: #1e2d3d; font-weight: 600; }
-        .login-form-box { max-width: 390px; margin: 14px auto 0 auto; }
-        .form-group { text-align: left; margin-bottom: 11px; }
-        .form-group label { display: block; font-size: 12px; color: #1e3a5f; margin-bottom: 4px; font-weight: 600; }
-        .form-group input, .form-group select { width: 100%; padding: 8px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; background: white; }
-        .btn-aero { background: linear-gradient(180deg, #ffffff 0%, #d9ecfc 50%, #b6d8f5 100%); border: 1px solid #5c8ec2; color: #0f3863; font-weight: bold; padding: 8px 26px; border-radius: 4px; cursor: pointer; font-size: 13px; margin-top: 4px; }
-        #app-container { display: none; }
+        .login-crest-item svg { width: 118px; height: 118px; margin-bottom: 4px; filter: drop-shadow(0 5px 8px rgba(12, 30, 58, 0.28)); }
+        .login-crest-item div { font-family: Georgia, serif; font-size: 15px; color: #13263a; font-weight: bold; }
+        .corte-ribbon-box { background: linear-gradient(180deg, #fbf4e1 0%, #eedbb0 100%); border: 1.5px solid #c9a236; border-radius: 6px; padding: 10px 18px; margin: 0 auto 16px auto; max-width: 560px; box-shadow: inset 0 0 0 1px #fffaf0, 0 3px 8px rgba(80, 55, 10, 0.14); text-align: center; }
+        .corte-ribbon-box .meaning { font-family: Georgia, serif; font-size: 12.5px; color: #2b210e; line-height: 1.45; }
+        .login-grid-form { max-width: 560px; margin: 0 auto; text-align: left; }
+        .login-grid-row { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+        .login-grid-row label { font-size: 12.5px; color: #173454; font-weight: 600; white-space: nowrap; min-width: 165px; text-align: right; }
+        .login-grid-row input, .login-grid-row select { flex: 1; padding: 7px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; background: white; }
+        .status-inline { display: flex; align-items: center; gap: 8px; }
+        .status-inline label { min-width: auto; }
+        .btn-aero-pill { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1.5px solid #5284b8; color: #0d3259; font-weight: bold; padding: 8px 34px; border-radius: 20px; cursor: pointer; font-size: 14px; margin-top: 6px; box-shadow: 0 2px 6px rgba(15, 50, 90, 0.22); }
+        .btn-aero-pill:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+
+                #app-container { display: none; }
         .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 600px; overflow: hidden; }
         .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
         .profile-hero { padding: 14px 12px 10px 12px; text-align: center; border-bottom: 1px solid #cde0f2; }
-        .hero-crest { width: 76px; height: 76px; margin: 0 auto 6px auto; }
+        .hero-crest { width: 86px; height: 86px; margin: 0 auto 6px auto; filter: drop-shadow(0 3px 6px rgba(15, 35, 65, 0.22)); }
         .my-status-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: bold; color: #112d4e; }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
         .dot-online { background: #4cd137; }
@@ -44,8 +50,8 @@
         .contact-row { display: flex; align-items: center; gap: 9px; padding: 7px 8px; border-radius: 5px; cursor: pointer; margin-bottom: 3px; }
         .contact-row:hover { background: #dcecfb; }
         .contact-row.active { background: #cbe4fa; border: 1px solid #8cbce8; }
-        .contact-crest-avatar { position: relative; width: 32px; height: 32px; flex-shrink: 0; }
-        .contact-crest-avatar svg { width: 32px; height: 32px; }
+        .contact-crest-avatar { position: relative; width: 36px; height: 36px; flex-shrink: 0; }
+        .contact-crest-avatar svg { width: 36px; height: 36px; }
         .contact-crest-avatar .status-dot { position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; }
         .contact-info { overflow: hidden; }
         .contact-title { font-size: 12px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -55,15 +61,15 @@
         .stage-topbar-title { font-size: 13px; font-weight: 600; color: #1e4268; margin: auto; }
         .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; }
         .stage-pill { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #8cbce8; padding: 3px 10px; border-radius: 6px; }
-        .stage-pill svg { width: 24px; height: 24px; }
+        .stage-pill svg { width: 28px; height: 28px; }
         .stage-pill select { border: none; font-size: 12px; font-weight: bold; color: #103c66; background: transparent; outline: none; }
         .messages-canvas { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
-        .welcome-board { margin: auto; text-align: center; max-width: 500px; width: 100%; }
+        .welcome-board { margin: auto; text-align: center; max-width: 520px; width: 100%; }
         .welcome-board h2 { font-family: Georgia, serif; font-size: 24px; color: #1a2b3c; margin-bottom: 18px; font-weight: normal; }
         .three-crests-row { display: flex; justify-content: space-around; gap: 10px; margin-bottom: 22px; }
         .crest-item { text-align: center; flex: 1; }
-        .crest-item svg { width: 82px; height: 82px; margin-bottom: 6px; }
-        .crest-item div { font-family: Georgia, serif; font-size: 13px; color: #1e2d3d; font-weight: 600; }
+        .crest-item svg { width: 96px; height: 96px; margin-bottom: 6px; filter: drop-shadow(0 4px 6px rgba(15, 35, 65, 0.22)); }
+        .crest-item div { font-family: Georgia, serif; font-size: 13.5px; color: #1e2d3d; font-weight: bold; }
         .corte-definition-box { background: linear-gradient(180deg, #fcf9f2 0%, #f5eedc 100%); border: 1px solid #dfd3b8; border-left: 5px solid #c9a236; border-radius: 6px; padding: 12px 16px; text-align: left; box-shadow: 0 3px 10px rgba(0,0,0,0.08); }
         .corte-definition-box .word { font-family: Georgia, serif; font-size: 17px; color: #1b2a38; margin-bottom: 4px; }
         .corte-definition-box .word span { font-style: italic; font-size: 13px; color: #555; }
@@ -86,61 +92,174 @@
             .main-workspace { flex-direction: column; height: auto; }
             .left-sidebar { width: 100%; max-height: 270px; border-right: none; border-bottom: 1px solid #b5d1eb; }
             .right-stage { min-height: 460px; }
-            .crest-item svg, .login-crest-item svg { width: 58px; height: 58px; }
+            .login-crest-item svg, .crest-item svg { width: 82px; height: 82px; }
+            .login-grid-row { flex-direction: column; align-items: stretch; gap: 4px; }
+            .login-grid-row label { text-align: left; min-width: auto; }
         }
     </style>
 </head>
 
     <body>
     <svg style="display: none;">
-        <symbol id="crest-conhecendo" viewBox="0 0 100 100">
-            <path d="M36 14 L42 6 L50 12 L58 6 L64 14 Z" fill="#b0bec5" stroke="#546e7a" stroke-width="1.5"/>
-            <path d="M50 14 L84 26 L84 54 C84 75 50 94 50 94 C50 94 16 75 16 54 L16 26 Z" fill="#c3cfe2" stroke="#546e7a" stroke-width="3.5"/>
-            <path d="M50 20 L77 30 L77 53 C77 70 50 86 50 86 C50 86 23 70 23 53 L23 30 Z" fill="#f8fafc" stroke="#90a4ae" stroke-width="1.5"/>
-            <text x="50" y="61" font-family="Georgia, serif" font-size="25" font-weight="bold" fill="#455a64" text-anchor="middle">CM</text>
+        <defs>
+            <linearGradient id="metal-silver" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="28%" stop-color="#cfd8dc"/>
+                <stop offset="55%" stop-color="#78909c"/>
+                <stop offset="82%" stop-color="#eceff1"/>
+                <stop offset="100%" stop-color="#607d8b"/>
+            </linearGradient>
+            <linearGradient id="face-silver" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="50%" stop-color="#dfe7ee"/>
+                <stop offset="100%" stop-color="#9fb3c8"/>
+            </linearGradient>
+            <linearGradient id="metal-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#fff6b3"/>
+                <stop offset="25%" stop-color="#f5c71a"/>
+                <stop offset="55%" stop-color="#9e6b00"/>
+                <stop offset="80%" stop-color="#ffe066"/>
+                <stop offset="100%" stop-color="#7a4f00"/>
+            </linearGradient>
+            <linearGradient id="face-gold" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#fffef2"/>
+                <stop offset="50%" stop-color="#f7df8b"/>
+                <stop offset="100%" stop-color="#c99312"/>
+            </linearGradient>
+            <linearGradient id="face-sapphire" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#214f8a"/>
+                <stop offset="50%" stop-color="#0e2647"/>
+                <stop offset="100%" stop-color="#051021"/>
+            </linearGradient>
+            <linearGradient id="gem-diamond" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#ffffff"/>
+                <stop offset="45%" stop-color="#b2ebf2"/>
+                <stop offset="100%" stop-color="#00acc1"/>
+            </linearGradient>
+        </defs>
+
+        <!-- BRASÃO 1: CONVERSAR -->
+        <symbol id="crest-conhecendo" viewBox="0 0 140 140">
+            <g fill="url(#metal-silver)" stroke="#37474f" stroke-width="0.9">
+                <path d="M35 104 C16 86 14 54 31 32" fill="none" stroke="#546e7a" stroke-width="2.2"/>
+                <ellipse cx="26" cy="95" rx="8" ry="3.6" transform="rotate(-42 26 95)"/>
+                <ellipse cx="20" cy="82" rx="8.5" ry="3.6" transform="rotate(-24 20 82)"/>
+                <ellipse cx="18" cy="68" rx="8.5" ry="3.6" transform="rotate(-4 18 68)"/>
+                <ellipse cx="20" cy="54" rx="8.5" ry="3.6" transform="rotate(16 20 54)"/>
+                <ellipse cx="25" cy="41" rx="8" ry="3.4" transform="rotate(35 25 41)"/>
+                <ellipse cx="32" cy="31" rx="7" ry="3" transform="rotate(52 32 31)"/>
+            </g>
+            <g fill="url(#metal-silver)" stroke="#37474f" stroke-width="0.9">
+                <path d="M105 104 C124 86 126 54 109 32" fill="none" stroke="#546e7a" stroke-width="2.2"/>
+                <ellipse cx="114" cy="95" rx="8" ry="3.6" transform="rotate(42 114 95)"/>
+                <ellipse cx="120" cy="82" rx="8.5" ry="3.6" transform="rotate(24 120 82)"/>
+                <ellipse cx="122" cy="68" rx="8.5" ry="3.6" transform="rotate(4 122 68)"/>
+                <ellipse cx="120" cy="54" rx="8.5" ry="3.6" transform="rotate(-16 120 54)"/>
+                <ellipse cx="115" cy="41" rx="8" ry="3.4" transform="rotate(-35 115 41)"/>
+                <ellipse cx="108" cy="31" rx="7" ry="3" transform="rotate(-52 108 31)"/>
+            </g>
+            <path d="M35 104 Q70 124 105 104" fill="none" stroke="url(#metal-silver)" stroke-width="4" stroke-linecap="round"/>
+            <path d="M62 112 L70 107 L78 112 L70 118 Z" fill="url(#metal-silver)" stroke="#37474f" stroke-width="1"/>
+            <path d="M70 4 V11 M67 7 H73" stroke="#455a64" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M48 27 L52 14 L61 21 L70 11 L79 21 L88 14 L92 27 Z" fill="url(#metal-silver)" stroke="#37474f" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="48" y="25" width="44" height="4" rx="1.5" fill="url(#metal-silver)" stroke="#37474f" stroke-width="1.2"/>
+            <circle cx="70" cy="19" r="2" fill="#4fc3f7"/>
+            <path d="M70 29 C84 34 97 37 107 37 L107 72 C107 98 70 120 70 120 C70 120 33 98 33 72 L33 37 C43 37 56 34 70 29 Z" fill="url(#metal-silver)" stroke="#37474f" stroke-width="2.2"/>
+            <path d="M70 36 C82 40 93 43 100 43 L100 71 C100 92 70 111 70 111 C70 111 40 92 40 71 L40 43 C47 43 58 40 70 36 Z" fill="url(#face-silver)" stroke="#607d8b" stroke-width="1.4"/>
+            <path d="M70 40 C80 44 90 46 96 46 L96 70 C96 89 70 106 70 106 C70 106 44 89 44 70 L44 46 C50 46 60 44 70 40 Z" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.9"/>
+            <text x="64" y="81" font-family="Georgia, 'Times New Roman', serif" font-size="33" font-weight="bold" fill="#455a64" text-anchor="middle">C</text>
+            <text x="77" y="84" font-family="Georgia, 'Times New Roman', serif" font-size="31" font-weight="bold" fill="url(#metal-silver)" stroke="#263238" stroke-width="1.2" text-anchor="middle">M</text>
         </symbol>
-        <symbol id="crest-compromisso" viewBox="0 0 100 100">
-            <path d="M22 82 C8 65 8 36 24 18" fill="none" stroke="#b8860b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-            <path d="M78 82 C92 65 92 36 76 18" fill="none" stroke="#b8860b" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-            <path d="M38 14 L44 6 L50 12 L56 6 L62 14 Z" fill="#d4af37" stroke="#7a5210" stroke-width="1.5"/>
-            <path d="M50 14 L78 25 L78 52 C78 71 50 88 50 88 C50 88 22 71 22 52 L22 25 Z" fill="#d4af37" stroke="#7a5210" stroke-width="3"/>
-            <path d="M50 20 L72 29 L72 51 C72 67 50 81 50 81 C50 81 28 67 28 51 L28 29 Z" fill="#fffdf5" stroke="#d4af37" stroke-width="1.5"/>
-            <circle cx="43" cy="51" r="10" fill="none" stroke="#996515" stroke-width="3.5"/>
-            <circle cx="57" cy="51" r="10" fill="none" stroke="#d4af37" stroke-width="3.5"/>
+
+        <!-- BRASÃO 2: COMPROMISSO -->
+        <symbol id="crest-compromisso" viewBox="0 0 140 140">
+            <g fill="none" stroke="url(#metal-gold)" stroke-width="3.2" stroke-linecap="round">
+                <path d="M34 40 C16 34 12 54 26 60 C12 66 14 88 34 86"/>
+                <path d="M26 60 C18 60 18 68 27 69"/>
+                <path d="M36 92 C22 102 32 118 52 114"/>
+                <path d="M106 40 C124 34 128 54 114 60 C128 66 126 88 106 86"/>
+                <path d="M114 60 C122 60 122 68 113 69"/>
+                <path d="M104 92 C118 102 108 118 88 114"/>
+            </g>
+            <g fill="none" stroke="#5c3d00" stroke-width="0.9" stroke-linecap="round">
+                <path d="M34 40 C16 34 12 54 26 60 C12 66 14 88 34 86"/>
+                <path d="M106 40 C124 34 128 54 114 60 C128 66 126 88 106 86"/>
+            </g>
+            <path d="M70 4 V11 M67 7 H73" stroke="#7a4f00" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M47 27 L51 13 L60 21 L70 11 L80 21 L89 13 L93 27 Z" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="47" y="25" width="46" height="4.5" rx="1.5" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="1.2"/>
+            <circle cx="70" cy="19" r="2.2" fill="#d32f2f"/>
+            <circle cx="58" cy="27.2" r="1.3" fill="#fff59d"/>
+            <circle cx="82" cy="27.2" r="1.3" fill="#fff59d"/>
+            <path d="M70 29 C84 34 97 37 107 37 L107 72 C107 98 70 120 70 120 C70 120 33 98 33 72 L33 37 C43 37 56 34 70 29 Z" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="2.2"/>
+            <path d="M70 36 C82 40 93 43 100 43 L100 71 C100 92 70 111 70 111 C70 111 40 92 40 71 L40 43 C47 43 58 40 70 36 Z" fill="url(#face-gold)" stroke="#9e6b00" stroke-width="1.4"/>
+            <path d="M52 50 Q70 43 88 50 M52 91 Q70 100 88 91" fill="none" stroke="#b8860b" stroke-width="1.2" opacity="0.75"/>
+            <circle cx="61" cy="72" r="13.5" fill="none" stroke="#5c3d00" stroke-width="5.5"/>
+            <circle cx="61" cy="72" r="13.5" fill="none" stroke="url(#metal-gold)" stroke-width="3.2"/>
+            <circle cx="79" cy="72" r="13.5" fill="none" stroke="#5c3d00" stroke-width="5.5"/>
+            <circle cx="79" cy="72" r="13.5" fill="none" stroke="#fff176" stroke-width="3.2"/>
+            <polygon points="79,54 81,58 85,59 81,60 79,64 77,60 73,59 77,58" fill="#ffffff"/>
         </symbol>
-        <symbol id="crest-noivado" viewBox="0 0 100 100">
-            <path d="M22 82 C8 65 8 36 24 18" fill="none" stroke="#1e4268" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-            <path d="M78 82 C92 65 92 36 76 18" fill="none" stroke="#1e4268" stroke-width="4.5" stroke-linecap="round" stroke-dasharray="5 4"/>
-            <path d="M35 16 L40 6 L50 13 L60 6 L65 16 Z" fill="#d4af37" stroke="#7a5210" stroke-width="1.5"/>
-            <path d="M50 16 L79 26 L79 53 C79 72 50 90 50 90 C50 90 21 72 21 53 L21 26 Z" fill="#102542" stroke="#d4af37" stroke-width="3.5"/>
-            <polygon points="50,35 63,46 50,69 37,46" fill="#e0f7fa" stroke="#80deea" stroke-width="2"/>
-            <line x1="37" y1="46" x2="63" y2="46" stroke="#4dd0e1" stroke-width="1.5"/>
+
+        <!-- BRASÃO 3: NOIVADO -->
+        <symbol id="crest-noivado" viewBox="0 0 140 140">
+            <g fill="none" stroke="url(#metal-gold)" stroke-width="3.5" stroke-linecap="round">
+                <path d="M33 38 C13 30 10 53 25 60 C10 67 13 91 34 88"/>
+                <path d="M35 94 C20 105 32 121 54 116"/>
+                <path d="M107 38 C127 30 130 53 115 60 C130 67 127 91 106 88"/>
+                <path d="M105 94 C120 105 108 121 86 116"/>
+            </g>
+            <g fill="none" stroke="#0d2342" stroke-width="1.2" stroke-linecap="round">
+                <path d="M33 38 C13 30 10 53 25 60 C10 67 13 91 34 88"/>
+                <path d="M107 38 C127 30 130 53 115 60 C130 67 127 91 106 88"/>
+            </g>
+            <path d="M70 4 V11 M67 7 H73" stroke="#7a4f00" stroke-width="1.8" stroke-linecap="round"/>
+            <path d="M46 27 L50 13 L60 21 L70 10 L80 21 L90 13 L94 27 Z" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="1.5" stroke-linejoin="round"/>
+            <rect x="46" y="25" width="48" height="4.5" rx="1.5" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="1.2"/>
+            <circle cx="70" cy="18.5" r="2.5" fill="#00e5ff"/>
+            <path d="M70 29 C84 34 97 37 108 37 L108 72 C108 99 70 121 70 121 C70 121 32 99 32 72 L32 37 C43 37 56 34 70 29 Z" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="2.2"/>
+            <path d="M70 36 C82 40 93 43 101 43 L101 71 C101 93 70 112 70 112 C70 112 39 93 39 71 L39 43 C47 43 58 40 70 36 Z" fill="url(#face-sapphire)" stroke="#ffd700" stroke-width="1.4"/>
+            <polygon points="58,56 82,56 91,68 70,98 49,68" fill="url(#gem-diamond)" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+            <polyline points="49,68 91,68" fill="none" stroke="#ffffff" stroke-width="1.4"/>
+            <polyline points="58,56 61,68 70,98 79,68 82,56" fill="none" stroke="#006064" stroke-width="1.1"/>
+            <polyline points="61,68 70,56 79,68" fill="none" stroke="#ffffff" stroke-width="1.2"/>
+            <polygon points="85,51 87,56 92,57 87,58 85,63 83,58 78,57 83,56" fill="#ffffff"/>
         </symbol>
     </svg>
 
-    <div id="login-screen" class="aero-frame">
+            <div id="login-screen" class="aero-frame">
         <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div></div>
         <div class="login-inner">
-            <h1 style="font-family: Georgia, serif; font-size: 24px; color: #174978; margin-bottom: 2px;">Corte Messenger</h1>
-            <p style="font-size: 12px; color: #4a6b82; font-style: italic; margin-bottom: 14px;">"Onde cada conversa começa com respeito e intenção"</p>
-
             <div class="login-crests-row">
                 <div class="login-crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>Conversar</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-compromisso"></use></svg><div>Compromisso</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-noivado"></use></svg><div>Noivado</div></div>
             </div>
 
-            <div class="corte-definition-box">
-                <div class="word">Corte <span>(s.f.)</span></div>
-                <div class="meaning">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
+            <div class="corte-ribbon-box">
+                <div class="meaning"><strong>Corte</strong> <em>(s.f.)</em> - Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
             </div>
 
-            <div class="login-form-box">
-                <div class="form-group"><label>Seu Nome e Cidade:</label><input type="text" id="login-name" placeholder="Ex: João Silva (João, 30 - Curitiba)"></div>
-                <div class="form-group"><label>Sua Frase de Intenção (Subnick):</label><input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕"></div>
-                <div class="form-group"><label>Status Inicial:</label><select id="login-status"><option value="online">🟢 Online</option><option value="busy">🔴 Ocupado</option><option value="away">🟡 Ausente</option></select></div>
-                <button class="btn-aero" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte ➤</button>
+            <div class="login-grid-form">
+                <div class="login-grid-row">
+                    <label>Seu Nome e Cidade:</label>
+                    <input type="text" id="login-name" placeholder="Ex: João Silva (João, 30 - Curitiba)">
+                    <div class="status-inline">
+                        <label>Status Inicial:</label>
+                        <select id="login-status">
+                            <option value="online">🟢 Online</option>
+                            <option value="busy">🔴 Ocupado</option>
+                            <option value="away">🟡 Ausente</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="login-grid-row">
+                    <label>Sua Frase de Intenção (Subnick):</label>
+                    <input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕">
+                </div>
             </div>
+
+            <button class="btn-aero-pill" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte ➤</button>
         </div>
     </div>
 
@@ -149,7 +268,7 @@
         <div class="main-workspace" id="workspace-box">
             <div class="left-sidebar">
                 <div class="profile-hero">
-                    <div class="hero-crest"><svg width="76" height="76"><use href="#crest-conhecendo"></use></svg></div>
+                    <div class="hero-crest"><svg width="86" height="86"><use href="#crest-conhecendo"></use></svg></div>
                     <div class="my-status-row"><span id="my-status-dot" class="status-dot dot-online"></span><span id="my-name-display">Usuário</span><select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 10px; border: 1px solid #a6c5e3; border-radius: 3px;"><option value="online">Online</option><option value="busy">Ocupado</option><option value="away">Ausente</option></select></div>
                     <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
                 </div>
@@ -201,8 +320,8 @@
             appId: "1:380964750701:web:85e7ef7f83772143da4664"
         };
 
-        firebase.initializeApp(firebaseConfig);
-        const rtdb = firebase.database();
+        const app = firebase.initializeApp(firebaseConfig);
+        const rtdb = app.database("https://firebaseio.com");
 
         let meuUsuario = null;
         let listaUsuarios = [];
@@ -308,8 +427,7 @@
                     </div>`;
             });
         }
-
-                        function abrirChat(id) {
+        function abrirChat(id) {
             contatoAtual = listaUsuarios.find(u => u.id === id);
             if (!contatoAtual) return;
             renderizarContatos();
@@ -358,13 +476,13 @@
                     const est = m.estagio;
                     const jaResp = lista.slice(index + 1).some(n => n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]")));
                     if (m.remetente_id === meuUsuario.id) {
-                        box.innerHTML += `<div class="msg-system"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span></div>`;
+                        box.innerHTML += `<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span></div>`;
                     } else {
                         const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
-                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="18" height="18"><use href="#crest-${est}"></use></svg><span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
+                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
                     }
                 } else if (m.texto && m.texto.startsWith("[ACEITO]")) {
-                    box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="18" height="18"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
+                    box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[RECUSADO]")) {
                     box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
