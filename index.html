@@ -30,44 +30,50 @@
         .btn-aero-pill { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1.5px solid #5284b8; color: #0d3259; font-weight: bold; padding: 8px 34px; border-radius: 20px; cursor: pointer; font-size: 14px; margin-top: 6px; box-shadow: 0 2px 6px rgba(15, 50, 90, 0.22); }
         .btn-aero-pill:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
         .btn-aero-pill:disabled { opacity: 0.6; cursor: not-allowed; }
-
         .input-senha-wrapper { position: relative; flex: 1; display: flex; align-items: center; }
         .input-senha-wrapper input { width: 100%; padding-right: 40px !important; }
         .olho-senha { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: transparent; border: none; cursor: pointer; font-size: 16px; padding: 4px 6px; color: #4a637d; line-height: 1; border-radius: 4px; }
         .olho-senha:hover { color: #103c66; background: rgba(140, 180, 216, 0.2); }
 
-        #app-container { display: none; }
-        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 600px; overflow: hidden; }
+
+                #app-container { display: none; }
+        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 720px; overflow: hidden; }
         .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
-        .profile-hero { padding: 14px 12px 10px 12px; text-align: center; border-bottom: 1px solid #cde0f2; }
-        .hero-crest { width: 86px; height: 86px; margin: 0 auto 6px auto; filter: drop-shadow(0 3px 6px rgba(15, 35, 65, 0.22)); }
-        .my-status-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 13px; font-weight: bold; color: #112d4e; }
+        .profile-hero { padding: 8px 10px 6px 10px; text-align: center; border-bottom: 1px solid #cde0f2; }
+        .hero-crest { width: 64px; height: 64px; margin: 0 auto 4px auto; filter: drop-shadow(0 3px 6px rgba(15, 35, 65, 0.22)); }
+        .hero-crest svg { width: 64px; height: 64px; }
+        .my-status-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; font-weight: bold; color: #112d4e; }
+        #my-name-display { font-size: 15px; font-weight: bold; }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
         .dot-online { background: #4cd137; }
         .dot-busy { background: #e84118; }
         .dot-away { background: #fbc531; }
         .dot-offline { background: #95a5a6; }
-        .subnick-edit { width: 100%; margin-top: 6px; background: rgba(255,255,255,0.65); border: 1px solid transparent; border-radius: 4px; padding: 3px 6px; font-size: 11px; color: #4a637d; text-align: center; }
-        .search-box { padding: 8px 10px; border-bottom: 1px solid #d5e5f5; }
+        .subnick-edit { width: 100%; margin-top: 4px; background: rgba(255,255,255,0.65); border: 1px solid transparent; border-radius: 4px; padding: 3px 6px; font-size: 11px; color: #4a637d; text-align: center; }
+        .search-box { padding: 6px 8px; border-bottom: 1px solid #d5e5f5; }
         .search-box input { width: 100%; padding: 5px 10px; border: 1px solid #a6c5e3; border-radius: 4px; font-size: 12px; }
-        .contacts-scroll { flex: 1; overflow-y: auto; padding: 8px; }
-        .contacts-header { font-size: 11px; font-weight: bold; color: #2b547e; padding: 2px 4px 6px 4px; }
-        .contact-row { display: flex; align-items: center; gap: 9px; padding: 7px 8px; border-radius: 5px; cursor: pointer; margin-bottom: 3px; }
+        .contacts-scroll { flex: 1; overflow-y: auto; padding: 4px 6px; }
+        .contacts-header { font-size: 11px; font-weight: bold; color: #2b547e; padding: 1px 4px 4px 4px; }
+        .contact-row { display: flex; align-items: center; gap: 8px; padding: 5px 7px; border-radius: 5px; cursor: pointer; margin-bottom: 1px; }
         .contact-row:hover { background: #dcecfb; }
         .contact-row.active { background: #cbe4fa; border: 1px solid #8cbce8; }
-        .contact-crest-avatar { position: relative; width: 36px; height: 36px; flex-shrink: 0; }
-        .contact-crest-avatar svg { width: 36px; height: 36px; }
+        .contact-crest-avatar { position: relative; width: 32px; height: 32px; flex-shrink: 0; }
+        .contact-crest-avatar svg { width: 32px; height: 32px; }
         .contact-crest-avatar .status-dot { position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; }
-        .contact-info { overflow: hidden; }
-        .contact-title { font-size: 12px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .contact-sub { font-size: 11px; color: #5c7691; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact-info { overflow: hidden; flex: 1; }
+        .contact-title { font-size: 13.5px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+        .contact-sub { font-size: 11px; color: #5c7691; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
         .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; }
         .stage-topbar { background: linear-gradient(180deg, #f2f8fe 0%, #dcebfa 100%); border-bottom: 1px solid #b5d1eb; padding: 9px 15px; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
-        .stage-topbar-title { font-size: 13px; font-weight: 600; color: #1e4268; margin: auto; }
+        .stage-topbar-title { font-size: 14px; font-weight: 600; color: #1e4268; margin: auto; }
         .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; }
         .stage-pill { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #8cbce8; padding: 3px 10px; border-radius: 6px; }
         .stage-pill svg { width: 28px; height: 28px; }
         .stage-pill select { border: none; font-size: 12px; font-weight: bold; color: #103c66; background: transparent; outline: none; }
+        #active-contact-name { font-size: 15px; }
+        #active-contact-subnick { font-size: 12.5px; }
+        .btn-fechar-chat { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); border: 1px solid #8f2d2d; color: white; font-size: 11px; font-weight: bold; padding: 3px 9px; border-radius: 4px; cursor: pointer; margin-left: 8px; }
+        .btn-fechar-chat:hover { background: linear-gradient(180deg, #f7b0b0 0%, #d95a5a 100%); }
         .messages-canvas { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
         .welcome-board { margin: auto; text-align: center; max-width: 520px; width: 100%; }
         .welcome-board h2 { font-family: Georgia, serif; font-size: 24px; color: #1a2b3c; margin-bottom: 18px; font-weight: normal; }
@@ -93,18 +99,43 @@
         .btn-send-aero { background: linear-gradient(180deg, #f8fbff 0%, #d4e7fa 100%); border: 1px solid #8cb4d8; color: #174978; font-weight: bold; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; }
         @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-7px, -5px); } 40% { transform: translate(7px, 5px); } 60% { transform: translate(-7px, 5px); } 80% { transform: translate(7px, -5px); } }
         .shake { animation: nudgeShake 0.45s ease-in-out; }
+        .search-result-row { display: flex; align-items: center; gap: 8px; padding: 8px; background: #fff8e1; border: 1px solid #e6c76a; border-radius: 5px; margin-bottom: 4px; }
+        .search-result-row .contact-crest-avatar { width: 32px; height: 32px; }
+        .search-result-row .contact-crest-avatar svg { width: 32px; height: 32px; }
+        .search-result-info { flex: 1; overflow: hidden; }
+        .search-result-name { font-size: 13px; font-weight: bold; color: #1b3654; }
+        .search-result-user { font-size: 11px; color: #5c7691; }
+        .btn-add-contato { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+        .btn-add-contato:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+        .btn-add-contato:disabled { opacity: 0.6; cursor: not-allowed; }
+        .empty-contacts { text-align: center; font-size: 11px; color: #5c7691; padding: 14px 8px; line-height: 1.4; }
         @media (max-width: 768px) {
             .main-workspace { flex-direction: column; height: auto; }
-            .left-sidebar { width: 100%; max-height: 270px; border-right: none; border-bottom: 1px solid #b5d1eb; }
-            .right-stage { min-height: 460px; }
+            .left-sidebar { width: 100%; max-height: 420px; border-right: none; border-bottom: 1px solid #b5d1eb; }
+            .right-stage { min-height: 380px; }
             .login-crest-item svg, .crest-item svg { width: 82px; height: 82px; }
             .login-grid-row { flex-direction: column; align-items: stretch; gap: 4px; }
             .login-grid-row label { text-align: left; min-width: auto; }
+            .profile-hero { padding: 6px 8px 4px 8px; }
+            .hero-crest { width: 56px; height: 56px; }
+            .hero-crest svg { width: 56px; height: 56px; }
+            .my-status-row { font-size: 13px; }
+            .subnick-edit { font-size: 10px; padding: 2px 4px; }
+            .search-box { padding: 4px 6px; }
+            .search-box input { padding: 4px 8px; font-size: 12px; }
+            .contact-row { padding: 4px 6px; }
+            .contact-crest-avatar { width: 30px; height: 30px; }
+            .contact-crest-avatar svg { width: 30px; height: 30px; }
+            .contact-title { font-size: 13px; }
+            .contact-sub { font-size: 10.5px; }
+            .contacts-scroll { padding: 3px 5px; }
         }
     </style>
 </head>
 <body>
-    <svg style="display: none;">
+
+
+        <svg style="display: none;">
         <defs>
             <linearGradient id="metal-silver" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff"/><stop offset="28%" stop-color="#cfd8dc"/>
@@ -203,8 +234,7 @@
         </symbol>
     </svg>
 
-
-        <div id="login-screen" class="aero-frame">
+    <div id="login-screen" class="aero-frame">
         <div class="aero-titlebar">
             <span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span>
             <div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div>
@@ -215,16 +245,13 @@
                 <div class="login-crest-item"><svg><use href="#crest-compromisso"></use></svg><div>Compromisso</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-noivado"></use></svg><div>Noivado</div></div>
             </div>
-
             <div class="corte-ribbon-box">
                 <div class="meaning"><strong>Corte</strong> <em>(s.f.)</em> - Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
             </div>
-
             <div style="display:flex;justify-content:center;gap:10px;margin-bottom:14px;">
                 <button id="tab-login" class="btn-aero-pill" style="padding:6px 24px;" onclick="mostrarAba('login')">Entrar</button>
                 <button id="tab-cadastro" class="btn-aero-pill" style="padding:6px 24px;opacity:0.6;" onclick="mostrarAba('cadastro')">Criar Conta</button>
             </div>
-
             <div id="form-login" class="login-grid-form">
                 <div class="login-grid-row">
                     <label>Usuário:</label>
@@ -242,16 +269,15 @@
                 </div>
                 <div id="erro-login" style="color:#b22222;font-size:12px;text-align:center;margin-top:8px;"></div>
             </div>
-
             <div id="form-cadastro" class="login-grid-form" style="display:none;">
                 <div class="login-grid-row">
                     <label>Usuário (login):</label>
                     <input type="text" id="cadastro-usuario" placeholder="ex: joao_silva (só a-z, 0-9, . e _)" autocomplete="username">
                 </div>
                 <div class="login-grid-row">
-                    <label>Senha (mín. 6):</label>
+                    <label>Senha (8+, Aa1!):</label>
                     <div class="input-senha-wrapper">
-                        <input type="password" id="cadastro-senha" placeholder="Crie uma senha" autocomplete="new-password">
+                        <input type="password" id="cadastro-senha" placeholder="Crie uma senha forte" autocomplete="new-password">
                         <button type="button" class="olho-senha" onclick="toggleSenha('cadastro-senha', this)" title="Mostrar/ocultar senha">👁️</button>
                     </div>
                 </div>
@@ -279,7 +305,8 @@
         </div>
     </div>
 
-    <div id="app-container" class="aero-frame">
+
+        <div id="app-container" class="aero-frame">
         <div class="aero-titlebar">
             <span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span>
             <div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div>
@@ -287,7 +314,7 @@
         <div class="main-workspace" id="workspace-box">
             <div class="left-sidebar">
                 <div class="profile-hero">
-                    <div class="hero-crest"><svg width="86" height="86"><use href="#crest-conhecendo"></use></svg></div>
+                    <div class="hero-crest"><svg width="64" height="64"><use href="#crest-conhecendo"></use></svg></div>
                     <div class="my-status-row">
                         <span id="my-status-dot" class="status-dot dot-online"></span>
                         <span id="my-name-display">Usuário</span>
@@ -300,7 +327,10 @@
                     <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
                     <button onclick="excluirMinhaConta()" style="margin-top:6px;background:none;border:none;color:#a33;font-size:10px;text-decoration:underline;cursor:pointer;">Excluir minha conta</button>
                 </div>
-                <div class="search-box"><input type="text" id="search-input" onkeyup="renderizarContatos()" placeholder="🔍 Buscar contato..."></div>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="🔍 Digite o usuário (ex: joao_silva)" onkeyup="buscarUsuarios()">
+                    <div id="search-results" style="margin-top:6px;"></div>
+                </div>
                 <div class="contacts-scroll" id="contact-list-area"></div>
             </div>
             <div class="right-stage">
@@ -308,16 +338,19 @@
                     <div id="topbar-empty" class="stage-topbar-title">Nenhuma conversa selecionada</div>
                     <div id="topbar-active" class="active-chat-bar" style="display: none;">
                         <div>
-                            <strong id="active-contact-name" style="font-size: 13px; color: #103c66;">Nome</strong>
-                            <div id="active-contact-subnick" style="font-size: 11px; color: #5c7691;">Subnick</div>
+                            <strong id="active-contact-name" style="color: #103c66;">Nome</strong>
+                            <div id="active-contact-subnick" style="color: #5c7691;">Subnick</div>
                         </div>
-                        <div class="stage-pill">
-                            <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
-                            <select id="stage-select" onchange="alterarEstagio()">
-                                <option value="conhecendo">1. Conversar</option>
-                                <option value="compromisso">2. Compromisso</option>
-                                <option value="noivado">3. Noivado</option>
-                            </select>
+                        <div style="display:flex; align-items:center; gap:6px;">
+                            <div class="stage-pill">
+                                <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
+                                <select id="stage-select" onchange="alterarEstagio()">
+                                    <option value="conhecendo">1. Conversar</option>
+                                    <option value="compromisso">2. Compromisso</option>
+                                    <option value="noivado">3. Noivado</option>
+                                </select>
+                            </div>
+                            <button class="btn-fechar-chat" onclick="fecharChat()" title="Fechar conversa">✕</button>
                         </div>
                     </div>
                 </div>
@@ -350,13 +383,11 @@
                 </div>
             </div>
         </div>
-    </div>
+        </div>
+
 
 
         <script>
-        // ============================================
-        // FIREBASE
-        // ============================================
         const firebaseConfig = {
             apiKey: "AIzaSyB9WgHtsxYgiQt5JqpzSTqh7tiHuYkJbvc",
             authDomain: "corte-messenger.firebaseapp.com",
@@ -377,11 +408,10 @@
         let contatoAtual = null;
         let refChatAtual = null;
         let refUsuariosGlobal = null;
+        let meusContatos = {};
+        let refContatosGlobal = null;
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
 
-        // ============================================
-        // TOGGLE OLHINHO DA SENHA
-        // ============================================
         function toggleSenha(idInput, btn) {
             const input = document.getElementById(idInput);
             if (!input) return;
@@ -394,9 +424,6 @@
             }
         }
 
-        // ============================================
-        // UTILITÁRIOS
-        // ============================================
         function escaparHTML(str) {
             return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
         }
@@ -418,19 +445,14 @@
             return null;
         }
 
-        // ============================================
-        // TRADUZIR ERRO (ROBUSTO)
-        // ============================================
         function traduzirErro(err) {
             if (!err) return "Erro desconhecido (err vazio).";
             if (typeof err === "string") return err;
-
             const code = err.code || "";
             const msg = err.message || "";
-
             const erros = {
                 "auth/email-already-in-use": "Este usuário já existe. Escolha outro.",
-                "auth/weak-password": "Senha muito fraca (mínimo 6 caracteres).",
+                "auth/weak-password": "Senha fraca: use 8+ caracteres com maiúscula, minúscula, número e símbolo (ex: Senha123!).",
                 "auth/user-not-found": "Usuário não encontrado.",
                 "auth/wrong-password": "Senha incorreta.",
                 "auth/invalid-credential": "Usuário ou senha incorretos.",
@@ -438,17 +460,13 @@
                 "auth/too-many-requests": "Muitas tentativas. Aguarde um pouco.",
                 "auth/network-request-failed": "Sem conexão com a internet.",
                 "auth/operation-not-allowed": "Login por usuário/senha NÃO está ativado no Firebase.",
-                "auth/unauthorized-domain": "Domínio não autorizado no Firebase. Adicione seu-usuario.github.io em Authentication > Settings > Authorized domains.",
+                "auth/unauthorized-domain": "Domínio não autorizado no Firebase.",
                 "PERMISSION_DENIED": "Sem permissão no banco. Verifique as regras do Realtime Database."
             };
-
             if (code && erros[code]) return erros[code];
             return "Erro: " + (code || msg || JSON.stringify(err));
         }
 
-        // ============================================
-        // SOM
-        // ============================================
         function tocarSom(tipo) {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -478,12 +496,9 @@
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
                     osc.start(); osc.stop(ctx.currentTime + 0.55);
                 }
-            } catch (e) { /* áudio bloqueado */ }
+            } catch (e) { }
         }
 
-        // ============================================
-        // UI DE LOGIN
-        // ============================================
         function mostrarAba(aba) {
             const formLogin = document.getElementById("form-login");
             const formCad = document.getElementById("form-cadastro");
@@ -500,10 +515,9 @@
             }
         }
 
-        // ============================================
-        // CADASTRO COM DIAGNÓSTICO
-        // ============================================
-        async function fazerCadastro() {
+
+
+                    async function fazerCadastro() {
             const erroEl = document.getElementById("erro-cadastro");
             erroEl.innerText = "🔍 Iniciando cadastro...";
 
@@ -516,13 +530,16 @@
             erroEl.innerText = "🔍 Validando dados...";
             const erroUsuario = validarUsuario(usuario);
             if (erroUsuario) { erroEl.innerText = "❌ " + erroUsuario; return; }
-            if (senha.length < 6) { erroEl.innerText = "❌ Senha precisa ter no mínimo 6 caracteres."; return; }
+            if (senha.length < 8) { erroEl.innerText = "❌ Senha precisa ter no mínimo 8 caracteres."; return; }
+            if (!/[A-Z]/.test(senha)) { erroEl.innerText = "❌ Senha precisa ter pelo menos uma letra maiúscula."; return; }
+            if (!/[a-z]/.test(senha)) { erroEl.innerText = "❌ Senha precisa ter pelo menos uma letra minúscula."; return; }
+            if (!/[0-9]/.test(senha)) { erroEl.innerText = "❌ Senha precisa ter pelo menos um número."; return; }
+            if (!/[^A-Za-z0-9]/.test(senha)) { erroEl.innerText = "❌ Senha precisa ter pelo menos um símbolo (ex: !@#$%)."; return; }
             if (!nome) { erroEl.innerText = "❌ Digite seu nome de exibição."; return; }
 
             const btn = document.getElementById("btn-cadastrar");
             btn.innerText = "Verificando nome..."; btn.disabled = true;
 
-            // ETAPA 1: nome já existe?
             erroEl.innerText = "🔍 Etapa 1/3: verificando se o nome existe...";
             try {
                 const nomeSnap = await rtdb.ref(`nomes_usuarios/${usuario}`).get();
@@ -537,7 +554,6 @@
                 return;
             }
 
-            // ETAPA 2: criar conta no Auth
             erroEl.innerText = "🔍 Etapa 2/3: criando conta...";
             let cred;
             try {
@@ -550,7 +566,6 @@
 
             const uid = cred.user.uid;
 
-            // ETAPA 3: reservar nome
             erroEl.innerText = "🔍 Etapa 3/3: salvando nome...";
             try {
                 const nomeRef = rtdb.ref(`nomes_usuarios/${usuario}`);
@@ -570,7 +585,6 @@
                 return;
             }
 
-            // FINAL: salvar perfil
             erroEl.innerText = "🔍 Salvando perfil...";
             try {
                 await rtdb.ref(`usuarios/${uid}`).set({
@@ -587,9 +601,6 @@
             await carregarApp(uid);
         }
 
-        // ============================================
-        // LOGIN
-        // ============================================
         async function fazerLogin() {
             const usuario = document.getElementById("login-usuario").value.toLowerCase().trim();
             const senha = document.getElementById("login-senha").value;
@@ -610,9 +621,6 @@
             }
         }
 
-        // ============================================
-        // CARREGAR APP
-        // ============================================
         async function carregarApp(uid) {
             await rtdb.ref(`usuarios/${uid}/status`).set("online");
             rtdb.ref(`usuarios/${uid}/status`).onDisconnect().set("offline");
@@ -634,14 +642,12 @@
             iniciarTempoReal();
         }
 
-        // ============================================
-        // LOGOUT / EXCLUSÃO
-        // ============================================
         async function sairDoCorte() {
             if (meuUsuario) {
                 await rtdb.ref(`usuarios/${meuUsuario.id}/status`).set("offline");
             }
             if (refUsuariosGlobal) refUsuariosGlobal.off();
+            if (refContatosGlobal) refContatosGlobal.off();
             await auth.signOut();
             location.reload();
         }
@@ -649,17 +655,15 @@
         async function excluirMinhaConta() {
             if (!meuUsuario) return;
             if (!confirm("Tem certeza? Isso apaga sua conta e libera seu nome para outras pessoas.")) return;
-
             try {
                 const uid = meuUsuario.id;
                 const usuario = meuUsuario.usuario;
-
                 if (usuario) {
                     await rtdb.ref(`nomes_usuarios/${usuario}`).remove();
                 }
+                await rtdb.ref(`contatos/${uid}`).remove();
                 await rtdb.ref(`usuarios/${uid}`).remove();
                 await auth.currentUser.delete();
-
                 alert("Conta excluída. Nome liberado.");
                 location.reload();
             } catch (err) {
@@ -667,9 +671,6 @@
             }
         }
 
-        // ============================================
-        // PERFIL
-        // ============================================
         async function atualizarMeuPerfil() {
             if (!meuUsuario) return;
             const status = document.getElementById("change-status").value;
@@ -678,22 +679,35 @@
             await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status, subnick });
         }
 
-        // ============================================
-        // LISTA DE CONTATOS
-        // ============================================
+        function carregarMeusContatos() {
+            if (!meuUsuario) return;
+            if (refContatosGlobal) refContatosGlobal.off();
+            refContatosGlobal = rtdb.ref(`contatos/${meuUsuario.id}`);
+            refContatosGlobal.on("value", (snapshot) => {
+                meusContatos = snapshot.val() || {};
+                renderizarContatos();
+            });
+        }
+
         function renderizarContatos() {
             const area = document.getElementById("contact-list-area");
-            const filtro = document.getElementById("search-input").value.toLowerCase();
             area.innerHTML = "";
 
-            const filtrados = listaUsuarios.filter(u =>
-                u.nome.toLowerCase().includes(filtro) ||
-                (u.subnick && u.subnick.toLowerCase().includes(filtro))
-            );
+            const ids = Object.keys(meusContatos);
+            const meusContatosList = listaUsuarios.filter(u => ids.includes(u.id));
 
-            area.innerHTML += `<div class="contacts-header">▾ Contatos (${filtrados.length})</div>`;
+            if (meusContatosList.length === 0) {
+                area.innerHTML = `<div class="contacts-header">▾ Contatos (0)</div>
+                    <div class="empty-contacts">
+                        Nenhum contato ainda.<br>
+                        Digite o usuário de alguém na busca acima para adicionar.
+                    </div>`;
+                return;
+            }
 
-            filtrados.forEach(u => {
+            area.innerHTML += `<div class="contacts-header">▾ Contatos (${meusContatosList.length})</div>`;
+
+            meusContatosList.forEach(u => {
                 const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
                 area.innerHTML += `
                     <div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')">
@@ -709,9 +723,58 @@
             });
         }
 
-        // ============================================
-        // ABRIR CHAT
-        // ============================================
+        function buscarUsuarios() {
+            const termo = document.getElementById("search-input").value.toLowerCase().trim();
+            const resultadosEl = document.getElementById("search-results");
+            resultadosEl.innerHTML = "";
+
+            if (!termo) return;
+
+            const achados = listaUsuarios.filter(u =>
+                u.usuario && u.usuario.toLowerCase().includes(termo)
+            );
+
+            if (achados.length === 0) {
+                resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Nenhum usuário encontrado.</div>`;
+                return;
+            }
+
+            achados.slice(0, 5).forEach(u => {
+                const jaTenho = meusContatos[u.id];
+                const btn = jaTenho
+                    ? `<button class="btn-add-contato" disabled>✓ Adicionado</button>`
+                    : `<button class="btn-add-contato" onclick="adicionarContato('${u.id}')">➕ Adicionar</button>`;
+                resultadosEl.innerHTML += `
+                    <div class="search-result-row">
+                        <div class="contact-crest-avatar">
+                            <svg><use href="#crest-conhecendo"></use></svg>
+                            <span class="status-dot dot-${u.status || 'offline'}"></span>
+                        </div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">${escaparHTML(u.nome)}</div>
+                            <div class="search-result-user">@${escaparHTML(u.usuario || "sem_usuario")}</div>
+                        </div>
+                        ${btn}
+                    </div>`;
+            });
+        }
+
+        async function adicionarContato(idContato) {
+            if (!meuUsuario || !idContato) return;
+            if (idContato === meuUsuario.id) { alert("Você não pode adicionar você mesmo."); return; }
+            if (meusContatos[idContato]) { alert("Você já adicionou este contato."); return; }
+
+            try {
+                await rtdb.ref(`contatos/${meuUsuario.id}/${idContato}`).set(true);
+                await rtdb.ref(`contatos/${idContato}/${meuUsuario.id}`).set(true);
+                document.getElementById("search-input").value = "";
+                document.getElementById("search-results").innerHTML = "";
+                alert("Contato adicionado!");
+            } catch (err) {
+                alert("Erro ao adicionar contato: " + traduzirErro(err));
+            }
+        }
+
         function abrirChat(id) {
             contatoAtual = listaUsuarios.find(u => u.id === id);
             if (!contatoAtual) return;
@@ -753,9 +816,32 @@
             });
         }
 
-        // ============================================
-        // RENDER DAS MENSAGENS
-        // ============================================
+        function fecharChat() {
+            if (refChatAtual) {
+                refChatAtual.off();
+                refChatAtual = null;
+            }
+            contatoAtual = null;
+            document.getElementById("topbar-active").style.display = "none";
+            document.getElementById("topbar-empty").style.display = "block";
+            const box = document.getElementById("chat-messages");
+            box.innerHTML = `
+                <div class="welcome-board">
+                    <h2>Bem-vindo ao Corte Messenger</h2>
+                    <div class="three-crests-row">
+                        <div class="crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>1. Conversar</div></div>
+                        <div class="crest-item"><svg><use href="#crest-compromisso"></use></svg><div>2. Compromisso</div></div>
+                        <div class="crest-item"><svg><use href="#crest-noivado"></use></svg><div>3. Noivado</div></div>
+                    </div>
+                    <div class="corte-definition-box">
+                        <div class="word">Corte <span>(s.f.)</span></div>
+                        <div class="meaning">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
+                    </div>
+                </div>
+            `;
+            renderizarContatos();
+        }
+
         function exibirMensagensNaTela(lista) {
             const box = document.getElementById("chat-messages");
             box.innerHTML = "";
@@ -773,7 +859,6 @@
                     const jaResp = lista.slice(index + 1).some(n =>
                         n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]"))
                     );
-
                     if (m.remetente_id === meuUsuario.id) {
                         box.innerHTML += `<div class="msg-system">
                             <svg width="20" height="20"><use href="#crest-${est}"></use></svg>
@@ -822,9 +907,6 @@
             box.scrollTop = box.scrollHeight;
         }
 
-        // ============================================
-        // ENVIO DE EVENTOS
-        // ============================================
         async function gravarEventoNoChat(dados) {
             if (!contatoAtual || !meuUsuario) return;
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
@@ -896,9 +978,6 @@
             event.target.value = "";
         }
 
-        // ============================================
-        // TEMPO REAL
-        // ============================================
         function iniciarTempoReal() {
             if (refUsuariosGlobal) refUsuariosGlobal.off();
             refUsuariosGlobal = rtdb.ref("usuarios");
@@ -908,12 +987,11 @@
                     .filter(u => u.id !== meuUsuario.id)
                     .sort((a, b) => a.nome.localeCompare(b.nome));
                 renderizarContatos();
+                buscarUsuarios();
             });
+            carregarMeusContatos();
         }
 
-        // ============================================
-        // LOGIN AUTOMÁTICO
-        // ============================================
         auth.onAuthStateChanged(async (user) => {
             if (user) {
                 await carregarApp(user.uid);
