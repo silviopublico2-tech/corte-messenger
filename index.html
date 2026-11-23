@@ -6,6 +6,7 @@
     <title>Corte Messenger - Onde cada conversa começa com respeito e intenção</title>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
@@ -26,10 +27,9 @@
         .login-grid-row { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
         .login-grid-row label { font-size: 12.5px; color: #173454; font-weight: 600; white-space: nowrap; min-width: 165px; text-align: right; }
         .login-grid-row input, .login-grid-row select { flex: 1; padding: 7px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; background: white; }
-        .status-inline { display: flex; align-items: center; gap: 8px; }
-        .status-inline label { min-width: auto; }
         .btn-aero-pill { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1.5px solid #5284b8; color: #0d3259; font-weight: bold; padding: 8px 34px; border-radius: 20px; cursor: pointer; font-size: 14px; margin-top: 6px; box-shadow: 0 2px 6px rgba(15, 50, 90, 0.22); }
         .btn-aero-pill:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+        .btn-aero-pill:disabled { opacity: 0.6; cursor: not-allowed; }
 
         #app-container { display: none; }
         .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 600px; overflow: hidden; }
@@ -99,7 +99,6 @@
     </style>
 </head>
 <body>
-    <!-- Definições SVG dos brasões -->
     <svg style="display: none;">
         <defs>
             <linearGradient id="metal-silver" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -199,47 +198,96 @@
         </symbol>
     </svg>
 
-    <div id="login-screen" class="aero-frame">
-        <div class="aero-titlebar"><span>🛡️ Corte Messenger</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div></div>
+        <div id="login-screen" class="aero-frame">
+        <div class="aero-titlebar">
+            <span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span>
+            <div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div>
+        </div>
         <div class="login-inner">
             <div class="login-crests-row">
                 <div class="login-crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>Conversar</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-compromisso"></use></svg><div>Compromisso</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-noivado"></use></svg><div>Noivado</div></div>
             </div>
+
             <div class="corte-ribbon-box">
                 <div class="meaning"><strong>Corte</strong> <em>(s.f.)</em> - Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
             </div>
-            <div class="login-grid-form">
-                <div class="login-grid-row">
-                    <label>Seu Nome e Cidade:</label>
-                    <input type="text" id="login-name" placeholder="Ex: João Silva (João, 30 - Curitiba)">
-                    <div class="status-inline">
-                        <label>Status Inicial:</label>
-                        <select id="login-status">
-                            <option value="online">🟢 Online</option>
-                            <option value="busy">🔴 Ocupado</option>
-                            <option value="away">🟡 Ausente</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="login-grid-row">
-                    <label>Sua Frase de Intenção (Subnick):</label>
-                    <input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕">
-                </div>
+
+            <div style="display:flex;justify-content:center;gap:10px;margin-bottom:14px;">
+                <button id="tab-login" class="btn-aero-pill" style="padding:6px 24px;" onclick="mostrarAba('login')">Entrar</button>
+                <button id="tab-cadastro" class="btn-aero-pill" style="padding:6px 24px;opacity:0.6;" onclick="mostrarAba('cadastro')">Criar Conta</button>
             </div>
-            <button class="btn-aero-pill" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte ➤</button>
+
+            <div id="form-login" class="login-grid-form">
+                <div class="login-grid-row">
+                    <label>Usuário:</label>
+                    <input type="text" id="login-usuario" placeholder="ex: joao_silva" autocomplete="username">
+                </div>
+                <div class="login-grid-row">
+                    <label>Senha:</label>
+                    <input type="password" id="login-senha" placeholder="Sua senha" autocomplete="current-password" onkeypress="if(event.key==='Enter') fazerLogin()">
+                </div>
+                <div style="text-align:center;">
+                    <button class="btn-aero-pill" id="btn-entrar" onclick="fazerLogin()">Entrar no Corte ➤</button>
+                </div>
+                <div id="erro-login" style="color:#b22222;font-size:12px;text-align:center;margin-top:8px;"></div>
+            </div>
+
+            <div id="form-cadastro" class="login-grid-form" style="display:none;">
+                <div class="login-grid-row">
+                    <label>Usuário (login):</label>
+                    <input type="text" id="cadastro-usuario" placeholder="ex: joao_silva (só a-z, 0-9, . e _)" autocomplete="username">
+                </div>
+                <div class="login-grid-row">
+                    <label>Senha (mín. 6):</label>
+                    <input type="password" id="cadastro-senha" placeholder="Crie uma senha" autocomplete="new-password">
+                </div>
+                <div class="login-grid-row">
+                    <label>Seu Nome (exibição):</label>
+                    <input type="text" id="cadastro-nome" placeholder="Ex: João Silva (Curitiba)">
+                </div>
+                <div class="login-grid-row">
+                    <label>Frase de Intenção:</label>
+                    <input type="text" id="cadastro-subnick" placeholder="Ex: Buscando conversas reais ☕">
+                </div>
+                <div class="login-grid-row">
+                    <label>Status Inicial:</label>
+                    <select id="cadastro-status">
+                        <option value="online">🟢 Online</option>
+                        <option value="busy">🔴 Ocupado</option>
+                        <option value="away">🟡 Ausente</option>
+                    </select>
+                </div>
+                <div style="text-align:center;">
+                    <button class="btn-aero-pill" id="btn-cadastrar" onclick="fazerCadastro()">Criar Conta ➤</button>
+                </div>
+                <div id="erro-cadastro" style="color:#b22222;font-size:12px;text-align:center;margin-top:8px;"></div>
+            </div>
         </div>
     </div>
 
     <div id="app-container" class="aero-frame">
-        <div class="aero-titlebar"><span>🛡️ Corte Messenger</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div></div>
+        <div class="aero-titlebar">
+            <span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span>
+            <div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div>
+        </div>
         <div class="main-workspace" id="workspace-box">
             <div class="left-sidebar">
                 <div class="profile-hero">
                     <div class="hero-crest"><svg width="86" height="86"><use href="#crest-conhecendo"></use></svg></div>
-                    <div class="my-status-row"><span id="my-status-dot" class="status-dot dot-online"></span><span id="my-name-display">Usuário</span><select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 10px;"><option value="online">Online</option><option value="busy">Ocupado</option><option value="away">Ausente</option></select></div>
+                    <div class="my-status-row">
+                        <span id="my-status-dot" class="status-dot dot-online"></span>
+                    
+                        <span id="my-name-display">Usuário</span>
+                        <select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 10px; border: 1px solid #a6c5e3; border-radius: 3px;">
+                            <option value="online">Online</option>
+                            <option value="busy">Ocupado</option>
+                            <option value="away">Ausente</option>
+                        </select>
+                    </div>
                     <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
+                    <button onclick="excluirMinhaConta()" style="margin-top:6px;background:none;border:none;color:#a33;font-size:10px;text-decoration:underline;cursor:pointer;">Excluir minha conta</button>
                 </div>
                 <div class="search-box"><input type="text" id="search-input" onkeyup="renderizarContatos()" placeholder="🔍 Buscar contato..."></div>
                 <div class="contacts-scroll" id="contact-list-area"></div>
@@ -248,8 +296,18 @@
                 <div class="stage-topbar">
                     <div id="topbar-empty" class="stage-topbar-title">Nenhuma conversa selecionada</div>
                     <div id="topbar-active" class="active-chat-bar" style="display: none;">
-                        <div><strong id="active-contact-name">Nome</strong><div id="active-contact-subnick">Subnick</div></div>
-                        <div class="stage-pill"><svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg><select id="stage-select" onchange="alterarEstagio()"><option value="conhecendo">1. Conversar</option><option value="compromisso">2. Compromisso</option><option value="noivado">3. Noivado</option></select></div>
+                        <div>
+                            <strong id="active-contact-name" style="font-size: 13px; color: #103c66;">Nome</strong>
+                            <div id="active-contact-subnick" style="font-size: 11px; color: #5c7691;">Subnick</div>
+                        </div>
+                        <div class="stage-pill">
+                            <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
+                            <select id="stage-select" onchange="alterarEstagio()">
+                                <option value="conhecendo">1. Conversar</option>
+                                <option value="compromisso">2. Compromisso</option>
+                                <option value="noivado">3. Noivado</option>
+                            </select>
+                        </div>
                     </div>
                 </div>
                 <div class="messages-canvas" id="chat-messages">
@@ -262,9 +320,6 @@
                         </div>
                         <div class="corte-definition-box">
                             <div class="word">Corte <span>(s.f.)</span></div>
-                            <div class="meaning">Conjunto
-
-                                                            <div class="word">Corte <span>(s.f.)</span></div>
                             <div class="meaning">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
                         </div>
                     </div>
@@ -288,7 +343,7 @@
 
     <script>
         // ============================================
-        // CONFIGURAÇÃO DO FIREBASE
+        // FIREBASE
         // ============================================
         const firebaseConfig = {
             apiKey: "AIzaSyB9WgHtsxYgiQt5JqpzSTqh7tiHuYkJbvc",
@@ -302,6 +357,8 @@
 
         firebase.initializeApp(firebaseConfig);
         const rtdb = firebase.database();
+        const auth = firebase.auth();
+        const DOMINIO_FAKE = "@corte.local";
 
         // ============================================
         // ESTADO GLOBAL
@@ -310,6 +367,7 @@
         let listaUsuarios = [];
         let contatoAtual = null;
         let refChatAtual = null;
+        let refUsuariosGlobal = null;
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
 
         // ============================================
@@ -321,6 +379,32 @@
 
         function gerarIdSala(id1, id2) {
             return [id1, id2].sort().join("__");
+        }
+
+        function usuarioParaEmail(usuario) {
+            return usuario.toLowerCase().trim() + DOMINIO_FAKE;
+        }
+
+        function validarUsuario(usuario) {
+            if (!usuario) return "Digite um nome de usuário.";
+            if (usuario.length < 3) return "Usuário precisa ter no mínimo 3 caracteres.";
+            if (!/^[a-z0-9._]+$/.test(usuario)) {
+                return "Usuário só pode ter letras minúsculas, números, ponto e underline.";
+            }
+            return null;
+        }
+
+        function traduzirErro(code) {
+            const erros = {
+                "auth/email-already-in-use": "Este usuário já existe. Escolha outro.",
+                "auth/weak-password": "Senha muito fraca (mínimo 6 caracteres).",
+                "auth/user-not-found": "Usuário não encontrado.",
+                "auth/wrong-password": "Senha incorreta.",
+                "auth/invalid-credential": "Usuário ou senha incorretos.",
+                "auth/too-many-requests": "Muitas tentativas. Aguarde um pouco.",
+                "auth/network-request-failed": "Sem conexão com a internet."
+            };
+            return erros[code] || "Erro: " + code;
         }
 
         function tocarSom(tipo) {
@@ -356,55 +440,175 @@
         }
 
         // ============================================
-        // LOGIN / LOGOUT
+        // UI DE LOGIN
         // ============================================
-        async function entrarNoCorte() {
-            const nome = document.getElementById("login-name").value.trim();
-            const subnick = document.getElementById("login-subnick").value.trim() || "Buscando conversas reais e café ☕";
-            const status = document.getElementById("login-status").value;
-
-            if (!nome) { alert("Digite seu nome para entrar."); return; }
-
-            const btn = document.getElementById("btn-entrar");
-            btn.innerText = "Conectando...";
-            btn.disabled = true;
-
-            try {
-                const novoRef = rtdb.ref("usuarios").push();
-                meuUsuario = { id: novoRef.key, nome, subnick, status };
-                await novoRef.set(meuUsuario);
-
-                novoRef.child("status").onDisconnect().set("offline");
-
-                document.getElementById("my-name-display").innerText = meuUsuario.nome;
-                document.getElementById("my-subnick-display").value = meuUsuario.subnick;
-                document.getElementById("change-status").value = meuUsuario.status;
-                document.getElementById("my-status-dot").className = `status-dot dot-${meuUsuario.status}`;
-                document.getElementById("login-screen").style.display = "none";
-                document.getElementById("app-container").style.display = "block";
-                tocarSom("msg");
-
-                iniciarTempoReal();
-            } catch (err) {
-                alert("Erro ao conectar no Firebase: " + err.message);
-                btn.innerText = "Entrar no Corte ➤";
-                btn.disabled = false;
+        function mostrarAba(aba) {
+            const formLogin = document.getElementById("form-login");
+            const formCad = document.getElementById("form-cadastro");
+            const tabLogin = document.getElementById("tab-login");
+            const tabCad = document.getElementById("tab-cadastro");
+            if (aba === "login") {
+                formLogin.style.display = "block";
+                formCad.style.display = "none";
+                tabLogin.style.opacity = "1"; tabCad.style.opacity = "0.6";
+            } else {
+                formLogin.style.display = "none";
+                formCad.style.display = "block";
+                tabLogin.style.opacity = "0.6"; tabCad.style.opacity = "1";
             }
         }
 
+        // ============================================
+        // CADASTRO (nome único garantido)
+        // ============================================
+        async function fazerCadastro() {
+            const usuario = document.getElementById("cadastro-usuario").value.toLowerCase().trim();
+            const senha = document.getElementById("cadastro-senha").value;
+            const nome = document.getElementById("cadastro-nome").value.trim();
+            const subnick = document.getElementById("cadastro-subnick").value.trim() || "Buscando conversas reais ☕";
+            const status = document.getElementById("cadastro-status").value;
+            const erroEl = document.getElementById("erro-cadastro");
+            erroEl.innerText = "";
+
+            const erroUsuario = validarUsuario(usuario);
+            if (erroUsuario) { erroEl.innerText = erroUsuario; return; }
+            if (senha.length < 6) { erroEl.innerText = "Senha precisa ter no mínimo 6 caracteres."; return; }
+            if (!nome) { erroEl.innerText = "Digite seu nome de exibição."; return; }
+
+            const btn = document.getElementById("btn-cadastrar");
+            btn.innerText = "Verificando nome..."; btn.disabled = true;
+
+            try {
+                // Checagem 1: nome já existe?
+                const nomeSnap = await rtdb.ref(`nomes_usuarios/${usuario}`).get();
+                if (nomeSnap.exists()) {
+                    erroEl.innerText = `O usuário "${usuario}" já está em uso. Escolha outro.`;
+                    btn.innerText = "Criar Conta ➤"; btn.disabled = false;
+                    return;
+                }
+
+                btn.innerText = "Criando conta...";
+
+                // Checagem 2: cria no Firebase Auth
+                const cred = await auth.createUserWithEmailAndPassword(usuarioParaEmail(usuario), senha);
+                const uid = cred.user.uid;
+
+                // Checagem 3: transação para reservar nome (evita corrida)
+                const nomeRef = rtdb.ref(`nomes_usuarios/${usuario}`);
+                const resultado = await nomeRef.transaction(current => {
+                    if (current === null) return { uid, criadoEm: Date.now() };
+                    return;
+                });
+
+                if (!resultado.committed) {
+                    await cred.user.delete();
+                    erroEl.innerText = `O usuário "${usuario}" acabou de ser tomado. Escolha outro.`;
+                    btn.innerText = "Criar Conta ➤"; btn.disabled = false;
+                    return;
+                }
+
+                // Salva perfil
+                await rtdb.ref(`usuarios/${uid}`).set({
+                    id: uid, usuario, nome, subnick, status
+                });
+                rtdb.ref(`usuarios/${uid}/status`).onDisconnect().set("offline");
+
+                await carregarApp(uid);
+            } catch (err) {
+                erroEl.innerText = traduzirErro(err.code);
+                btn.innerText = "Criar Conta ➤"; btn.disabled = false;
+            }
+        }
+
+        // ============================================
+        // LOGIN
+        // ============================================
+        async function fazerLogin() {
+            const usuario = document.getElementById("login-usuario").value.toLowerCase().trim();
+            const senha = document.getElementById("login-senha").value;
+            const erroEl = document.getElementById("erro-login");
+            erroEl.innerText = "";
+
+            if (!usuario || !senha) { erroEl.innerText = "Preencha usuário e senha."; return; }
+
+            const btn = document.getElementById("btn-entrar");
+            btn.innerText = "Entrando..."; btn.disabled = true;
+
+            try {
+                const cred = await auth.signInWithEmailAndPassword(usuarioParaEmail(usuario), senha);
+                await carregarApp(cred.user.uid);
+            } catch (err) {
+                erroEl.innerText = traduzirErro(err.code);
+                btn.innerText = "Entrar no Corte ➤"; btn.disabled = false;
+            }
+        }
+
+        // ============================================
+        // CARREGAR APP
+        // ============================================
+        async function carregarApp(uid) {
+            await rtdb.ref(`usuarios/${uid}/status`).set("online");
+            rtdb.ref(`usuarios/${uid}/status`).onDisconnect().set("offline");
+
+            const snap = await rtdb.ref(`usuarios/${uid}`).get();
+            const dados = snap.val() || { id: uid, nome: "Usuário", subnick: "", status: "online" };
+
+            meuUsuario = { id: uid, ...dados };
+
+            document.getElementById("my-name-display").innerText = meuUsuario.nome;
+            document.getElementById("my-subnick-display").value = meuUsuario.subnick || "";
+            document.getElementById("change-status").value = meuUsuario.status || "online";
+            document.getElementById("my-status-dot").className = `status-dot dot-${meuUsuario.status || "online"}`;
+
+            document.getElementById("login-screen").style.display = "none";
+            document.getElementById("app-container").style.display = "block";
+
+            tocarSom("msg");
+            iniciarTempoReal();
+        }
+
+        // ============================================
+        // LOGOUT / EXCLUSÃO
+        // ============================================
+        async function sairDoCorte() {
+            if (meuUsuario) {
+                await rtdb.ref(`usuarios/${meuUsuario.id}/status`).set("offline");
+            }
+            if (refUsuariosGlobal) refUsuariosGlobal.off();
+            await auth.signOut();
+            location.reload();
+        }
+
+        async function excluirMinhaConta() {
+            if (!meuUsuario) return;
+            if (!confirm("Tem certeza? Isso apaga sua conta e libera seu nome para outras pessoas.")) return;
+
+            try {
+                const uid = meuUsuario.id;
+                const usuario = meuUsuario.usuario;
+
+                if (usuario) {
+                    await rtdb.ref(`nomes_usuarios/${usuario}`).remove();
+                }
+                await rtdb.ref(`usuarios/${uid}`).remove();
+                await auth.currentUser.delete();
+
+                alert("Conta excluída. Nome liberado.");
+                location.reload();
+            } catch (err) {
+                alert("Erro ao excluir (talvez precise fazer login de novo): " + err.message);
+            }
+        }
+
+        // ============================================
+        // PERFIL
+        // ============================================
         async function atualizarMeuPerfil() {
             if (!meuUsuario) return;
             const status = document.getElementById("change-status").value;
             const subnick = document.getElementById("my-subnick-display").value;
             document.getElementById("my-status-dot").className = `status-dot dot-${status}`;
             await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status, subnick });
-        }
-
-        async function sairDoCorte() {
-            if (meuUsuario) {
-                await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status: "offline" });
-            }
-            location.reload();
         }
 
         // ============================================
@@ -629,7 +833,9 @@
         // TEMPO REAL
         // ============================================
         function iniciarTempoReal() {
-            rtdb.ref("usuarios").on("value", (snapshot) => {
+            if (refUsuariosGlobal) refUsuariosGlobal.off();
+            refUsuariosGlobal = rtdb.ref("usuarios");
+            refUsuariosGlobal.on("value", (snapshot) => {
                 const dados = snapshot.val() || {};
                 listaUsuarios = Object.values(dados)
                     .filter(u => u.id !== meuUsuario.id)
@@ -637,7 +843,17 @@
                 renderizarContatos();
             });
         }
+
+        // ============================================
+        // LOGIN AUTOMÁTICO AO RECARREGAR
+        // ============================================
+        auth.onAuthStateChanged(async (user) => {
+            if (user) {
+                await carregarApp(user.uid);
+            }
+        });
     </script>
 </body>
 </html>
 
+                            
