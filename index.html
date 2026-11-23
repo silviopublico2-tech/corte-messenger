@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Corte Messenger - Onde cada conversa começa com respeito e intenção</title>
-    <script src="https://gstatic.com"></script>
-    <script src="https://gstatic.com"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; }
@@ -31,7 +31,7 @@
         .btn-aero-pill { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1.5px solid #5284b8; color: #0d3259; font-weight: bold; padding: 8px 34px; border-radius: 20px; cursor: pointer; font-size: 14px; margin-top: 6px; box-shadow: 0 2px 6px rgba(15, 50, 90, 0.22); }
         .btn-aero-pill:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
 
-                #app-container { display: none; }
+        #app-container { display: none; }
         .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 600px; overflow: hidden; }
         .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
         .profile-hero { padding: 14px 12px 10px 12px; text-align: center; border-bottom: 1px solid #cde0f2; }
@@ -98,47 +98,38 @@
         }
     </style>
 </head>
-
-    <body>
+<body>
+    <!-- Definições SVG dos brasões -->
     <svg style="display: none;">
         <defs>
             <linearGradient id="metal-silver" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="28%" stop-color="#cfd8dc"/>
-                <stop offset="55%" stop-color="#78909c"/>
-                <stop offset="82%" stop-color="#eceff1"/>
+                <stop offset="0%" stop-color="#ffffff"/><stop offset="28%" stop-color="#cfd8dc"/>
+                <stop offset="55%" stop-color="#78909c"/><stop offset="82%" stop-color="#eceff1"/>
                 <stop offset="100%" stop-color="#607d8b"/>
             </linearGradient>
             <linearGradient id="face-silver" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="50%" stop-color="#dfe7ee"/>
+                <stop offset="0%" stop-color="#ffffff"/><stop offset="50%" stop-color="#dfe7ee"/>
                 <stop offset="100%" stop-color="#9fb3c8"/>
             </linearGradient>
             <linearGradient id="metal-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#fff6b3"/>
-                <stop offset="25%" stop-color="#f5c71a"/>
-                <stop offset="55%" stop-color="#9e6b00"/>
-                <stop offset="80%" stop-color="#ffe066"/>
+                <stop offset="0%" stop-color="#fff6b3"/><stop offset="25%" stop-color="#f5c71a"/>
+                <stop offset="55%" stop-color="#9e6b00"/><stop offset="80%" stop-color="#ffe066"/>
                 <stop offset="100%" stop-color="#7a4f00"/>
             </linearGradient>
             <linearGradient id="face-gold" x1="0%" y1="0%" x2="0%" y2="100%">
-                <stop offset="0%" stop-color="#fffef2"/>
-                <stop offset="50%" stop-color="#f7df8b"/>
+                <stop offset="0%" stop-color="#fffef2"/><stop offset="50%" stop-color="#f7df8b"/>
                 <stop offset="100%" stop-color="#c99312"/>
             </linearGradient>
             <linearGradient id="face-sapphire" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#214f8a"/>
-                <stop offset="50%" stop-color="#0e2647"/>
+                <stop offset="0%" stop-color="#214f8a"/><stop offset="50%" stop-color="#0e2647"/>
                 <stop offset="100%" stop-color="#051021"/>
             </linearGradient>
             <linearGradient id="gem-diamond" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#ffffff"/>
-                <stop offset="45%" stop-color="#b2ebf2"/>
+                <stop offset="0%" stop-color="#ffffff"/><stop offset="45%" stop-color="#b2ebf2"/>
                 <stop offset="100%" stop-color="#00acc1"/>
             </linearGradient>
         </defs>
 
-        <!-- BRASÃO 1: CONVERSAR -->
         <symbol id="crest-conhecendo" viewBox="0 0 140 140">
             <g fill="url(#metal-silver)" stroke="#37474f" stroke-width="0.9">
                 <path d="M35 104 C16 86 14 54 31 32" fill="none" stroke="#546e7a" stroke-width="2.2"/>
@@ -166,42 +157,29 @@
             <circle cx="70" cy="19" r="2" fill="#4fc3f7"/>
             <path d="M70 29 C84 34 97 37 107 37 L107 72 C107 98 70 120 70 120 C70 120 33 98 33 72 L33 37 C43 37 56 34 70 29 Z" fill="url(#metal-silver)" stroke="#37474f" stroke-width="2.2"/>
             <path d="M70 36 C82 40 93 43 100 43 L100 71 C100 92 70 111 70 111 C70 111 40 92 40 71 L40 43 C47 43 58 40 70 36 Z" fill="url(#face-silver)" stroke="#607d8b" stroke-width="1.4"/>
-            <path d="M70 40 C80 44 90 46 96 46 L96 70 C96 89 70 106 70 106 C70 106 44 89 44 70 L44 46 C50 46 60 44 70 40 Z" fill="none" stroke="#ffffff" stroke-width="1.2" opacity="0.9"/>
-            <text x="64" y="81" font-family="Georgia, 'Times New Roman', serif" font-size="33" font-weight="bold" fill="#455a64" text-anchor="middle">C</text>
-            <text x="77" y="84" font-family="Georgia, 'Times New Roman', serif" font-size="31" font-weight="bold" fill="url(#metal-silver)" stroke="#263238" stroke-width="1.2" text-anchor="middle">M</text>
+            <text x="64" y="81" font-family="Georgia, serif" font-size="33" font-weight="bold" fill="#455a64" text-anchor="middle">C</text>
+            <text x="77" y="84" font-family="Georgia, serif" font-size="31" font-weight="bold" fill="url(#metal-silver)" stroke="#263238" stroke-width="1.2" text-anchor="middle">M</text>
         </symbol>
 
-        <!-- BRASÃO 2: COMPROMISSO -->
         <symbol id="crest-compromisso" viewBox="0 0 140 140">
             <g fill="none" stroke="url(#metal-gold)" stroke-width="3.2" stroke-linecap="round">
                 <path d="M34 40 C16 34 12 54 26 60 C12 66 14 88 34 86"/>
-                <path d="M26 60 C18 60 18 68 27 69"/>
                 <path d="M36 92 C22 102 32 118 52 114"/>
                 <path d="M106 40 C124 34 128 54 114 60 C128 66 126 88 106 86"/>
-                <path d="M114 60 C122 60 122 68 113 69"/>
                 <path d="M104 92 C118 102 108 118 88 114"/>
             </g>
-            <g fill="none" stroke="#5c3d00" stroke-width="0.9" stroke-linecap="round">
-                <path d="M34 40 C16 34 12 54 26 60 C12 66 14 88 34 86"/>
-                <path d="M106 40 C124 34 128 54 114 60 C128 66 126 88 106 86"/>
-            </g>
             <path d="M70 4 V11 M67 7 H73" stroke="#7a4f00" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M47 27 L51 13 L60 21 L70 11 L80 21 L89 13 L93 27 Z" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="1.5" stroke-linejoin="round"/>
-            <rect x="47" y="25" width="46" height="4.5" rx="1.5" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="1.2"/>
+            <path d="M47 27 L51 13 L60 21 L70 11 L80 21 L89 13 L93 27 Z" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="1.5"/>
+            <rect x="47" y="25" width="46" height="4.5" rx="1.5" fill="url(#metal-gold)" stroke="#5c3d00"/>
             <circle cx="70" cy="19" r="2.2" fill="#d32f2f"/>
-            <circle cx="58" cy="27.2" r="1.3" fill="#fff59d"/>
-            <circle cx="82" cy="27.2" r="1.3" fill="#fff59d"/>
             <path d="M70 29 C84 34 97 37 107 37 L107 72 C107 98 70 120 70 120 C70 120 33 98 33 72 L33 37 C43 37 56 34 70 29 Z" fill="url(#metal-gold)" stroke="#5c3d00" stroke-width="2.2"/>
             <path d="M70 36 C82 40 93 43 100 43 L100 71 C100 92 70 111 70 111 C70 111 40 92 40 71 L40 43 C47 43 58 40 70 36 Z" fill="url(#face-gold)" stroke="#9e6b00" stroke-width="1.4"/>
-            <path d="M52 50 Q70 43 88 50 M52 91 Q70 100 88 91" fill="none" stroke="#b8860b" stroke-width="1.2" opacity="0.75"/>
             <circle cx="61" cy="72" r="13.5" fill="none" stroke="#5c3d00" stroke-width="5.5"/>
             <circle cx="61" cy="72" r="13.5" fill="none" stroke="url(#metal-gold)" stroke-width="3.2"/>
             <circle cx="79" cy="72" r="13.5" fill="none" stroke="#5c3d00" stroke-width="5.5"/>
             <circle cx="79" cy="72" r="13.5" fill="none" stroke="#fff176" stroke-width="3.2"/>
-            <polygon points="79,54 81,58 85,59 81,60 79,64 77,60 73,59 77,58" fill="#ffffff"/>
         </symbol>
 
-        <!-- BRASÃO 3: NOIVADO -->
         <symbol id="crest-noivado" viewBox="0 0 140 140">
             <g fill="none" stroke="url(#metal-gold)" stroke-width="3.5" stroke-linecap="round">
                 <path d="M33 38 C13 30 10 53 25 60 C10 67 13 91 34 88"/>
@@ -209,37 +187,29 @@
                 <path d="M107 38 C127 30 130 53 115 60 C130 67 127 91 106 88"/>
                 <path d="M105 94 C120 105 108 121 86 116"/>
             </g>
-            <g fill="none" stroke="#0d2342" stroke-width="1.2" stroke-linecap="round">
-                <path d="M33 38 C13 30 10 53 25 60 C10 67 13 91 34 88"/>
-                <path d="M107 38 C127 30 130 53 115 60 C130 67 127 91 106 88"/>
-            </g>
             <path d="M70 4 V11 M67 7 H73" stroke="#7a4f00" stroke-width="1.8" stroke-linecap="round"/>
-            <path d="M46 27 L50 13 L60 21 L70 10 L80 21 L90 13 L94 27 Z" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="1.5" stroke-linejoin="round"/>
-            <rect x="46" y="25" width="48" height="4.5" rx="1.5" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="1.2"/>
+            <path d="M46 27 L50 13 L60 21 L70 10 L80 21 L90 13 L94 27 Z" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="1.5"/>
+            <rect x="46" y="25" width="48" height="4.5" rx="1.5" fill="url(#metal-gold)" stroke="#4a3000"/>
             <circle cx="70" cy="18.5" r="2.5" fill="#00e5ff"/>
             <path d="M70 29 C84 34 97 37 108 37 L108 72 C108 99 70 121 70 121 C70 121 32 99 32 72 L32 37 C43 37 56 34 70 29 Z" fill="url(#metal-gold)" stroke="#4a3000" stroke-width="2.2"/>
             <path d="M70 36 C82 40 93 43 101 43 L101 71 C101 93 70 112 70 112 C70 112 39 93 39 71 L39 43 C47 43 58 40 70 36 Z" fill="url(#face-sapphire)" stroke="#ffd700" stroke-width="1.4"/>
-            <polygon points="58,56 82,56 91,68 70,98 49,68" fill="url(#gem-diamond)" stroke="#ffffff" stroke-width="1.6" stroke-linejoin="round"/>
+            <polygon points="58,56 82,56 91,68 70,98 49,68" fill="url(#gem-diamond)" stroke="#ffffff" stroke-width="1.6"/>
             <polyline points="49,68 91,68" fill="none" stroke="#ffffff" stroke-width="1.4"/>
             <polyline points="58,56 61,68 70,98 79,68 82,56" fill="none" stroke="#006064" stroke-width="1.1"/>
-            <polyline points="61,68 70,56 79,68" fill="none" stroke="#ffffff" stroke-width="1.2"/>
-            <polygon points="85,51 87,56 92,57 87,58 85,63 83,58 78,57 83,56" fill="#ffffff"/>
         </symbol>
     </svg>
 
-            <div id="login-screen" class="aero-frame">
-        <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div></div>
+    <div id="login-screen" class="aero-frame">
+        <div class="aero-titlebar"><span>🛡️ Corte Messenger</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close">✕</span></div></div>
         <div class="login-inner">
             <div class="login-crests-row">
                 <div class="login-crest-item"><svg><use href="#crest-conhecendo"></use></svg><div>Conversar</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-compromisso"></use></svg><div>Compromisso</div></div>
                 <div class="login-crest-item"><svg><use href="#crest-noivado"></use></svg><div>Noivado</div></div>
             </div>
-
             <div class="corte-ribbon-box">
                 <div class="meaning"><strong>Corte</strong> <em>(s.f.)</em> - Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
             </div>
-
             <div class="login-grid-form">
                 <div class="login-grid-row">
                     <label>Seu Nome e Cidade:</label>
@@ -258,18 +228,17 @@
                     <input type="text" id="login-subnick" placeholder="Ex: Buscando conversas reais e café ☕">
                 </div>
             </div>
-
             <button class="btn-aero-pill" id="btn-entrar" onclick="entrarNoCorte()">Entrar no Corte ➤</button>
         </div>
     </div>
 
     <div id="app-container" class="aero-frame">
-        <div class="aero-titlebar"><span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div></div>
+        <div class="aero-titlebar"><span>🛡️ Corte Messenger</span><div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div></div>
         <div class="main-workspace" id="workspace-box">
             <div class="left-sidebar">
                 <div class="profile-hero">
                     <div class="hero-crest"><svg width="86" height="86"><use href="#crest-conhecendo"></use></svg></div>
-                    <div class="my-status-row"><span id="my-status-dot" class="status-dot dot-online"></span><span id="my-name-display">Usuário</span><select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 10px; border: 1px solid #a6c5e3; border-radius: 3px;"><option value="online">Online</option><option value="busy">Ocupado</option><option value="away">Ausente</option></select></div>
+                    <div class="my-status-row"><span id="my-status-dot" class="status-dot dot-online"></span><span id="my-name-display">Usuário</span><select id="change-status" onchange="atualizarMeuPerfil()" style="font-size: 10px;"><option value="online">Online</option><option value="busy">Ocupado</option><option value="away">Ausente</option></select></div>
                     <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
                 </div>
                 <div class="search-box"><input type="text" id="search-input" onkeyup="renderizarContatos()" placeholder="🔍 Buscar contato..."></div>
@@ -279,7 +248,7 @@
                 <div class="stage-topbar">
                     <div id="topbar-empty" class="stage-topbar-title">Nenhuma conversa selecionada</div>
                     <div id="topbar-active" class="active-chat-bar" style="display: none;">
-                        <div><strong id="active-contact-name" style="font-size: 13px; color: #103c66;">Nome</strong><div id="active-contact-subnick" style="font-size: 11px; color: #5c7691;">Subnick</div></div>
+                        <div><strong id="active-contact-name">Nome</strong><div id="active-contact-subnick">Subnick</div></div>
                         <div class="stage-pill"><svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg><select id="stage-select" onchange="alterarEstagio()"><option value="conhecendo">1. Conversar</option><option value="compromisso">2. Compromisso</option><option value="noivado">3. Noivado</option></select></div>
                     </div>
                 </div>
@@ -293,6 +262,9 @@
                         </div>
                         <div class="corte-definition-box">
                             <div class="word">Corte <span>(s.f.)</span></div>
+                            <div class="meaning">Conjunto
+
+                                                            <div class="word">Corte <span>(s.f.)</span></div>
                             <div class="meaning">Conjunto de atenções, elogios ou gentilezas dispensados a alguém durante uma interação para conquistar sua simpatia, apoio ou boa vontade.</div>
                         </div>
                     </div>
@@ -301,34 +273,48 @@
                     <div class="composer-tools">
                         <button class="icon-tool" onclick="chamarAtencao()">⚡ Chamar atenção</button>
                         <label class="icon-tool">📎 Foto Privada<input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)"></label>
-                        <button class="icon-tool" onclick="inserirEmoticon('😊')">😊</button><button class="icon-tool" onclick="inserirEmoticon('☕')">☕</button><button class="icon-tool" onclick="inserirEmoticon('🤝')">🤝</button>
+                        <button class="icon-tool" onclick="inserirEmoticon('😊')">😊</button>
+                        <button class="icon-tool" onclick="inserirEmoticon('☕')">☕</button>
+                        <button class="icon-tool" onclick="inserirEmoticon('🤝')">🤝</button>
                     </div>
-                    <div class="composer-input-row"><input type="text" id="message-input" placeholder="Escreva sua mensagem com respeito..." onkeypress="if(event.key==='Enter') enviarMensagem()"><button class="btn-send-aero" onclick="enviarMensagem()">➤ Enviar</button></div>
+                    <div class="composer-input-row">
+                        <input type="text" id="message-input" placeholder="Escreva sua mensagem com respeito..." onkeypress="if(event.key==='Enter') enviarMensagem()">
+                        <button class="btn-send-aero" onclick="enviarMensagem()">➤ Enviar</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
-            <script>
+    <script>
+        // ============================================
+        // CONFIGURAÇÃO DO FIREBASE
+        // ============================================
         const firebaseConfig = {
             apiKey: "AIzaSyB9WgHtsxYgiQt5JqpzSTqh7tiHuYkJbvc",
-            authDomain: "://firebaseapp.com",
-            databaseURL: "https://firebaseio.com",
+            authDomain: "corte-messenger.firebaseapp.com",
+            databaseURL: "https://corte-messenger-default-rtdb.firebaseio.com",
             projectId: "corte-messenger",
             storageBucket: "corte-messenger.firebasestorage.app",
             messagingSenderId: "380964750701",
             appId: "1:380964750701:web:85e7ef7f83772143da4664"
         };
 
-        const app = firebase.initializeApp(firebaseConfig);
-        const rtdb = app.database("https://firebaseio.com");
+        firebase.initializeApp(firebaseConfig);
+        const rtdb = firebase.database();
 
+        // ============================================
+        // ESTADO GLOBAL
+        // ============================================
         let meuUsuario = null;
         let listaUsuarios = [];
         let contatoAtual = null;
         let refChatAtual = null;
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
 
+        // ============================================
+        // UTILITÁRIOS
+        // ============================================
         function escaparHTML(str) {
             return String(str).replace(/[&<>"']/g, s => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[s]));
         }
@@ -344,29 +330,44 @@
                 const gain = ctx.createGain();
                 osc.connect(gain); gain.connect(ctx.destination);
                 if (tipo === "msg") {
-                    osc.type = "sine"; osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.12, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+                    osc.type = "sine";
+                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
                     osc.start(); osc.stop(ctx.currentTime + 0.35);
                 } else if (tipo === "nudge") {
-                    osc.type = "sawtooth"; osc.frequency.setValueAtTime(160, ctx.currentTime); osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
-                    gain.gain.setValueAtTime(0.18, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+                    osc.type = "sawtooth";
+                    osc.frequency.setValueAtTime(160, ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
                     osc.start(); osc.stop(ctx.currentTime + 0.45);
                 } else if (tipo === "selo") {
-                    osc.type = "triangle"; osc.frequency.setValueAtTime(523.25, ctx.currentTime); osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12); osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
-                    gain.gain.setValueAtTime(0.15, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+                    osc.type = "triangle";
+                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
+                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12);
+                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
                     osc.start(); osc.stop(ctx.currentTime + 0.55);
                 }
-            } catch (e) {}
+            } catch (e) { /* áudio bloqueado */ }
         }
 
+        // ============================================
+        // LOGIN / LOGOUT
+        // ============================================
         async function entrarNoCorte() {
             const nome = document.getElementById("login-name").value.trim();
             const subnick = document.getElementById("login-subnick").value.trim() || "Buscando conversas reais e café ☕";
             const status = document.getElementById("login-status").value;
+
             if (!nome) { alert("Digite seu nome para entrar."); return; }
 
             const btn = document.getElementById("btn-entrar");
-            btn.innerText = "Conectando..."; btn.disabled = true;
+            btn.innerText = "Conectando...";
+            btn.disabled = true;
 
             try {
                 const novoRef = rtdb.ref("usuarios").push();
@@ -386,7 +387,8 @@
                 iniciarTempoReal();
             } catch (err) {
                 alert("Erro ao conectar no Firebase: " + err.message);
-                btn.innerText = "Entrar no Corte ➤"; btn.disabled = false;
+                btn.innerText = "Entrar no Corte ➤";
+                btn.disabled = false;
             }
         }
 
@@ -399,19 +401,27 @@
         }
 
         async function sairDoCorte() {
-            if (meuUsuario) await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status: "offline" });
+            if (meuUsuario) {
+                await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status: "offline" });
+            }
             location.reload();
         }
 
+        // ============================================
+        // LISTA DE CONTATOS
+        // ============================================
         function renderizarContatos() {
             const area = document.getElementById("contact-list-area");
             const filtro = document.getElementById("search-input").value.toLowerCase();
             area.innerHTML = "";
+
             const filtrados = listaUsuarios.filter(u =>
                 u.nome.toLowerCase().includes(filtro) ||
                 (u.subnick && u.subnick.toLowerCase().includes(filtro))
             );
+
             area.innerHTML += `<div class="contacts-header">▾ Contatos (${filtrados.length})</div>`;
+
             filtrados.forEach(u => {
                 const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
                 area.innerHTML += `
@@ -428,9 +438,13 @@
             });
         }
 
-                        function abrirChat(id) {
+        // ============================================
+        // ABRIR CHAT
+        // ============================================
+        function abrirChat(id) {
             contatoAtual = listaUsuarios.find(u => u.id === id);
             if (!contatoAtual) return;
+
             renderizarContatos();
             document.getElementById("topbar-empty").style.display = "none";
             document.getElementById("topbar-active").style.display = "flex";
@@ -454,7 +468,9 @@
                         if (ultima.texto && ultima.texto.includes("chamou a atenção")) {
                             tocarSom("nudge");
                             const box = document.getElementById("workspace-box");
-                            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+                            box.classList.remove("shake");
+                            void box.offsetWidth;
+                            box.classList.add("shake");
                         } else if (ultima.texto && ultima.texto.startsWith("[ACEITO]")) {
                             tocarSom("selo");
                         } else {
@@ -466,34 +482,67 @@
             });
         }
 
+        // ============================================
+        // RENDER DAS MENSAGENS
+        // ============================================
         function exibirMensagensNaTela(lista) {
             const box = document.getElementById("chat-messages");
             box.innerHTML = "";
+
             let estagioConfirmado = "conhecendo";
-            lista.forEach(m => { if (m.texto && m.texto.startsWith("[ACEITO]")) estagioConfirmado = m.estagio || "conhecendo"; });
+            lista.forEach(m => {
+                if (m.texto && m.texto.startsWith("[ACEITO]")) {
+                    estagioConfirmado = m.estagio || "conhecendo";
+                }
+            });
 
             lista.forEach((m, index) => {
                 if (m.texto && m.texto.startsWith("[PROPOSTA]")) {
                     const est = m.estagio;
-                    const jaResp = lista.slice(index + 1).some(n => n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]")));
+                    const jaResp = lista.slice(index + 1).some(n =>
+                        n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]"))
+                    );
+
                     if (m.remetente_id === meuUsuario.id) {
-                        box.innerHTML += `<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span></div>`;
+                        box.innerHTML += `<div class="msg-system">
+                            <svg width="20" height="20"><use href="#crest-${est}"></use></svg>
+                            <span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span>
+                        </div>`;
                     } else {
-                        const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
-                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
+                        const btns = jaResp ? "" : `
+                            <div style="margin-top:5px;display:flex;gap:6px;justify-content:center;">
+                                <button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button>
+                                <button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button>
+                            </div>`;
+                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;">
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <svg width="20" height="20"><use href="#crest-${est}"></use></svg>
+                                <span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span>
+                            </div>
+                            ${btns}
+                        </div>`;
                     }
                 } else if (m.texto && m.texto.startsWith("[ACEITO]")) {
-                    box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
+                    box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;">
+                        <svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg>
+                        <span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span>
+                    </div>`;
                 } else if (m.texto && m.texto.startsWith("[RECUSADO]")) {
                     box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
                     box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`;
                 } else if (m.foto_url) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou uma foto privada:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}">
+                        <div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou uma foto privada:</div>
+                        <div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div>
+                    </div>`;
                 } else {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}">
+                        <div class="msg-sender">${escaparHTML(m.remetente_nome)} diz:</div>
+                        <div class="msg-bubble">${escaparHTML(m.texto)}</div>
+                    </div>`;
                 }
             });
 
@@ -502,6 +551,9 @@
             box.scrollTop = box.scrollHeight;
         }
 
+        // ============================================
+        // ENVIO DE EVENTOS
+        // ============================================
         async function gravarEventoNoChat(dados) {
             if (!contatoAtual || !meuUsuario) return;
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
@@ -533,7 +585,10 @@
                 tocarSom("selo");
                 await gravarEventoNoChat({ texto: "[ACEITO]", estagio: est });
             } else {
-                await gravarEventoNoChat({ texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio atual.`, estagio: "conhecendo" });
+                await gravarEventoNoChat({
+                    texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio atual.`,
+                    estagio: "conhecendo"
+                });
             }
         }
 
@@ -541,13 +596,19 @@
             if (!contatoAtual || !meuUsuario) return;
             tocarSom("nudge");
             const box = document.getElementById("workspace-box");
-            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
-            await gravarEventoNoChat({ texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: document.getElementById("stage-select").value });
+            box.classList.remove("shake");
+            void box.offsetWidth;
+            box.classList.add("shake");
+            await gravarEventoNoChat({
+                texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`,
+                estagio: document.getElementById("stage-select").value
+            });
         }
 
         function inserirEmoticon(emoji) {
             const input = document.getElementById("message-input");
-            input.value += emoji; input.focus();
+            input.value += emoji;
+            input.focus();
         }
 
         function enviarFotoPrivada(event) {
@@ -555,12 +616,18 @@
             if (!file || !contatoAtual || !meuUsuario) return;
             const reader = new FileReader();
             reader.onload = async function(e) {
-                await gravarEventoNoChat({ foto_url: e.target.result, estagio: document.getElementById("stage-select").value });
+                await gravarEventoNoChat({
+                    foto_url: e.target.result,
+                    estagio: document.getElementById("stage-select").value
+                });
             };
             reader.readAsDataURL(file);
             event.target.value = "";
         }
 
+        // ============================================
+        // TEMPO REAL
+        // ============================================
         function iniciarTempoReal() {
             rtdb.ref("usuarios").on("value", (snapshot) => {
                 const dados = snapshot.val() || {};
@@ -574,7 +641,3 @@
 </body>
 </html>
 
-            
-
-                
-             
