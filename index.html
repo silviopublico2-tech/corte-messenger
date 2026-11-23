@@ -109,6 +109,9 @@
         .btn-add-contato:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
         .btn-add-contato:disabled { opacity: 0.6; cursor: not-allowed; }
         .empty-contacts { text-align: center; font-size: 11px; color: #5c7691; padding: 14px 8px; line-height: 1.4; }
+        .badge-nao-lidas { background: #e84118; color: white; font-size: 10px; font-weight: bold; border-radius: 10px; padding: 1px 6px; min-width: 18px; text-align: center; margin-left: auto; flex-shrink: 0; }
+        #radio-btn { position: fixed; bottom: 20px; right: 20px; z-index: 9999; border-radius: 50%; width: 50px; height: 50px; background: #5284b8; color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+        #radio-panel { display: none; position: fixed; bottom: 80px; right: 20px; z-index: 9999; background: white; border: 1px solid #5284b8; border-radius: 8px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 250px; }
         @media (max-width: 768px) {
             .main-workspace { flex-direction: column; height: auto; }
             .left-sidebar { width: 100%; max-height: 420px; border-right: none; border-bottom: 1px solid #b5d1eb; }
@@ -129,6 +132,8 @@
             .contact-title { font-size: 13px; }
             .contact-sub { font-size: 10.5px; }
             .contacts-scroll { padding: 3px 5px; }
+            #radio-panel { width: 200px; bottom: 80px; right: 10px; }
+            #radio-btn { bottom: 15px; right: 15px; width: 44px; height: 44px; font-size: 18px; }
         }
     </style>
 </head>
@@ -335,7 +340,10 @@
             </div>
             <div class="right-stage">
                 <div class="stage-topbar">
-                    <div id="topbar-empty" class="stage-topbar-title">Nenhuma conversa selecionada</div>
+                    <div id="topbar-empty" class="stage-topbar-title" style="text-align:center;">
+                        <div>Nenhuma conversa selecionada</div>
+                        <div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Selecione um contato salvo na lista à esquerda para começar.</div>
+                    </div>
                     <div id="topbar-active" class="active-chat-bar" style="display: none;">
                         <div>
                             <strong id="active-contact-name" style="color: #103c66;">Nome</strong>
@@ -383,7 +391,21 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <button id="radio-btn" onclick="toggleRadio()" title="Rádio Clássica">📻</button>
+    <div id="radio-panel">
+        <h4 style="margin: 0 0 10px 0; color: #103c66;">📻 Public Domain Classical</h4>
+        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+            <button id="radio-play" onclick="playRadio()" style="background: #4cd137; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">▶️</button>
+            <button id="radio-pause" onclick="pauseRadio()" style="background: #e84118; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">⏸️</button>
         </div>
+        <label for="radio-volume" style="font-size: 12px; color: #333;">Volume:</label>
+        <input type="range" id="radio-volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" style="width: 100%;">
+    </div>
+    <audio id="radio-player" preload="none">
+        <source src="http://relay.publicdomainradio.org:80/classical.mp3" type="audio/mpeg">
+    </audio>
 
 
 
@@ -410,6 +432,8 @@
         let refUsuariosGlobal = null;
         let meusContatos = {};
         let refContatosGlobal = null;
+        let naoLidas = {};
+        let refNaoLidasGlobal = null;
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
 
         function toggleSenha(idInput, btn) {
@@ -514,7 +538,6 @@
                 tabLogin.style.opacity = "0.6"; tabCad.style.opacity = "1";
             }
         }
-
 
 
                     async function fazerCadastro() {
@@ -648,6 +671,7 @@
             }
             if (refUsuariosGlobal) refUsuariosGlobal.off();
             if (refContatosGlobal) refContatosGlobal.off();
+            if (refNaoLidasGlobal) refNaoLidasGlobal.off();
             await auth.signOut();
             location.reload();
         }
@@ -662,6 +686,7 @@
                     await rtdb.ref(`nomes_usuarios/${usuario}`).remove();
                 }
                 await rtdb.ref(`contatos/${uid}`).remove();
+                await rtdb.ref(`nao_lidas/${uid}`).remove();
                 await rtdb.ref(`usuarios/${uid}`).remove();
                 await auth.currentUser.delete();
                 alert("Conta excluída. Nome liberado.");
@@ -689,12 +714,48 @@
             });
         }
 
+        function carregarNaoLidas() {
+            if (!meuUsuario) return;
+            if (refNaoLidasGlobal) refNaoLidasGlobal.off();
+            refNaoLidasGlobal = rtdb.ref(`nao_lidas/${meuUsuario.id}`);
+            refNaoLidasGlobal.on("value", (snapshot) => {
+                naoLidas = snapshot.val() || {};
+                renderizarContatos();
+            });
+        }
+
+        async function zerarNaoLidas(idContato) {
+            if (!meuUsuario) return;
+            await rtdb.ref(`nao_lidas/${meuUsuario.id}/${idContato}`).remove();
+        }
+
+        async function incrementarNaoLidas(idContato) {
+            if (!meuUsuario || !idContato) return;
+            const ref = rtdb.ref(`nao_lidas/${meuUsuario.id}/${idContato}`);
+            await ref.transaction(current => (current || 0) + 1);
+        }
+
         function renderizarContatos() {
             const area = document.getElementById("contact-list-area");
             area.innerHTML = "";
 
             const ids = Object.keys(meusContatos);
             const meusContatosList = listaUsuarios.filter(u => ids.includes(u.id));
+
+            const topbarEmpty = document.getElementById("topbar-empty");
+            if (topbarEmpty && !contatoAtual) {
+                if (meusContatosList.length === 0) {
+                    topbarEmpty.innerHTML = `
+                        <div>Nenhuma conversa selecionada</div>
+                        <div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Use a busca acima para adicionar seu primeiro contato.</div>
+                    `;
+                } else {
+                    topbarEmpty.innerHTML = `
+                        <div>Nenhuma conversa selecionada</div>
+                        <div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Selecione um contato salvo na lista à esquerda para começar.</div>
+                    `;
+                }
+            }
 
             if (meusContatosList.length === 0) {
                 area.innerHTML = `<div class="contacts-header">▾ Contatos (0)</div>
@@ -709,6 +770,10 @@
 
             meusContatosList.forEach(u => {
                 const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
+                const qtdNaoLidas = naoLidas[u.id] || 0;
+                const badge = qtdNaoLidas > 0
+                    ? `<span class="badge-nao-lidas">${qtdNaoLidas > 99 ? "99+" : qtdNaoLidas}</span>`
+                    : "";
                 area.innerHTML += `
                     <div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')">
                         <div class="contact-crest-avatar">
@@ -719,6 +784,7 @@
                             <div class="contact-title">${escaparHTML(u.nome)}</div>
                             <div class="contact-sub">${escaparHTML(u.subnick || "")}</div>
                         </div>
+                        ${badge}
                     </div>`;
             });
         }
@@ -779,6 +845,7 @@
             contatoAtual = listaUsuarios.find(u => u.id === id);
             if (!contatoAtual) return;
 
+            zerarNaoLidas(contatoAtual.id);
             renderizarContatos();
             document.getElementById("topbar-empty").style.display = "none";
             document.getElementById("topbar-active").style.display = "flex";
@@ -978,6 +1045,21 @@
             event.target.value = "";
         }
 
+        function escutarMensagensGlobais() {
+            if (!meuUsuario) return;
+            rtdb.ref("mensagens").on("child_added", (salaSnap) => {
+                const salaId = salaSnap.key;
+                if (!salaId.includes(meuUsuario.id)) return;
+                salaSnap.ref.limitToLast(1).on("child_added", (msgSnap) => {
+                    const msg = msgSnap.val();
+                    if (!msg || msg.remetente_id === meuUsuario.id) return;
+                    if (!contatoAtual || contatoAtual.id !== msg.remetente_id) {
+                        incrementarNaoLidas(msg.remetente_id);
+                    }
+                });
+            });
+        }
+
         function iniciarTempoReal() {
             if (refUsuariosGlobal) refUsuariosGlobal.off();
             refUsuariosGlobal = rtdb.ref("usuarios");
@@ -990,6 +1072,34 @@
                 buscarUsuarios();
             });
             carregarMeusContatos();
+            carregarNaoLidas();
+            escutarMensagensGlobais();
+        }
+
+        const radioPlayer = document.getElementById("radio-player");
+        const radioPanel = document.getElementById("radio-panel");
+
+        function toggleRadio() {
+            if (radioPanel.style.display === "none" || !radioPanel.style.display) {
+                radioPanel.style.display = "block";
+            } else {
+                radioPanel.style.display = "none";
+            }
+        }
+
+        function playRadio() {
+            radioPlayer.play().catch(e => {
+                console.error("Erro ao tocar rádio:", e);
+                alert("Não foi possível iniciar a rádio. Verifique sua conexão.");
+            });
+        }
+
+        function pauseRadio() {
+            radioPlayer.pause();
+        }
+
+        function setVolume(valor) {
+            radioPlayer.volume = parseFloat(valor);
         }
 
         auth.onAuthStateChanged(async (user) => {
