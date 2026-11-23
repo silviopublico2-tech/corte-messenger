@@ -35,9 +35,8 @@
         .olho-senha { position: absolute; right: 6px; top: 50%; transform: translateY(-50%); background: transparent; border: none; cursor: pointer; font-size: 16px; padding: 4px 6px; color: #4a637d; line-height: 1; border-radius: 4px; }
         .olho-senha:hover { color: #103c66; background: rgba(140, 180, 216, 0.2); }
 
-
-                #app-container { display: none; }
-        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 720px; overflow: hidden; }
+        #app-container { display: none; }
+        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px 6px 0 0; height: 680px; overflow: hidden; }
         .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
         .profile-hero { padding: 8px 10px 6px 10px; text-align: center; border-bottom: 1px solid #cde0f2; }
         .hero-crest { width: 64px; height: 64px; margin: 0 auto 4px auto; filter: drop-shadow(0 3px 6px rgba(15, 35, 65, 0.22)); }
@@ -63,7 +62,7 @@
         .contact-info { overflow: hidden; flex: 1; }
         .contact-title { font-size: 13.5px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
         .contact-sub { font-size: 11px; color: #5c7691; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
-        .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; }
+        .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; position: relative; min-width: 0; }
         .stage-topbar { background: linear-gradient(180deg, #f2f8fe 0%, #dcebfa 100%); border-bottom: 1px solid #b5d1eb; padding: 9px 15px; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
         .stage-topbar-title { font-size: 14px; font-weight: 600; color: #1e4268; margin: auto; }
         .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; }
@@ -74,7 +73,7 @@
         #active-contact-subnick { font-size: 12.5px; }
         .btn-fechar-chat { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); border: 1px solid #8f2d2d; color: white; font-size: 11px; font-weight: bold; padding: 3px 9px; border-radius: 4px; cursor: pointer; margin-left: 8px; }
         .btn-fechar-chat:hover { background: linear-gradient(180deg, #f7b0b0 0%, #d95a5a 100%); }
-        .messages-canvas { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
+        .messages-canvas { flex: 1; padding: 16px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
         .welcome-board { margin: auto; text-align: center; max-width: 520px; width: 100%; }
         .welcome-board h2 { font-family: Georgia, serif; font-size: 24px; color: #1a2b3c; margin-bottom: 18px; font-weight: normal; }
         .three-crests-row { display: flex; justify-content: space-around; gap: 10px; margin-bottom: 22px; }
@@ -87,16 +86,22 @@
         .corte-definition-box .meaning { font-size: 12.5px; color: #2c3e50; line-height: 1.45; }
         .msg { font-size: 13px; }
         .msg-sender { font-size: 11px; color: #5c7691; margin-bottom: 2px; }
-        .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; }
+        .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; word-break: break-word; }
         .msg.me .msg-bubble { background: #e3f2fd; border-color: #9ec9f0; }
         .msg-system { align-self: center; background: #eef6fc; border: 1px solid #c5dff7; color: #174978; font-size: 11px; padding: 6px 12px; border-radius: 10px; display: flex; align-items: center; gap: 6px; text-align: center; }
         .chat-photo { max-width: 220px; border-radius: 6px; border: 2px solid #8cb4d8; margin-top: 4px; display: block; }
+        .chat-audio { height: 34px; max-width: 240px; margin-top: 4px; display: block; }
+
         .bottom-composer { border-top: 1px solid #c2dcf2; background: #f3f8fd; }
-        .composer-tools { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-bottom: 1px solid #dcebfa; background: #eaf3fc; flex-wrap: wrap; }
+        .composer-tools { display: flex; align-items: center; gap: 6px; padding: 5px 10px; border-bottom: 1px solid #dcebfa; background: #eaf3fc; flex-wrap: wrap; }
         .icon-tool { background: transparent; border: 1px solid transparent; border-radius: 4px; padding: 3px 7px; font-size: 12px; cursor: pointer; color: #1e4268; display: flex; align-items: center; gap: 4px; }
+        .icon-tool:hover { background: #d5e8fa; border-color: #9ec5e8; }
+        .icon-tool.recording { background: #ffe5e5; border-color: #e84118; color: #b22222; font-weight: bold; animation: pulseRec 1s infinite; }
+        @keyframes pulseRec { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
         .composer-input-row { display: flex; gap: 8px; padding: 8px 12px; background: white; }
         .composer-input-row input { flex: 1; border: none; outline: none; font-size: 13px; padding: 4px; }
         .btn-send-aero { background: linear-gradient(180deg, #f8fbff 0%, #d4e7fa 100%); border: 1px solid #8cb4d8; color: #174978; font-weight: bold; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .btn-send-aero:hover { background: linear-gradient(180deg, #ffffff 0%, #e1f0fd 100%); }
         @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-7px, -5px); } 40% { transform: translate(7px, 5px); } 60% { transform: translate(-7px, 5px); } 80% { transform: translate(7px, -5px); } }
         .shake { animation: nudgeShake 0.45s ease-in-out; }
         .search-result-row { display: flex; align-items: center; gap: 8px; padding: 8px; background: #fff8e1; border: 1px solid #e6c76a; border-radius: 5px; margin-bottom: 4px; }
@@ -110,37 +115,105 @@
         .btn-add-contato:disabled { opacity: 0.6; cursor: not-allowed; }
         .empty-contacts { text-align: center; font-size: 11px; color: #5c7691; padding: 14px 8px; line-height: 1.4; }
         .badge-nao-lidas { background: #e84118; color: white; font-size: 10px; font-weight: bold; border-radius: 10px; padding: 1px 6px; min-width: 18px; text-align: center; margin-left: auto; flex-shrink: 0; }
-        #radio-btn { position: fixed; bottom: 20px; right: 20px; z-index: 9999; border-radius: 50%; width: 50px; height: 50px; background: #5284b8; color: white; border: none; font-size: 20px; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
-        #radio-panel { display: none; position: fixed; bottom: 80px; right: 20px; z-index: 9999; background: white; border: 1px solid #5284b8; border-radius: 8px; padding: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 250px; }
+
+        /* BARRA INFERIOR DE RÁDIO E SOM */
+        .bottom-radio-bar {
+            background: linear-gradient(180deg, #e5f1fc 0%, #c6e0f7 100%);
+            border: 1px solid #7da7cf;
+            border-top: none;
+            border-radius: 0 0 6px 6px;
+            padding: 7px 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            flex-wrap: wrap;
+            font-size: 12px;
+            color: #103c66;
+        }
+        .radio-controls-group { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+        .btn-radio-aero {
+            background: linear-gradient(180deg, #ffffff 0%, #d8ebfc 100%);
+            border: 1px solid #6b99c7;
+            color: #0d3259;
+            font-weight: 600;
+            padding: 4px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .btn-radio-aero:hover { background: linear-gradient(180deg, #ffffff 0%, #ebf5fe 100%); }
+        .btn-radio-aero.active-play { background: linear-gradient(180deg, #d4f7dc 0%, #9ce3ad 100%); border-color: #2e8b57; color: #14522d; }
+        .radio-station-label { font-weight: bold; color: #174978; background: rgba(255,255,255,0.7); padding: 3px 8px; border-radius: 4px; border: 1px solid #b5d1eb; font-size: 11.5px; }
+
+        /* PAINEL DE JOGOS INTEGRADO */
+        .game-panel-overlay {
+            background: linear-gradient(180deg, #f4f9fe 0%, #e1effb 100%);
+            border-bottom: 2px solid #7da7cf;
+            padding: 12px 16px;
+            box-shadow: 0 4px 12px rgba(15, 45, 80, 0.14);
+            z-index: 10;
+        }
+        .game-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #bfd8f0; padding-bottom: 6px; }
+        .game-title { font-weight: bold; font-size: 13.5px; color: #0d3259; }
+        .ttt-grid { display: grid; grid-template-columns: repeat(3, 56px); gap: 5px; justify-content: center; margin: 8px auto; }
+        .ttt-cell {
+            width: 56px; height: 56px;
+            background: linear-gradient(180deg, #ffffff 0%, #dfeefc 100%);
+            border: 1.5px solid #6b99c7;
+            border-radius: 6px;
+            font-size: 24px;
+            font-weight: bold;
+            color: #103c66;
+            cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .ttt-cell:hover { background: #ffffff; }
+        .forca-word { font-family: 'Courier New', monospace; font-size: 22px; font-weight: bold; letter-spacing: 6px; color: #0d3259; text-align: center; margin: 8px 0; }
+        .forca-keys { display: flex; flex-wrap: wrap; gap: 4px; justify-content: center; max-width: 440px; margin: 6px auto; }
+        .forca-key {
+            width: 28px; height: 28px;
+            background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 100%);
+            border: 1px solid #6b99c7;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #103c66;
+            cursor: pointer;
+        }
+        .forca-key:disabled { opacity: 0.4; cursor: not-allowed; background: #cfd8dc; }
+        .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 8px; }
+        .quiz-opt-btn {
+            background: linear-gradient(180deg, #ffffff 0%, #e3f0fc 100%);
+            border: 1px solid #7aa6d2;
+            border-radius: 5px;
+            padding: 7px 10px;
+            font-size: 12px;
+            color: #103c66;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+        }
+        .quiz-opt-btn:hover { background: #ffffff; border-color: #3a75b0; }
+        .quiz-opt-btn.selected { background: linear-gradient(180deg, #fff6cc 0%, #f7df8b 100%); border-color: #c99312; }
+
         @media (max-width: 768px) {
             .main-workspace { flex-direction: column; height: auto; }
-            .left-sidebar { width: 100%; max-height: 420px; border-right: none; border-bottom: 1px solid #b5d1eb; }
-            .right-stage { min-height: 380px; }
+            .left-sidebar { width: 100%; max-height: 360px; border-right: none; border-bottom: 1px solid #b5d1eb; }
+            .right-stage { min-height: 400px; }
             .login-crest-item svg, .crest-item svg { width: 82px; height: 82px; }
             .login-grid-row { flex-direction: column; align-items: stretch; gap: 4px; }
             .login-grid-row label { text-align: left; min-width: auto; }
-            .profile-hero { padding: 6px 8px 4px 8px; }
-            .hero-crest { width: 56px; height: 56px; }
-            .hero-crest svg { width: 56px; height: 56px; }
-            .my-status-row { font-size: 13px; }
-            .subnick-edit { font-size: 10px; padding: 2px 4px; }
-            .search-box { padding: 4px 6px; }
-            .search-box input { padding: 4px 8px; font-size: 12px; }
-            .contact-row { padding: 4px 6px; }
-            .contact-crest-avatar { width: 30px; height: 30px; }
-            .contact-crest-avatar svg { width: 30px; height: 30px; }
-            .contact-title { font-size: 13px; }
-            .contact-sub { font-size: 10.5px; }
-            .contacts-scroll { padding: 3px 5px; }
-            #radio-panel { width: 200px; bottom: 80px; right: 10px; }
-            #radio-btn { bottom: 15px; right: 15px; width: 44px; height: 44px; font-size: 18px; }
+            .quiz-options { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
-
-        <svg style="display: none;">
+    <svg style="display: none;">
         <defs>
             <linearGradient id="metal-silver" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#ffffff"/><stop offset="28%" stop-color="#cfd8dc"/>
@@ -310,8 +383,7 @@
         </div>
     </div>
 
-
-        <div id="app-container" class="aero-frame">
+    <div id="app-container" class="aero-frame">
         <div class="aero-titlebar">
             <span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span>
             <div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div>
@@ -362,6 +434,10 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- PAINEL DE JOGOS EM TEMPO REAL -->
+                <div id="game-panel" class="game-panel-overlay" style="display:none;"></div>
+
                 <div class="messages-canvas" id="chat-messages">
                     <div class="welcome-board">
                         <h2>Bem-vindo ao Corte Messenger</h2>
@@ -376,10 +452,16 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="bottom-composer">
                     <div class="composer-tools">
                         <button class="icon-tool" onclick="chamarAtencao()">⚡ Chamar atenção</button>
-                        <label class="icon-tool">📎 Foto Privada<input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)"></label>
+                        <label class="icon-tool">📎 Foto<input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)"></label>
+                        <button class="icon-tool" id="btn-gravar-audio" onclick="alternarGravacaoAudio()">🎙️ Áudio</button>
+                        <button class="icon-tool" id="btn-cancelar-audio" style="display:none;color:#b22222;" onclick="cancelarGravacaoAudio()">✕ Cancelar</button>
+                        <button class="icon-tool" onclick="iniciarJogo('velha')">⭕❌ Velha</button>
+                        <button class="icon-tool" onclick="iniciarJogo('forca')">🔤 Forca</button>
+                        <button class="icon-tool" onclick="iniciarJogo('quiz')">💑 Quiz Casal</button>
                         <button class="icon-tool" onclick="inserirEmoticon('😊')">😊</button>
                         <button class="icon-tool" onclick="inserirEmoticon('☕')">☕</button>
                         <button class="icon-tool" onclick="inserirEmoticon('🤝')">🤝</button>
@@ -391,25 +473,27 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <button id="radio-btn" onclick="toggleRadio()" title="Rádio Clássica">📻</button>
-    <div id="radio-panel">
-        <h4 style="margin: 0 0 10px 0; color: #103c66;">📻 Public Domain Classical</h4>
-        <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
-            <button id="radio-play" onclick="playRadio()" style="background: #4cd137; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">▶️</button>
-            <button id="radio-pause" onclick="pauseRadio()" style="background: #e84118; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer;">⏸️</button>
+        <!-- BARRA DE RÁDIO E NOTIFICAÇÕES EMBAIXO -->
+        <div class="bottom-radio-bar">
+            <div class="radio-controls-group">
+                <span>📻 <strong>Rádio Corte:</strong></span>
+                <button id="radio-play" class="btn-radio-aero" onclick="playRadio()">▶️ Tocar</button>
+                <button id="radio-pause" class="btn-radio-aero" onclick="pauseRadio()">⏸️ Pausar</button>
+                <button class="btn-radio-aero" onclick="trocarEstacaoRadio()">⏭️ Estação</button>
+                <span id="radio-station-name" class="radio-station-label">Radio Swiss Classic</span>
+            </div>
+            <div class="radio-controls-group">
+                <label for="radio-volume" style="font-size: 11.5px;">🔊 Vol:</label>
+                <input type="range" id="radio-volume" min="0" max="1" step="0.05" value="0.5" oninput="setVolume(this.value)" style="width: 85px; cursor:pointer;">
+                <button id="btn-som-notificacao" class="btn-radio-aero" onclick="alternarSomNotificacao()">🔔 Sons: Ativos</button>
+            </div>
         </div>
-        <label for="radio-volume" style="font-size: 12px; color: #333;">Volume:</label>
-        <input type="range" id="radio-volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" style="width: 100%;">
     </div>
-    <audio id="radio-player" preload="none">
-        <source src="http://relay.publicdomainradio.org:80/classical.mp3" type="audio/mpeg">
-    </audio>
 
+    <audio id="radio-player" preload="none" crossorigin="anonymous"></audio>
 
-
-        <script>
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB9WgHtsxYgiQt5JqpzSTqh7tiHuYkJbvc",
             authDomain: "corte-messenger.firebaseapp.com",
@@ -429,12 +513,36 @@
         let listaUsuarios = [];
         let contatoAtual = null;
         let refChatAtual = null;
+        let refJogoAtual = null;
         let refUsuariosGlobal = null;
         let meusContatos = {};
         let refContatosGlobal = null;
         let naoLidas = {};
         let refNaoLidasGlobal = null;
+        let sonsAtivos = true;
+        let audioCtxGlobal = null;
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
+
+        // ==========================================
+        // DESBLOQUEAR AUDIO CONTEXT NO PRIMEIRO CLIQUE
+        // ==========================================
+        document.addEventListener("click", () => {
+            try {
+                if (!audioCtxGlobal) {
+                    audioCtxGlobal = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtxGlobal.state === "suspended") {
+                    audioCtxGlobal.resume();
+                }
+            } catch (e) {}
+        }, { once: false });
+
+        function alternarSomNotificacao() {
+            sonsAtivos = !sonsAtivos;
+            const btn = document.getElementById("btn-som-notificacao");
+            btn.innerText = sonsAtivos ? "🔔 Sons: Ativos" : "🔕 Sons: Mudo";
+            if (sonsAtivos) tocarSom("msg");
+        }
 
         function toggleSenha(idInput, btn) {
             const input = document.getElementById(idInput);
@@ -470,7 +578,7 @@
         }
 
         function traduzirErro(err) {
-            if (!err) return "Erro desconhecido (err vazio).";
+            if (!err) return "Erro desconhecido.";
             if (typeof err === "string") return err;
             const code = err.code || "";
             const msg = err.message || "";
@@ -492,8 +600,15 @@
         }
 
         function tocarSom(tipo) {
+            if (!sonsAtivos) return;
             try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                if (!audioCtxGlobal) {
+                    audioCtxGlobal = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioCtxGlobal.state === "suspended") {
+                    audioCtxGlobal.resume();
+                }
+                const ctx = audioCtxGlobal;
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.connect(gain); gain.connect(ctx.destination);
@@ -501,14 +616,14 @@
                     osc.type = "sine";
                     osc.frequency.setValueAtTime(587.33, ctx.currentTime);
                     osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.16, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
                     osc.start(); osc.stop(ctx.currentTime + 0.35);
                 } else if (tipo === "nudge") {
                     osc.type = "sawtooth";
                     osc.frequency.setValueAtTime(160, ctx.currentTime);
                     osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
-                    gain.gain.setValueAtTime(0.18, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.2, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
                     osc.start(); osc.stop(ctx.currentTime + 0.45);
                 } else if (tipo === "selo") {
@@ -516,7 +631,7 @@
                     osc.frequency.setValueAtTime(523.25, ctx.currentTime);
                     osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12);
                     osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
-                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
                     osc.start(); osc.stop(ctx.currentTime + 0.55);
                 }
@@ -539,8 +654,7 @@
             }
         }
 
-
-                    async function fazerCadastro() {
+        async function fazerCadastro() {
             const erroEl = document.getElementById("erro-cadastro");
             erroEl.innerText = "🔍 Iniciando cadastro...";
 
@@ -550,7 +664,6 @@
             const subnick = document.getElementById("cadastro-subnick").value.trim() || "Buscando conversas reais ☕";
             const status = document.getElementById("cadastro-status").value;
 
-            erroEl.innerText = "🔍 Validando dados...";
             const erroUsuario = validarUsuario(usuario);
             if (erroUsuario) { erroEl.innerText = "❌ " + erroUsuario; return; }
             if (senha.length < 8) { erroEl.innerText = "❌ Senha precisa ter no mínimo 8 caracteres."; return; }
@@ -563,7 +676,6 @@
             const btn = document.getElementById("btn-cadastrar");
             btn.innerText = "Verificando nome..."; btn.disabled = true;
 
-            erroEl.innerText = "🔍 Etapa 1/3: verificando se o nome existe...";
             try {
                 const nomeSnap = await rtdb.ref(`nomes_usuarios/${usuario}`).get();
                 if (nomeSnap.exists()) {
@@ -577,7 +689,6 @@
                 return;
             }
 
-            erroEl.innerText = "🔍 Etapa 2/3: criando conta...";
             let cred;
             try {
                 cred = await auth.createUserWithEmailAndPassword(usuarioParaEmail(usuario), senha);
@@ -589,7 +700,6 @@
 
             const uid = cred.user.uid;
 
-            erroEl.innerText = "🔍 Etapa 3/3: salvando nome...";
             try {
                 const nomeRef = rtdb.ref(`nomes_usuarios/${usuario}`);
                 const resultado = await nomeRef.transaction(current => {
@@ -608,7 +718,6 @@
                 return;
             }
 
-            erroEl.innerText = "🔍 Salvando perfil...";
             try {
                 await rtdb.ref(`usuarios/${uid}`).set({
                     id: uid, usuario, nome, subnick, status
@@ -853,6 +962,7 @@
             document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
 
             if (refChatAtual) refChatAtual.off();
+            if (refJogoAtual) refJogoAtual.off();
 
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
             refChatAtual = rtdb.ref(`mensagens/${salaId}`);
@@ -881,6 +991,13 @@
                 }
                 primeiraCarga = false;
             });
+
+            // Escuta jogos da sala em tempo real
+            refJogoAtual = rtdb.ref(`jogos/${salaId}`);
+            refJogoAtual.on("value", (snap) => {
+                const jogo = snap.val();
+                renderizarPainelJogo(jogo);
+            });
         }
 
         function fecharChat() {
@@ -888,7 +1005,12 @@
                 refChatAtual.off();
                 refChatAtual = null;
             }
+            if (refJogoAtual) {
+                refJogoAtual.off();
+                refJogoAtual = null;
+            }
             contatoAtual = null;
+            document.getElementById("game-panel").style.display = "none";
             document.getElementById("topbar-active").style.display = "none";
             document.getElementById("topbar-empty").style.display = "block";
             const box = document.getElementById("chat-messages");
@@ -959,6 +1081,12 @@
                     box.innerHTML += `<div class="msg ${isMe}">
                         <div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou uma foto privada:</div>
                         <div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div>
+                    </div>`;
+                } else if (m.audio_url) {
+                    const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
+                    box.innerHTML += `<div class="msg ${isMe}">
+                        <div class="msg-sender">🎙️ ${escaparHTML(m.remetente_nome)} enviou um áudio (${m.duracao || 0}s):</div>
+                        <div class="msg-bubble"><audio controls src="${m.audio_url}" class="chat-audio"></audio></div>
                     </div>`;
                 } else {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
@@ -1045,16 +1173,420 @@
             event.target.value = "";
         }
 
+        // ==========================================
+        // GRAVAÇÃO DE ÁUDIO (MENSAGEM DE VOZ)
+        // ==========================================
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let gravandoAudio = false;
+        let cancelarAudioFlag = false;
+        let timerGravacao = null;
+        let segundosGravacao = 0;
+
+        async function alternarGravacaoAudio() {
+            if (!contatoAtual || !meuUsuario) {
+                alert("Selecione um contato primeiro para enviar áudio.");
+                return;
+            }
+            const btnGrav = document.getElementById("btn-gravar-audio");
+            const btnCanc = document.getElementById("btn-cancelar-audio");
+
+            if (!gravandoAudio) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioChunks = [];
+                    cancelarAudioFlag = false;
+                    segundosGravacao = 0;
+
+                    mediaRecorder = new MediaRecorder(stream, { audioBitsPerSecond: 24000 });
+                    mediaRecorder.ondataavailable = (e) => {
+                        if (e.data.size > 0) audioChunks.push(e.data);
+                    };
+                    mediaRecorder.onstop = async () => {
+                        stream.getTracks().forEach(t => t.stop());
+                        clearInterval(timerGravacao);
+                        btnGrav.classList.remove("recording");
+                        btnGrav.innerText = "🎙️ Áudio";
+                        btnCanc.style.display = "none";
+                        gravandoAudio = false;
+
+                        if (cancelarAudioFlag || audioChunks.length === 0) return;
+
+                        const blob = new Blob(audioChunks, { type: "audio/webm" });
+                        const reader = new FileReader();
+                        reader.onload = async function(ev) {
+                            await gravarEventoNoChat({
+                                audio_url: ev.target.result,
+                                duracao: segundosGravacao || 1,
+                                estagio: document.getElementById("stage-select").value
+                            });
+                        };
+                        reader.readAsDataURL(blob);
+                    };
+
+                    mediaRecorder.start();
+                    gravandoAudio = true;
+                    btnGrav.classList.add("recording");
+                    btnCanc.style.display = "inline-flex";
+                    btnGrav.innerText = "⏹️ Enviar (0s)";
+                    timerGravacao = setInterval(() => {
+                        segundosGravacao++;
+                        btnGrav.innerText = `⏹️ Enviar (${segundosGravacao}s)`;
+                        if (segundosGravacao >= 45) alternarGravacaoAudio(); // limite de 45s
+                    }, 1000);
+                } catch (err) {
+                    alert("Não foi possível acessar o microfone. Verifique as permissões do navegador.");
+                }
+            } else {
+                if (mediaRecorder && mediaRecorder.state !== "inactive") {
+                    mediaRecorder.stop();
+                }
+            }
+        }
+
+        function cancelarGravacaoAudio() {
+            cancelarAudioFlag = true;
+            if (mediaRecorder && mediaRecorder.state !== "inactive") {
+                mediaRecorder.stop();
+            }
+        }
+
+        // ==========================================
+        // JOGOS MULTIPLAYER (VELHA, FORCA, QUIZ CASAL)
+        // ==========================================
+        const BANCO_FORCA = [
+            { palavra: "CORTESIA", dica: "Gentileza e respeito no trato com alguém" },
+            { palavra: "SINTONIA", dica: "Harmonia de pensamentos e sentimentos" },
+            { palavra: "COMPROMISSO", dica: "Segundo selo de evolução no Corte Messenger" },
+            { palavra: "GENTILEZA", dica: "Ato de atenção e cuidado" },
+            { palavra: "CUMPLICIDADE", dica: "Parceria e entendimento mútuo" },
+            { palavra: "ADMIRACAO", dica: "Sentimento de profundo respeito e encanto" },
+            { palavra: "SERENIDADE", dica: "Calma e paz em uma boa conversa" },
+            { palavra: "CONFIANCA", dica: "Base sólida de qualquer relacionamento" }
+        ];
+
+        const PERGUNTAS_QUIZ = [
+            { q: "Qual seria o encontro ideal para conversar sem pressa?", opts: ["Café aconchegante", "Caminhada ao ar livre", "Jantar tranquilo", "Livraria ou museu"] },
+            { q: "O que mais conquista sua admiração em alguém logo de início?", opts: ["Educação e gentileza", "Bom humor", "Saber ouvir de verdade", "Clareza de intenções"] },
+            { q: "Como você prefere aproveitar um domingo livre?", opts: ["Descansando em casa", "Viajando para perto", "Almoço em família", "Ouvindo música e lendo"] },
+            { q: "Qual gesto simples tem mais valor no dia a dia?", opts: ["Mensagem de bom dia", "Lembrar de um detalhe", "Elogio sincero", "Paciência nos dias difíceis"] },
+            { q: "Praia tranquila ou clima de serra?", opts: ["Praia ao entardecer", "Serra com frio e café", "Os dois igualmente", "Depende da companhia"] },
+            { q: "Em uma conversa, você prefere falar sobre:", opts: ["Planos e sonhos", "Histórias engraçadas", "Músicas, livros e filmes", "Valores e visão de vida"] },
+            { q: "Qual trilha sonora combina mais com um momento especial?", opts: ["Música clássica / instrumental", "MPB / acústico", "Rock clássico / anos 80", "Jazz / Blues suave"] },
+            { q: "O que é indispensável para dar o próximo passo no Corte?", opts: ["Respeito mútuo", "Reciprocidade", "Transparência", "Tempo de qualidade"] }
+        ];
+
+        async function iniciarJogo(tipo) {
+            if (!contatoAtual || !meuUsuario) {
+                alert("Abra uma conversa com um contato primeiro para jogar!");
+                return;
+            }
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            const jogoRef = rtdb.ref(`jogos/${salaId}`);
+
+            if (tipo === "velha") {
+                await jogoRef.set({
+                    tipo: "velha",
+                    criador: meuUsuario.id,
+                    jogadorX: meuUsuario.id,
+                    jogadorO: contatoAtual.id,
+                    turno: meuUsuario.id,
+                    tabuleiro: ["", "", "", "", "", "", "", "", ""],
+                    vencedor: null
+                });
+                await gravarEventoNoChat({ texto: `[SISTEMA] ⭕❌ ${meuUsuario.nome} iniciou um Jogo da Velha!` });
+            } else if (tipo === "forca") {
+                const custom = prompt("Digite uma PALAVRA SECRETA (sem acentos) para " + contatoAtual.nome + " adivinhar, ou deixe em branco para palavra aleatória:");
+                let palavra = "";
+                let dica = "";
+                let adivinhador = contatoAtual.id;
+
+                if (custom && custom.trim().length >= 3) {
+                    palavra = custom.trim().toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^A-Z]/g, "");
+                    dica = prompt("Digite uma dica curta para essa palavra:") || "Palavra escolhida pelo contato";
+                } else {
+                    const sorteada = BANCO_FORCA[Math.floor(Math.random() * BANCO_FORCA.length)];
+                    palavra = sorteada.palavra;
+                    dica = sorteada.dica;
+                    adivinhador = "AMBOS";
+                }
+
+                await jogoRef.set({
+                    tipo: "forca",
+                    criador: meuUsuario.id,
+                    adivinhador: adivinhador,
+                    palavra: palavra,
+                    dica: dica,
+                    letras: [],
+                    erros: 0
+                });
+                await gravarEventoNoChat({ texto: `[SISTEMA] 🔤 ${meuUsuario.nome} iniciou um Jogo da Forca!` });
+            } else if (tipo === "quiz") {
+                await jogoRef.set({
+                    tipo: "quiz",
+                    criador: meuUsuario.id,
+                    indice: 0,
+                    respostas: {}
+                });
+                await gravarEventoNoChat({ texto: `[SISTEMA] 💑 ${meuUsuario.nome} iniciou o Quiz de Casal!` });
+            }
+        }
+
+        async function fecharPainelJogo() {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}`).remove();
+            document.getElementById("game-panel").style.display = "none";
+        }
+
+        function renderizarPainelJogo(jogo) {
+            const panel = document.getElementById("game-panel");
+            if (!jogo || !contatoAtual || !meuUsuario) {
+                panel.style.display = "none";
+                return;
+            }
+            panel.style.display = "block";
+
+            if (jogo.tipo === "velha") {
+                const tab = jogo.tabuleiro || ["","","","","","","","",""];
+                const souX = jogo.jogadorX === meuUsuario.id;
+                const meuSimbolo = souX ? "X" : "O";
+                const minhaVez = jogo.turno === meuUsuario.id && !jogo.vencedor;
+
+                let statusTxt = "";
+                if (jogo.vencedor === "EMPATE") statusTxt = "🤝 Empate! Deu velha.";
+                else if (jogo.vencedor) {
+                    const nomeVenc = jogo.vencedor === meuUsuario.id ? "Você venceu! 🎉" : `${escaparHTML(contatoAtual.nome)} venceu!`;
+                    statusTxt = `🏆 ${nomeVenc}`;
+                } else {
+                    statusTxt = minhaVez ? `Sua vez (${meuSimbolo})` : `Aguardando ${escaparHTML(contatoAtual.nome)} (${souX ? "O" : "X"})...`;
+                }
+
+                let cellsHtml = "";
+                for (let i = 0; i < 9; i++) {
+                    const val = tab[i] || "";
+                    const cor = val === "X" ? "#103c66" : "#b22222";
+                    cellsHtml += `<button class="ttt-cell" style="color:${cor};" onclick="jogadaVelha(${i})">${val}</button>`;
+                }
+
+                panel.innerHTML = `
+                    <div class="game-header">
+                        <span class="game-title">⭕❌ Jogo da Velha — ${statusTxt}</span>
+                        <div style="display:flex;gap:6px;">
+                            <button class="btn-radio-aero" onclick="iniciarJogo('velha')">🔄 Reiniciar</button>
+                            <button class="btn-fechar-chat" onclick="fecharPainelJogo()">✕</button>
+                        </div>
+                    </div>
+                    <div class="ttt-grid">${cellsHtml}</div>
+                `;
+            } else if (jogo.tipo === "forca") {
+                const letras = jogo.letras || [];
+                const erros = jogo.erros || 0;
+                const palavra = jogo.palavra || "CORTE";
+                const maxErros = 6;
+                const podeJogar = jogo.adivinhador === "AMBOS" || jogo.adivinhador === meuUsuario.id;
+
+                let exibicao = "";
+                let ganhou = true;
+                for (const ch of palavra) {
+                    if (letras.includes(ch)) {
+                        exibicao += ch + " ";
+                    } else {
+                        exibicao += "_ ";
+                        ganhou = false;
+                    }
+                }
+                const perdeu = erros >= maxErros;
+
+                let statusForca = `Dica: <strong>${escaparHTML(jogo.dica)}</strong> | Erros: ${erros}/${maxErros}`;
+                if (ganhou) statusForca = `🎉 Palavra descoberta: <strong>${palavra}</strong>!`;
+                else if (perdeu) statusForca = `😢 Fim de jogo! A palavra era: <strong>${palavra}</strong>`;
+                else if (!podeJogar) statusForca += ` <em>(Observando ${escaparHTML(contatoAtual.nome)} adivinhar)</em>`;
+
+                const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
+                let keysHtml = "";
+                if (!ganhou && !perdeu && podeJogar) {
+                    keysHtml = `<div class="forca-keys">` + alfabeto.map(l => {
+                        const usada = letras.includes(l);
+                        return `<button class="forca-key" ${usada ? "disabled" : ""} onclick="jogadaForca('${l}')">${l}</button>`;
+                    }).join("") + `</div>`;
+                }
+
+                panel.innerHTML = `
+                    <div class="game-header">
+                        <span class="game-title">🔤 Jogo da Forca</span>
+                        <div style="display:flex;gap:6px;">
+                            <button class="btn-radio-aero" onclick="iniciarJogo('forca')">🔄 Nova Palavra</button>
+                            <button class="btn-fechar-chat" onclick="fecharPainelJogo()">✕</button>
+                        </div>
+                    </div>
+                    <div style="text-align:center;font-size:12px;color:#174978;">${statusForca}</div>
+                    <div class="forca-word">${exibicao.trim()}</div>
+                    ${keysHtml}
+                `;
+            } else if (jogo.tipo === "quiz") {
+                const idx = jogo.indice || 0;
+                if (idx >= PERGUNTAS_QUIZ.length) {
+                    panel.innerHTML = `
+                        <div class="game-header">
+                            <span class="game-title">💑 Quiz de Casal Concluído!</span>
+                            <button class="btn-fechar-chat" onclick="fecharPainelJogo()">✕</button>
+                        </div>
+                        <div style="text-align:center;padding:10px;font-size:13px;color:#103c66;">
+                            ✨ Vocês completaram todas as ${PERGUNTAS_QUIZ.length} perguntas do Quiz!<br><br>
+                            <button class="btn-radio-aero" onclick="iniciarJogo('quiz')">🔄 Jogar Novamente</button>
+                        </div>
+                    `;
+                    return;
+                }
+
+                const atual = PERGUNTAS_QUIZ[idx];
+                const respObj = jogo.respostas || {};
+                const minhaResp = respObj[meuUsuario.id];
+                const respContato = respObj[contatoAtual.id];
+                const ambosResponderam = minhaResp !== undefined && respContato !== undefined;
+
+                let infoStatus = "";
+                if (ambosResponderam) {
+                    const deuMatch = minhaResp === respContato;
+                    infoStatus = deuMatch
+                        ? `<div style="background:#e6f7e6;border:1px solid #9cd99c;color:#1b5e20;padding:6px;border-radius:5px;margin-top:8px;font-size:12px;text-align:center;">
+                            ✨ <strong>Sintonia!</strong> Ambos escolheram: <strong>${escaparHTML(atual.opts[minhaResp])}</strong>
+                           </div>`
+                        : `<div style="background:#fff8e1;border:1px solid #e6c76a;color:#5c3d00;padding:6px;border-radius:5px;margin-top:8px;font-size:12px;text-align:center;">
+                            💬 Você: <strong>${escaparHTML(atual.opts[minhaResp])}</strong> | ${escaparHTML(contatoAtual.nome)}: <strong>${escaparHTML(atual.opts[respContato])}</strong>
+                           </div>`;
+                } else if (minhaResp !== undefined) {
+                    infoStatus = `<div style="font-size:11.5px;color:#5c7691;margin-top:6px;text-align:center;">✓ Você já respondeu. Aguardando ${escaparHTML(contatoAtual.nome)}...</div>`;
+                } else if (respContato !== undefined) {
+                    infoStatus = `<div style="font-size:11.5px;color:#174978;margin-top:6px;text-align:center;">⚡ ${escaparHTML(contatoAtual.nome)} já respondeu! Escolha sua opção:</div>`;
+                }
+
+                const optsHtml = atual.opts.map((opt, i) => {
+                    const selClass = minhaResp === i ? "selected" : "";
+                    return `<button class="quiz-opt-btn ${selClass}" onclick="responderQuiz(${i})">${escaparHTML(opt)}</button>`;
+                }).join("");
+
+                const btnProxima = ambosResponderam
+                    ? `<button class="btn-radio-aero" onclick="proximaPerguntaQuiz(${idx + 1})">Próxima ➤</button>`
+                    : "";
+
+                panel.innerHTML = `
+                    <div class="game-header">
+                        <span class="game-title">💑 Quiz de Casal (${idx + 1}/${PERGUNTAS_QUIZ.length})</span>
+                        <div style="display:flex;gap:6px;">
+                            ${btnProxima}
+                            <button class="btn-fechar-chat" onclick="fecharPainelJogo()">✕</button>
+                        </div>
+                    </div>
+                    <div style="font-size:13px;font-weight:bold;color:#0d3259;">${escaparHTML(atual.q)}</div>
+                    <div class="quiz-options">${optsHtml}</div>
+                    ${infoStatus}
+                `;
+            }
+        }
+
+        async function jogadaVelha(pos) {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            const jogoRef = rtdb.ref(`jogos/${salaId}`);
+            const snap = await jogoRef.get();
+            const jogo = snap.val();
+            if (!jogo || jogo.tipo !== "velha" || jogo.vencedor || jogo.turno !== meuUsuario.id) return;
+
+            const tab = jogo.tabuleiro || ["","","","","","","","",""];
+            if (tab[pos]) return;
+
+            const simbolo = jogo.jogadorX === meuUsuario.id ? "X" : "O";
+            tab[pos] = simbolo;
+
+            const linhas = [
+                [0,1,2],[3,4,5],[6,7,8],
+                [0,3,6],[1,4,7],[2,5,8],
+                [0,4,8],[2,4,6]
+            ];
+            let vencedor = null;
+            for (const [a,b,c] of linhas) {
+                if (tab[a] && tab[a] === tab[b] && tab[a] === tab[c]) {
+                    vencedor = meuUsuario.id;
+                    break;
+                }
+            }
+            if (!vencedor && tab.every(c => c !== "")) {
+                vencedor = "EMPATE";
+            }
+
+            await jogoRef.update({
+                tabuleiro: tab,
+                turno: contatoAtual.id,
+                vencedor: vencedor
+            });
+
+            if (vencedor === meuUsuario.id) {
+                tocarSom("selo");
+                await gravarEventoNoChat({ texto: `[SISTEMA] 🏆 ${meuUsuario.nome} venceu o Jogo da Velha!` });
+            }
+        }
+
+        async function jogadaForca(letra) {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            const jogoRef = rtdb.ref(`jogos/${salaId}`);
+            const snap = await jogoRef.get();
+            const jogo = snap.val();
+            if (!jogo || jogo.tipo !== "forca") return;
+
+            const letras = jogo.letras || [];
+            if (letras.includes(letra)) return;
+            letras.push(letra);
+
+            let erros = jogo.erros || 0;
+            if (!jogo.palavra.includes(letra)) {
+                erros++;
+            }
+
+            await jogoRef.update({ letras, erros });
+        }
+
+        async function responderQuiz(opcaoIdx) {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}/respostas/${meuUsuario.id}`).set(opcaoIdx);
+        }
+
+        async function proximaPerguntaQuiz(novoIdx) {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}`).update({
+                indice: novoIdx,
+                respostas: {}
+            });
+        }
+
+        // ==========================================
+        // NOTIFICAÇÕES GLOBAIS EM TEMPO REAL
+        // ==========================================
         function escutarMensagensGlobais() {
             if (!meuUsuario) return;
             rtdb.ref("mensagens").on("child_added", (salaSnap) => {
                 const salaId = salaSnap.key;
                 if (!salaId.includes(meuUsuario.id)) return;
+
+                let cargaInicialSala = true;
                 salaSnap.ref.limitToLast(1).on("child_added", (msgSnap) => {
+                    if (cargaInicialSala) {
+                        cargaInicialSala = false;
+                        return;
+                    }
                     const msg = msgSnap.val();
                     if (!msg || msg.remetente_id === meuUsuario.id) return;
-                    if (!contatoAtual || contatoAtual.id !== msg.remetente_id) {
+
+                    const chatAbertoComRemetente = contatoAtual && contatoAtual.id === msg.remetente_id;
+                    if (!chatAbertoComRemetente) {
                         incrementarNaoLidas(msg.remetente_id);
+                        tocarSom("msg");
+                    } else if (document.hidden) {
+                        tocarSom("msg");
                     }
                 });
             });
@@ -1076,26 +1608,51 @@
             escutarMensagensGlobais();
         }
 
+        // ==========================================
+        // RÁDIO CLÁSSICA & AMBIENTE (HTTPS FUNCIONAL)
+        // ==========================================
+        const ESTACOES_RADIO = [
+            { nome: "Radio Swiss Classic", url: "https://stream.srg-ssr.ch/m/rsc_de/mp3_128" },
+            { nome: "Venice Classic Radio", url: "https://uk2.streamingpulse.com/ssl/vcr1" },
+            { nome: "SomaFM Groove Salad", url: "https://ice1.somafm.com/groovesalad-128-mp3" }
+        ];
+        let estacaoAtualIdx = 0;
         const radioPlayer = document.getElementById("radio-player");
-        const radioPanel = document.getElementById("radio-panel");
-
-        function toggleRadio() {
-            if (radioPanel.style.display === "none" || !radioPanel.style.display) {
-                radioPanel.style.display = "block";
-            } else {
-                radioPanel.style.display = "none";
-            }
-        }
+        radioPlayer.src = ESTACOES_RADIO[0].url;
+        radioPlayer.volume = 0.5;
 
         function playRadio() {
-            radioPlayer.play().catch(e => {
+            const btnPlay = document.getElementById("radio-play");
+            if (!radioPlayer.src) radioPlayer.src = ESTACOES_RADIO[estacaoAtualIdx].url;
+            radioPlayer.play().then(() => {
+                btnPlay.classList.add("active-play");
+                btnPlay.innerText = "🔊 Tocando";
+            }).catch(e => {
                 console.error("Erro ao tocar rádio:", e);
-                alert("Não foi possível iniciar a rádio. Verifique sua conexão.");
+                trocarEstacaoRadio(true);
             });
         }
 
         function pauseRadio() {
             radioPlayer.pause();
+            const btnPlay = document.getElementById("radio-play");
+            btnPlay.classList.remove("active-play");
+            btnPlay.innerText = "▶️ Tocar";
+        }
+
+        function trocarEstacaoRadio(autoPlay = false) {
+            estacaoAtualIdx = (estacaoAtualIdx + 1) % ESTACOES_RADIO.length;
+            const estacao = ESTACOES_RADIO[estacaoAtualIdx];
+            document.getElementById("radio-station-name").innerText = estacao.nome;
+            const estavaTocando = !radioPlayer.paused || autoPlay;
+            radioPlayer.src = estacao.url;
+            if (estavaTocando) {
+                radioPlayer.play().then(() => {
+                    const btnPlay = document.getElementById("radio-play");
+                    btnPlay.classList.add("active-play");
+                    btnPlay.innerText = "🔊 Tocando";
+                }).catch(() => {});
+            }
         }
 
         function setVolume(valor) {
