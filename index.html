@@ -9,7 +9,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; padding-bottom: 60px; }
+        body { background: radial-gradient(circle at 20% 20%, #b8dcff 0%, #5b9bd5 55%, #2b6cb0 100%); min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 12px; padding-bottom: 20px; }
         .aero-frame { background: linear-gradient(180deg, rgba(215, 238, 255, 0.9) 0%, rgba(160, 205, 245, 0.85) 100%); border: 1px solid #ffffff; border-radius: 10px; box-shadow: 0 12px 32px rgba(10, 35, 70, 0.45); padding: 6px; width: 100%; max-width: 1020px; }
         .aero-titlebar { display: flex; justify-content: space-between; align-items: center; padding: 4px 8px 7px 8px; color: #0d2b4e; font-size: 12px; font-weight: 600; }
         .win-controls { display: flex; gap: 3px; }
@@ -49,13 +49,12 @@
         .dot-away { background: #fbc531; }
         .dot-offline { background: #95a5a6; }
         .subnick-edit { width: 100%; margin-top: 4px; background: rgba(255,255,255,0.65); border: 1px solid transparent; border-radius: 4px; padding: 3px 6px; font-size: 11px; color: #4a637d; text-align: center; }
-        .subnick-hint { display: block; text-align: center; font-size: 9px; color: #7a8fa5; margin-top: 3px; font-style: italic; }
-        .btn-perfil { display: block; width: 100%; margin-top: 6px; padding: 5px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; cursor: pointer; border: 1px solid; }
-        .btn-desconectar { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border-color: #5284b8; color: #0d3259; }
+        .subnick-hint { display: block; text-align: center; font-size: 10px; color: #5c7691; margin-top: 2px; margin-bottom: 8px; font-style: italic; }
+        .btn-desconectar { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 6px; border-radius: 4px; width: 100%; cursor: pointer; font-size: 12px; margin-bottom: 4px; }
         .btn-desconectar:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .btn-excluir { background: transparent; border: none; color: #a33; font-size: 10px; text-decoration: underline; margin-top: 4px; cursor: pointer; padding: 2px; }
+        .btn-excluir { background: transparent; border: none; color: #a33; font-size: 10px; text-decoration: underline; cursor: pointer; width: 100%; text-align: center; }
         .btn-excluir:hover { color: #d00; }
-        .aviso-senha { background: #fff8e1; border: 1px solid #e6c76a; border-radius: 4px; padding: 6px 10px; font-size: 11px; color: #6b5a1a; margin: 6px 0; text-align: center; line-height: 1.35; }
+        .aviso-senha { background: #fff8e1; border: 1px solid #e6c76a; border-left: 4px solid #c9a236; border-radius: 4px; padding: 8px 12px; font-size: 11.5px; color: #5c4a1a; margin: 8px 0; text-align: center; line-height: 1.4; }
         .search-box { padding: 6px 8px; border-bottom: 1px solid #d5e5f5; }
         .search-box input { width: 100%; padding: 5px 10px; border: 1px solid #a6c5e3; border-radius: 4px; font-size: 12px; }
         .contacts-scroll { flex: 1; overflow-y: auto; padding: 4px 6px; }
@@ -69,7 +68,7 @@
         .contact-info { overflow: hidden; flex: 1; }
         .contact-title { font-size: 13.5px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
         .contact-sub { font-size: 11px; color: #5c7691; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
-        .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; }
+        .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; min-width: 0; }
         .stage-topbar { background: linear-gradient(180deg, #f2f8fe 0%, #dcebfa 100%); border-bottom: 1px solid #b5d1eb; padding: 9px 15px; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
         .stage-topbar-title { font-size: 14px; font-weight: 600; color: #1e4268; margin: auto; }
         .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; }
@@ -80,9 +79,6 @@
         #active-contact-subnick { font-size: 12.5px; }
         .btn-fechar-chat { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); border: 1px solid #8f2d2d; color: white; font-size: 11px; font-weight: bold; padding: 3px 9px; border-radius: 4px; cursor: pointer; margin-left: 8px; }
         .btn-fechar-chat:hover { background: linear-gradient(180deg, #f7b0b0 0%, #d95a5a 100%); }
-        .btn-jogo-chat { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-size: 11px; font-weight: bold; padding: 3px 8px; border-radius: 4px; cursor: pointer; }
-        .btn-jogo-chat:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .btn-jogo-chat.ativo { background: #cbe4fa; border-color: #2e6da4; }
         .messages-canvas { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
         .welcome-board { margin: auto; text-align: center; max-width: 520px; width: 100%; }
         .welcome-board h2 { font-family: Georgia, serif; font-size: 24px; color: #1a2b3c; margin-bottom: 18px; font-weight: normal; }
@@ -96,7 +92,7 @@
         .corte-definition-box .meaning { font-size: 12.5px; color: #2c3e50; line-height: 1.45; }
         .msg { font-size: 13px; }
         .msg-sender { font-size: 11px; color: #5c7691; margin-bottom: 2px; }
-        .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; }
+        .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; word-break: break-word; }
         .msg.me .msg-bubble { background: #e3f2fd; border-color: #9ec9f0; }
         .msg-system { align-self: center; background: #eef6fc; border: 1px solid #c5dff7; color: #174978; font-size: 11px; padding: 6px 12px; border-radius: 10px; display: flex; align-items: center; gap: 6px; text-align: center; }
         .chat-photo { max-width: 220px; border-radius: 6px; border: 2px solid #8cb4d8; margin-top: 4px; display: block; }
@@ -119,7 +115,11 @@
         .btn-add-contato:disabled { opacity: 0.6; cursor: not-allowed; }
         .empty-contacts { text-align: center; font-size: 11px; color: #5c7691; padding: 14px 8px; line-height: 1.4; }
         .badge-nao-lidas { background: #e84118; color: white; font-size: 10px; font-weight: bold; border-radius: 10px; padding: 1px 6px; min-width: 18px; text-align: center; margin-left: auto; flex-shrink: 0; }
-        #jogo-container { background: #f9fcff; border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 10px 0; }
+        .jogos-bar { display: flex; gap: 6px; padding: 6px 12px; background: #eaf3fc; border-bottom: 1px solid #dcebfa; flex-wrap: wrap; }
+        .btn-jogo-chat { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-size: 11px; font-weight: bold; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .btn-jogo-chat:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+        .btn-jogo-chat.ativo { background: #cbe4fa; border-color: #2e6da4; box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); }
+        #jogo-container { background: #f9fcff; border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 4px 0 10px 0; }
         .jogo-titulo { text-align: center; font-size: 13px; font-weight: bold; color: #103c66; margin-bottom: 8px; }
         .jogo-info { text-align: center; font-size: 12px; color: #174978; margin: 6px 0; font-weight: bold; }
         .jogo-actions { text-align: center; margin-top: 10px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
@@ -141,12 +141,15 @@
         .forca-letra.acerto { background: #c8f7c8; border-color: #2e8b57; }
         .forca-letra.erro { background: #f7c8c8; border-color: #c94a4a; }
         .forca-erros { text-align: center; font-size: 12px; color: #c94a4a; font-weight: bold; margin: 4px 0; }
-        #radio-panel { display: none; position: fixed; bottom: 60px; right: 20px; z-index: 9999; background: white; border: 1px solid #5284b8; border-radius: 8px; padding: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); width: 230px; }
-        #radio-bar { display: flex; position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: #5284b8; color: white; padding: 8px 14px; align-items: center; justify-content: center; gap: 10px; font-size: 13px; box-shadow: 0 -2px 8px rgba(0,0,0,0.2); }
-        #radio-bar button { background: white; border: none; color: #103c66; font-size: 14px; font-weight: bold; cursor: pointer; padding: 4px 10px; border-radius: 4px; }
-        #radio-bar button:hover { background: #e3f1fd; }
-        #radio-bar .radio-label { font-weight: bold; font-size: 12px; }
-        #radio-bar input[type="range"] { width: 80px; }
+
+        .radio-bar-bottom { background: #eaf3fc; border-top: 1px solid #c2dcf2; padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+        .radio-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .radio-controls button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+        .radio-controls button:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+        .radio-controls .radio-label { font-weight: bold; font-size: 12px; color: #103c66; margin-right: 4px; }
+        .radio-controls input[type="range"] { width: 100px; }
+        .radio-controls select { padding: 4px 8px; border: 1px solid #5284b8; border-radius: 4px; font-size: 12px; color: #0d3259; background: white; cursor: pointer; font-weight: bold; }
+
         @media (max-width: 768px) {
             .main-workspace { flex-direction: column; height: auto; }
             .left-sidebar { width: 100%; max-height: 420px; border-right: none; border-bottom: 1px solid #b5d1eb; }
@@ -167,7 +170,6 @@
             .contact-title { font-size: 13px; }
             .contact-sub { font-size: 10.5px; }
             .contacts-scroll { padding: 3px 5px; }
-            #radio-panel { width: 200px; right: 10px; bottom: 55px; }
             .forca-letras { grid-template-columns: repeat(6, 1fr); }
         }
     </style>
@@ -345,8 +347,7 @@
         </div>
     </div>
 
-
-        <div id="app-container" class="aero-frame">
+    <div id="app-container" class="aero-frame">
         <div class="aero-titlebar">
             <span>🛡️ Corte Messenger - Onde cada conversa começa com respeito e intenção</span>
             <div class="win-controls"><span class="win-btn">_</span><span class="win-btn">□</span><span class="win-btn close" onclick="sairDoCorte()">✕</span></div>
@@ -366,7 +367,7 @@
                     </div>
                     <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
                     <span class="subnick-hint">Você pode trocar esta frase quando quiser</span>
-                    <button class="btn-perfil btn-desconectar" onclick="sairDoCorte()">🚪 Desconectar</button>
+                    <button class="btn-desconectar" onclick="sairDoCorte()">🚪 Desconectar</button>
                     <button class="btn-excluir" onclick="excluirMinhaConta()">Excluir minha conta</button>
                 </div>
                 <div class="search-box">
@@ -386,7 +387,7 @@
                             <strong id="active-contact-name" style="color: #103c66;">Nome</strong>
                             <div id="active-contact-subnick" style="color: #5c7691;">Subnick</div>
                         </div>
-                        <div style="display:flex; align-items:center; gap:6px; flex-wrap:wrap;">
+                        <div style="display:flex; align-items:center; gap:6px;">
                             <div class="stage-pill">
                                 <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
                                 <select id="stage-select" onchange="alterarEstagio()">
@@ -395,9 +396,6 @@
                                     <option value="noivado">3. Noivado</option>
                                 </select>
                             </div>
-                            <button class="btn-jogo-chat" id="btn-jogo-velha" onclick="abrirJogo('velha')" title="Jogo da Velha">🎮 Velha</button>
-                            <button class="btn-jogo-chat" id="btn-jogo-casais" onclick="abrirJogo('casais')" title="Quiz do Casal">💕 Casal</button>
-                            <button class="btn-jogo-chat" id="btn-jogo-forca" onclick="abrirJogo('forca')" title="Adivinhe a Palavra">🔤 Palavra</button>
                             <button class="btn-fechar-chat" onclick="fecharChat()" title="Fechar conversa">✕</button>
                         </div>
                     </div>
@@ -416,6 +414,13 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="jogos-bar">
+                    <button class="btn-jogo-chat" id="btn-jogo-velha" onclick="abrirJogo('velha')" title="Jogo da Velha">❌⭕ Velha</button>
+                    <button class="btn-jogo-chat" id="btn-jogo-casais" onclick="abrirJogo('casais')" title="Quiz do Casal">💕 Quiz Casal</button>
+                    <button class="btn-jogo-chat" id="btn-jogo-forca" onclick="abrirJogo('forca')" title="Adivinhe a Palavra">🔤 Forca</button>
+                </div>
+
                 <div class="bottom-composer">
                     <div class="composer-tools">
                         <button class="icon-tool" onclick="chamarAtencao()">⚡ Chamar atenção</button>
@@ -429,34 +434,38 @@
                         <button class="btn-send-aero" onclick="enviarMensagem()">➤ Enviar</button>
                     </div>
                 </div>
+
+                <div class="radio-bar-bottom">
+                    <div class="radio-controls">
+                        <span class="radio-label">📻 Rádio:</span>
+                        <select id="radio-estacao" onchange="trocarEstacao()">
+                            <option value="https://relay.publicdomainradio.org/classical.mp3">Public Domain Classical</option>
+                            <option value="https://stream.srg-ssr.ch/srgssr/rsc_de/mp3/128">Radio Swiss Classic</option>
+                            <option value="https://ice1.somafm.com/dronezone-128-mp3">SomaFM Drone Zone</option>
+                            <option value="https://ice1.somafm.com/deepspaceone-128-mp3">SomaFM Deep Space One</option>
+                            <option value="https://ice1.somafm.com/lush-128-mp3">SomaFM Lush</option>
+                            <option value="https://ice1.somafm.com/u80s-128-mp3">SomaFM Underground 80s</option>
+                            <option value="https://ice1.somafm.com/defcon-128-mp3">SomaFM DEF CON</option>
+                            <option value="https://ice1.somafm.com/fluid-128-mp3">SomaFM Fluid (Hip Hop Instrumental)</option>
+                        </select>
+                        <button type="button" onclick="playRadio()">▶️ Tocar</button>
+                        <button type="button" onclick="pauseRadio()">⏸️ Pausar</button>
+                    </div>
+                    <div class="radio-controls" style="margin-top: 4px;">
+                        <span style="font-size: 11px; color: #5c7691;">🔊 Volume:</span>
+                        <input type="range" id="radio-volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
+                        <span id="radio-status" style="font-size: 11px; color: #5c7691; margin-left: 8px;">Parado</span>
+                    </div>
+                </div>
+
+                <audio id="radio-player" preload="none" crossorigin="anonymous">
+                    <source src="https://relay.publicdomainradio.org/classical.mp3" type="audio/mpeg">
+                </audio>
             </div>
         </div>
     </div>
 
-    <div id="radio-panel">
-        <h4 style="margin: 0 0 10px 0; color: #103c66;">📻 Public Domain Classical</h4>
-        <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
-            <button onclick="playRadio()" style="background: #4cd137; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer; font-size: 12px;">▶️ Tocar</button>
-            <button onclick="pauseRadio()" style="background: #e84118; color: white; border: none; border-radius: 4px; padding: 5px 10px; cursor: pointer; font-size: 12px;">⏸️ Pausar</button>
-        </div>
-        <label for="radio-volume" style="font-size: 12px; color: #333;">Volume:</label>
-        <input type="range" id="radio-volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)" style="width: 100%;">
-    </div>
-
-    <div id="radio-bar">
-        <button onclick="toggleRadio()" title="Abrir/fechar painel">📻</button>
-        <span class="radio-label" id="radio-status">Rádio Clássica</span>
-        <button onclick="playRadio()" id="radio-bar-play" title="Tocar">▶️</button>
-        <button onclick="pauseRadio()" id="radio-bar-pause" title="Pausar" style="display:none;">⏸️</button>
-        <input type="range" id="radio-volume-bar" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
-    </div>
-
-    <audio id="radio-player" preload="none" crossorigin="anonymous">
-        <source src="https://relay.publicdomainradio.org/classical.mp3" type="audio/mpeg">
-    </audio>
-
-
-        <script>
+    <script>
         const firebaseConfig = {
             apiKey: "AIzaSyB9WgHtsxYgiQt5JqpzSTqh7tiHuYkJbvc",
             authDomain: "corte-messenger.firebaseapp.com",
@@ -481,7 +490,28 @@
         let refContatosGlobal = null;
         let naoLidas = {};
         let refNaoLidasGlobal = null;
+
+        let jogoAtivo = null;
+        let refJogoAtual = null;
+        let estadoJogoLocal = null;
+
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
+
+        const PERGUNTAS_CASAL = [
+            "Qual foi a primeira impressão que você teve ao conversar por aqui?",
+            "O que você mais valoriza em uma conversa sincera?",
+            "Qual programa simples a dois combina mais com um fim de semana tranquilo?",
+            "Qual qualidade você admira em quem mantém a palavra?",
+            "O que não pode faltar para haver confiança entre duas pessoas?"
+        ];
+
+        const PALAVRAS_FORCA = [
+            { palavra: "RESPEITO", dica: "Base de toda boa conversa" },
+            { palavra: "INTENCAO", dica: "Propósito claro e verdadeiro" },
+            { palavra: "PACIENCIA", dica: "Virtude de quem sabe ouvir" },
+            { palavra: "COMPROMISSO", dica: "Segundo estágio do Corte" },
+            { palavra: "GENTILEZA", dica: "Atenção e cuidado no trato" }
+        ];
 
         function toggleSenha(idInput, btn) {
             const input = document.getElementById(idInput);
@@ -495,7 +525,6 @@
         }
 
         function gerarIdSala(id1, id2) { return [id1, id2].sort().join("__"); }
-
         function usuarioParaEmail(usuario) { return usuario.toLowerCase().trim() + DOMINIO_FAKE; }
 
         function validarUsuario(usuario) {
@@ -506,7 +535,7 @@
         }
 
         function traduzirErro(err) {
-            if (!err) return "Erro desconhecido (err vazio).";
+            if (!err) return "Erro desconhecido.";
             if (typeof err === "string") return err;
             const code = err.code || "";
             const msg = err.message || "";
@@ -523,8 +552,7 @@
                 "auth/unauthorized-domain": "Domínio não autorizado no Firebase.",
                 "PERMISSION_DENIED": "Sem permissão no banco. Verifique as regras do Realtime Database."
             };
-            if (code && erros[code]) return erros[code];
-            return "Erro: " + (code || msg || JSON.stringify(err));
+            return erros[code] || "Erro: " + (code || msg);
         }
 
         function tocarSom(tipo) {
@@ -534,26 +562,16 @@
                 const gain = ctx.createGain();
                 osc.connect(gain); gain.connect(ctx.destination);
                 if (tipo === "msg") {
-                    osc.type = "sine";
-                    osc.frequency.setValueAtTime(587.33, ctx.currentTime);
-                    osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
-                    gain.gain.setValueAtTime(0.12, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+                    osc.type = "sine"; osc.frequency.setValueAtTime(587.33, ctx.currentTime); osc.frequency.setValueAtTime(880, ctx.currentTime + 0.1);
+                    gain.gain.setValueAtTime(0.12, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
                     osc.start(); osc.stop(ctx.currentTime + 0.35);
                 } else if (tipo === "nudge") {
-                    osc.type = "sawtooth";
-                    osc.frequency.setValueAtTime(160, ctx.currentTime);
-                    osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
-                    gain.gain.setValueAtTime(0.18, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
+                    osc.type = "sawtooth"; osc.frequency.setValueAtTime(160, ctx.currentTime); osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.4);
+                    gain.gain.setValueAtTime(0.18, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.45);
                     osc.start(); osc.stop(ctx.currentTime + 0.45);
                 } else if (tipo === "selo") {
-                    osc.type = "triangle";
-                    osc.frequency.setValueAtTime(523.25, ctx.currentTime);
-                    osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12);
-                    osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
-                    gain.gain.setValueAtTime(0.15, ctx.currentTime);
-                    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
+                    osc.type = "triangle"; osc.frequency.setValueAtTime(523.25, ctx.currentTime); osc.frequency.setValueAtTime(659.25, ctx.currentTime + 0.12); osc.frequency.setValueAtTime(783.99, ctx.currentTime + 0.24);
+                    gain.gain.setValueAtTime(0.15, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.55);
                     osc.start(); osc.stop(ctx.currentTime + 0.55);
                 }
             } catch (e) { }
@@ -564,13 +582,8 @@
             const formCad = document.getElementById("form-cadastro");
             const tabLogin = document.getElementById("tab-login");
             const tabCad = document.getElementById("tab-cadastro");
-            if (aba === "login") {
-                formLogin.style.display = "block"; formCad.style.display = "none";
-                tabLogin.style.opacity = "1"; tabCad.style.opacity = "0.6";
-            } else {
-                formLogin.style.display = "none"; formCad.style.display = "block";
-                tabLogin.style.opacity = "0.6"; tabCad.style.opacity = "1";
-            }
+            if (aba === "login") { formLogin.style.display = "block"; formCad.style.display = "none"; tabLogin.style.opacity = "1"; tabCad.style.opacity = "0.6"; }
+            else { formLogin.style.display = "none"; formCad.style.display = "block"; tabLogin.style.opacity = "0.6"; tabCad.style.opacity = "1"; }
         }
 
         async function fazerCadastro() {
@@ -600,13 +613,11 @@
                 const nomeSnap = await rtdb.ref(`nomes_usuarios/${usuario}`).get();
                 if (nomeSnap.exists()) {
                     erroEl.innerText = `❌ O usuário "${usuario}" já está em uso.`;
-                    btn.innerText = "Criar Conta ➤"; btn.disabled = false;
-                    return;
+                    btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
                 }
             } catch (err) {
                 erroEl.innerText = "❌ ERRO ETAPA 1: " + traduzirErro(err);
-                btn.innerText = "Criar Conta ➤"; btn.disabled = false;
-                return;
+                btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
             erroEl.innerText = "🔍 Etapa 2/3: criando conta...";
@@ -614,8 +625,7 @@
             try { cred = await auth.createUserWithEmailAndPassword(usuarioParaEmail(usuario), senha); }
             catch (err) {
                 erroEl.innerText = "❌ ERRO ETAPA 2: " + traduzirErro(err);
-                btn.innerText = "Criar Conta ➤"; btn.disabled = false;
-                return;
+                btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
             const uid = cred.user.uid;
@@ -624,19 +634,16 @@
             try {
                 const nomeRef = rtdb.ref(`nomes_usuarios/${usuario}`);
                 const resultado = await nomeRef.transaction(current => {
-                    if (current === null) return { uid, criadoEm: Date.now() };
-                    return;
+                    if (current === null) return { uid, criadoEm: Date.now() }; return;
                 });
                 if (!resultado.committed) {
                     await cred.user.delete();
                     erroEl.innerText = `❌ O usuário "${usuario}" acabou de ser tomado.`;
-                    btn.innerText = "Criar Conta ➤"; btn.disabled = false;
-                    return;
+                    btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
                 }
             } catch (err) {
                 erroEl.innerText = "❌ ERRO ETAPA 3: " + traduzirErro(err);
-                btn.innerText = "Criar Conta ➤"; btn.disabled = false;
-                return;
+                btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
             erroEl.innerText = "🔍 Salvando perfil...";
@@ -645,8 +652,7 @@
                 rtdb.ref(`usuarios/${uid}/status`).onDisconnect().set("offline");
             } catch (err) {
                 erroEl.innerText = "❌ ERRO PERFIL: " + traduzirErro(err);
-                btn.innerText = "Criar Conta ➤"; btn.disabled = false;
-                return;
+                btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
             erroEl.innerText = "✅ Cadastro concluído! Entrando...";
@@ -683,12 +689,15 @@
             document.getElementById("my-status-dot").className = `status-dot dot-${meuUsuario.status || "online"}`;
             document.getElementById("login-screen").style.display = "none";
             document.getElementById("app-container").style.display = "block";
+            setVolume(document.getElementById("radio-volume").value);
             tocarSom("msg");
             iniciarTempoReal();
         }
 
         async function sairDoCorte() {
-            if (!confirm("Deseja desconectar?")) return;
+            if (!confirm("Deseja realmente desconectar?")) return;
+            pauseRadio();
+            fecharJogoAtual();
             if (meuUsuario) await rtdb.ref(`usuarios/${meuUsuario.id}/status`).set("offline");
             if (refUsuariosGlobal) refUsuariosGlobal.off();
             if (refContatosGlobal) refContatosGlobal.off();
@@ -699,11 +708,10 @@
 
         async function excluirMinhaConta() {
             if (!meuUsuario) return;
-            if (!confirm("Tem certeza? Isso apaga sua conta e libera seu nome para outras pessoas.")) return;
+            if (!confirm("Tem certeza? Isso apaga sua conta e libera seu nome.")) return;
             try {
                 const uid = meuUsuario.id;
-                const usuario = meuUsuario.usuario;
-                if (usuario) await rtdb.ref(`nomes_usuarios/${usuario}`).remove();
+                if (meuUsuario.usuario) await rtdb.ref(`nomes_usuarios/${meuUsuario.usuario}`).remove();
                 await rtdb.ref(`contatos/${uid}`).remove();
                 await rtdb.ref(`nao_lidas/${uid}`).remove();
                 await rtdb.ref(`usuarios/${uid}`).remove();
@@ -721,37 +729,22 @@
             await rtdb.ref(`usuarios/${meuUsuario.id}`).update({ status, subnick });
         }
 
-
-                    function carregarMeusContatos() {
+        function carregarMeusContatos() {
             if (!meuUsuario) return;
             if (refContatosGlobal) refContatosGlobal.off();
             refContatosGlobal = rtdb.ref(`contatos/${meuUsuario.id}`);
-            refContatosGlobal.on("value", (snapshot) => {
-                meusContatos = snapshot.val() || {};
-                renderizarContatos();
-            });
+            refContatosGlobal.on("value", (snapshot) => { meusContatos = snapshot.val() || {}; renderizarContatos(); });
         }
 
         function carregarNaoLidas() {
             if (!meuUsuario) return;
             if (refNaoLidasGlobal) refNaoLidasGlobal.off();
             refNaoLidasGlobal = rtdb.ref(`nao_lidas/${meuUsuario.id}`);
-            refNaoLidasGlobal.on("value", (snapshot) => {
-                naoLidas = snapshot.val() || {};
-                renderizarContatos();
-            });
+            refNaoLidasGlobal.on("value", (snapshot) => { naoLidas = snapshot.val() || {}; renderizarContatos(); });
         }
 
-        async function zerarNaoLidas(idContato) {
-            if (!meuUsuario) return;
-            await rtdb.ref(`nao_lidas/${meuUsuario.id}/${idContato}`).remove();
-        }
-
-        async function incrementarNaoLidas(idContato) {
-            if (!meuUsuario || !idContato) return;
-            const ref = rtdb.ref(`nao_lidas/${meuUsuario.id}/${idContato}`);
-            await ref.transaction(current => (current || 0) + 1);
-        }
+        async function zerarNaoLidas(idContato) { if (meuUsuario) await rtdb.ref(`nao_lidas/${meuUsuario.id}/${idContato}`).remove(); }
+        async function incrementarNaoLidas(idContato) { if (meuUsuario && idContato) await rtdb.ref(`nao_lidas/${meuUsuario.id}/${idContato}`).transaction(c => (c || 0) + 1); }
 
         function renderizarContatos() {
             const area = document.getElementById("contact-list-area");
@@ -761,11 +754,8 @@
 
             const topbarEmpty = document.getElementById("topbar-empty");
             if (topbarEmpty && !contatoAtual) {
-                if (meusContatosList.length === 0) {
-                    topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Use a busca acima para adicionar seu primeiro contato.</div>`;
-                } else {
-                    topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Selecione um contato salvo na lista à esquerda para começar.</div>`;
-                }
+                if (meusContatosList.length === 0) topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Use a busca acima para adicionar seu primeiro contato.</div>`;
+                else topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Selecione um contato salvo na lista à esquerda para começar.</div>`;
             }
 
             if (meusContatosList.length === 0) {
@@ -774,21 +764,14 @@
             }
 
             area.innerHTML += `<div class="contacts-header">▾ Contatos (${meusContatosList.length})</div>`;
-
             meusContatosList.forEach(u => {
                 const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
                 const qtdNaoLidas = naoLidas[u.id] || 0;
                 const badge = qtdNaoLidas > 0 ? `<span class="badge-nao-lidas">${qtdNaoLidas > 99 ? "99+" : qtdNaoLidas}</span>` : "";
                 area.innerHTML += `
                     <div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')">
-                        <div class="contact-crest-avatar">
-                            <svg><use href="#crest-conhecendo"></use></svg>
-                            <span class="status-dot dot-${u.status || 'offline'}"></span>
-                        </div>
-                        <div class="contact-info">
-                            <div class="contact-title">${escaparHTML(u.nome)}</div>
-                            <div class="contact-sub">${escaparHTML(u.subnick || "")}</div>
-                        </div>
+                        <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${u.status || 'offline'}"></span></div>
+                        <div class="contact-info"><div class="contact-title">${escaparHTML(u.nome)}</div><div class="contact-sub">${escaparHTML(u.subnick || "")}</div></div>
                         ${badge}
                     </div>`;
             });
@@ -800,25 +783,13 @@
             resultadosEl.innerHTML = "";
             if (!termo) return;
             const achados = listaUsuarios.filter(u => u.usuario && u.usuario.toLowerCase().includes(termo));
-            if (achados.length === 0) {
-                resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Nenhum usuário encontrado.</div>`;
-                return;
-            }
+            if (achados.length === 0) { resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Nenhum usuário encontrado.</div>`; return; }
             achados.slice(0, 5).forEach(u => {
-                const jaTenho = meusContatos[u.id];
-                const btn = jaTenho
-                    ? `<button class="btn-add-contato" disabled>✓ Adicionado</button>`
-                    : `<button class="btn-add-contato" onclick="adicionarContato('${u.id}')">➕ Adicionar</button>`;
+                const btn = meusContatos[u.id] ? `<button class="btn-add-contato" disabled>✓ Adicionado</button>` : `<button class="btn-add-contato" onclick="adicionarContato('${u.id}')">➕ Adicionar</button>`;
                 resultadosEl.innerHTML += `
                     <div class="search-result-row">
-                        <div class="contact-crest-avatar">
-                            <svg><use href="#crest-conhecendo"></use></svg>
-                            <span class="status-dot dot-${u.status || 'offline'}"></span>
-                        </div>
-                        <div class="search-result-info">
-                            <div class="search-result-name">${escaparHTML(u.nome)}</div>
-                            <div class="search-result-user">@${escaparHTML(u.usuario || "sem_usuario")}</div>
-                        </div>
+                        <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${u.status || 'offline'}"></span></div>
+                        <div class="search-result-info"><div class="search-result-name">${escaparHTML(u.nome)}</div><div class="search-result-user">@${escaparHTML(u.usuario || "sem_usuario")}</div></div>
                         ${btn}
                     </div>`;
             });
@@ -834,7 +805,7 @@
                 document.getElementById("search-input").value = "";
                 document.getElementById("search-results").innerHTML = "";
                 alert("Contato adicionado!");
-            } catch (err) { alert("Erro ao adicionar contato: " + traduzirErro(err)); }
+            } catch (err) { alert("Erro ao adicionar: " + traduzirErro(err)); }
         }
 
         function abrirChat(id) {
@@ -846,14 +817,12 @@
             document.getElementById("topbar-active").style.display = "flex";
             document.getElementById("active-contact-name").innerText = contatoAtual.nome;
             document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
-
             if (refChatAtual) refChatAtual.off();
             fecharJogoAtual();
 
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
             refChatAtual = rtdb.ref(`mensagens/${salaId}`);
             let primeiraCarga = true;
-
             refChatAtual.on("value", (snapshot) => {
                 const dados = snapshot.val();
                 const lista = dados ? Object.values(dados) : [];
@@ -898,7 +867,10 @@
 
         function exibirMensagensNaTela(lista) {
             const box = document.getElementById("chat-messages");
-            box.innerHTML = "";
+            const jogoEl = document.getElementById("jogo-container");
+            const jogoHTML = jogoEl ? jogoEl.outerHTML : "";
+            box.innerHTML = jogoHTML;
+
             let estagioConfirmado = "conhecendo";
             lista.forEach(m => { if (m.texto && m.texto.startsWith("[ACEITO]")) estagioConfirmado = m.estagio || "conhecendo"; });
             lista.forEach((m, index) => {
@@ -906,7 +878,7 @@
                     const est = m.estagio;
                     const jaResp = lista.slice(index + 1).some(n => n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]")));
                     if (m.remetente_id === meuUsuario.id) {
-                        box.innerHTML += `<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando confirmação...</span></div>`;
+                        box.innerHTML += `<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando...</span></div>`;
                     } else {
                         const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
                         box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
@@ -917,10 +889,10 @@
                     box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`;
                 } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
                     box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`;
-                } else if (m.foto_url) {
+                } else if (m.foto_url && /^data:image\/(png|jpeg|jpg|gif|webp);base64,/i.test(m.foto_url)) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou uma foto privada:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo"></div></div>`;
-                } else {
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou foto:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo" alt="Foto privada"></div></div>`;
+                } else if (m.texto) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
                     box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`;
                 }
@@ -933,10 +905,7 @@
         async function gravarEventoNoChat(dados) {
             if (!contatoAtual || !meuUsuario) return;
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
-            await rtdb.ref(`mensagens/${salaId}`).push({
-                remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome,
-                destinatario_id: contatoAtual.id, timestamp: Date.now(), ...dados
-            });
+            await rtdb.ref(`mensagens/${salaId}`).push({ remetente_id: meuUsuario.id, remetente_nome: meuUsuario.nome, destinatario_id: contatoAtual.id, timestamp: Date.now(), ...dados });
         }
 
         async function enviarMensagem() {
@@ -948,14 +917,13 @@
         }
 
         async function alterarEstagio() {
-            if (!contatoAtual || !meuUsuario) return;
-            await gravarEventoNoChat({ texto: "[PROPOSTA]", estagio: document.getElementById("stage-select").value });
+            if (contatoAtual && meuUsuario) await gravarEventoNoChat({ texto: "[PROPOSTA]", estagio: document.getElementById("stage-select").value });
         }
 
         async function responderProposta(est, aceito) {
             if (!contatoAtual || !meuUsuario) return;
             if (aceito) { tocarSom("selo"); await gravarEventoNoChat({ texto: "[ACEITO]", estagio: est }); }
-            else await gravarEventoNoChat({ texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio atual.`, estagio: "conhecendo" });
+            else await gravarEventoNoChat({ texto: `[RECUSADO] ${meuUsuario.nome} preferiu manter o estágio.`, estagio: "conhecendo" });
         }
 
         async function chamarAtencao() {
@@ -966,20 +934,321 @@
             await gravarEventoNoChat({ texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: document.getElementById("stage-select").value });
         }
 
-        function inserirEmoticon(emoji) {
-            const input = document.getElementById("message-input");
-            input.value += emoji; input.focus();
-        }
+        function inserirEmoticon(emoji) { const input = document.getElementById("message-input"); input.value += emoji; input.focus(); }
 
         function enviarFotoPrivada(event) {
             const file = event.target.files[0];
             if (!file || !contatoAtual || !meuUsuario) return;
+            if (file.size > 1500000) { alert("Escolha uma imagem de até 1,5 MB."); event.target.value = ""; return; }
             const reader = new FileReader();
-            reader.onload = async function(e) {
-                await gravarEventoNoChat({ foto_url: e.target.result, estagio: document.getElementById("stage-select").value });
-            };
+            reader.onload = async function(e) { await gravarEventoNoChat({ foto_url: e.target.result, estagio: document.getElementById("stage-select").value }); };
             reader.readAsDataURL(file);
             event.target.value = "";
+        }
+
+        /* ================= JOGOS SINCRONIZADOS ================= */
+        function atualizarBotoesJogo() {
+            ["velha", "casais", "forca"].forEach(j => {
+                const btn = document.getElementById(`btn-jogo-${j}`);
+                if (btn) btn.classList.toggle("ativo", jogoAtivo === j);
+            });
+        }
+
+        function fecharJogoAtual() {
+            if (refJogoAtual) { refJogoAtual.off(); refJogoAtual = null; }
+            jogoAtivo = null;
+            estadoJogoLocal = null;
+            atualizarBotoesJogo();
+            const el = document.getElementById("jogo-container");
+            if (el) el.remove();
+        }
+
+        function criarEstadoInicialJogo(tipo) {
+            if (tipo === "velha") {
+                return {
+                    tipo: "velha",
+                    tabuleiro: ["", "", "", "", "", "", "", "", ""],
+                    turno: "X",
+                    jogadores: { X: meuUsuario.id, O: contatoAtual.id },
+                    vencedor: null
+                };
+            }
+            if (tipo === "casais") {
+                const idx = Math.floor(Math.random() * PERGUNTAS_CASAL.length);
+                return {
+                    tipo: "casais",
+                    indicePergunta: idx,
+                    respostas: {}
+                };
+            }
+            if (tipo === "forca") {
+                const item = PALAVRAS_FORCA[Math.floor(Math.random() * PALAVRAS_FORCA.length)];
+                return {
+                    tipo: "forca",
+                    palavra: item.palavra,
+                    dica: item.dica,
+                    letrasUsadas: [],
+                    erros: 0,
+                    maxErros: 6
+                };
+            }
+            return null;
+        }
+
+        async function abrirJogo(tipo) {
+            if (!contatoAtual || !meuUsuario) {
+                alert("Selecione uma conversa primeiro para jogar.");
+                return;
+            }
+            if (jogoAtivo === tipo) {
+                fecharJogoAtual();
+                return;
+            }
+
+            if (refJogoAtual) { refJogoAtual.off(); refJogoAtual = null; }
+            jogoAtivo = tipo;
+            atualizarBotoesJogo();
+
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            const jogoRef = rtdb.ref(`jogos/${salaId}/${tipo}`);
+            refJogoAtual = jogoRef;
+
+            const snap = await jogoRef.get();
+            if (!snap.exists()) {
+                await jogoRef.set(criarEstadoInicialJogo(tipo));
+            }
+
+            jogoRef.on("value", (s) => {
+                if (jogoAtivo !== tipo) return;
+                estadoJogoLocal = s.val();
+                renderizarJogo();
+            });
+        }
+
+        async function reiniciarJogo() {
+            if (!contatoAtual || !meuUsuario || !jogoAtivo) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}/${jogoAtivo}`).set(criarEstadoInicialJogo(jogoAtivo));
+        }
+
+        function verificarVencedorVelha(b) {
+            const linhas = [
+                [0,1,2],[3,4,5],[6,7,8],
+                [0,3,6],[1,4,7],[2,5,8],
+                [0,4,8],[2,4,6]
+            ];
+            for (const [a, c, d] of linhas) {
+                if (b[a] && b[a] === b[c] && b[a] === b[d]) return b[a];
+            }
+            if (b.every(x => x !== "")) return "EMPATE";
+            return null;
+        }
+
+        async function jogarVelha(pos) {
+            if (!estadoJogoLocal || estadoJogoLocal.tipo !== "velha" || !contatoAtual || !meuUsuario) return;
+            const g = estadoJogoLocal;
+            if (g.vencedor || g.tabuleiro[pos]) return;
+
+            const meuSimbolo = (g.jogadores && g.jogadores.X === meuUsuario.id) ? "X" : "O";
+            if (g.turno !== meuSimbolo) {
+                alert(`Aguarde a vez do jogador ${g.turno}.`);
+                return;
+            }
+
+            const novoTab = [...g.tabuleiro];
+            novoTab[pos] = meuSimbolo;
+            const venc = verificarVencedorVelha(novoTab);
+            const proxTurno = meuSimbolo === "X" ? "O" : "X";
+
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}/velha`).update({
+                tabuleiro: novoTab,
+                turno: proxTurno,
+                vencedor: venc
+            });
+        }
+
+        async function enviarRespostaCasal() {
+            if (!estadoJogoLocal || estadoJogoLocal.tipo !== "casais" || !contatoAtual || !meuUsuario) return;
+            const input = document.getElementById("quiz-resp-input");
+            const txt = (input ? input.value : "").trim();
+            if (!txt) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}/casais/respostas/${meuUsuario.id}`).set({
+                nome: meuUsuario.nome,
+                texto: txt
+            });
+            if (input) input.value = "";
+        }
+
+        async function proximaPerguntaCasal() {
+            if (!estadoJogoLocal || estadoJogoLocal.tipo !== "casais" || !contatoAtual || !meuUsuario) return;
+            const proxIdx = (estadoJogoLocal.indicePergunta + 1) % PERGUNTAS_CASAL.length;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}/casais`).set({
+                tipo: "casais",
+                indicePergunta: proxIdx,
+                respostas: {}
+            });
+        }
+
+        async function chutarLetraForca(letra) {
+            if (!estadoJogoLocal || estadoJogoLocal.tipo !== "forca" || !contatoAtual || !meuUsuario) return;
+            const g = estadoJogoLocal;
+            const usadas = Array.isArray(g.letrasUsadas) ? g.letrasUsadas : [];
+            if (usadas.includes(letra) || g.erros >= g.maxErros) return;
+
+            const ganhouAntes = g.palavra.split("").every(ch => usadas.includes(ch));
+            if (ganhouAntes) return;
+
+            const novasUsadas = [...usadas, letra];
+            const acertou = g.palavra.includes(letra);
+            const novosErros = acertou ? g.erros : g.erros + 1;
+
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`jogos/${salaId}/forca`).update({
+                letrasUsadas: novasUsadas,
+                erros: novosErros
+            });
+        }
+
+        function renderizarJogo() {
+            const box = document.getElementById("chat-messages");
+            if (!box || !jogoAtivo || !estadoJogoLocal) return;
+
+            let container = document.getElementById("jogo-container");
+            if (!container) {
+                container = document.createElement("div");
+                container.id = "jogo-container";
+                box.prepend(container);
+            }
+
+            if (estadoJogoLocal.tipo === "velha") {
+                const g = estadoJogoLocal;
+                const meuSimbolo = (g.jogadores && g.jogadores.X === meuUsuario.id) ? "X" : "O";
+                let statusTxt = `Vez de: <strong>${g.turno}</strong> (Você é <strong>${meuSimbolo}</strong>)`;
+                if (g.vencedor === "EMPATE") statusTxt = "🤝 Empate!";
+                else if (g.vencedor) statusTxt = `🏆 Vencedor: <strong>${g.vencedor}</strong>!`;
+
+                const celulas = g.tabuleiro.map((val, i) =>
+                    `<div class="jogo-velha-celula ${val ? "ocupada" : ""}" onclick="jogarVelha(${i})">${escaparHTML(val)}</div>`
+                ).join("");
+
+                container.innerHTML = `
+                    <div class="jogo-titulo">❌⭕ Jogo da Velha</div>
+                    <div class="jogo-info">${statusTxt}</div>
+                    <div class="jogo-velha-board">${celulas}</div>
+                    <div class="jogo-actions">
+                        <button type="button" onclick="reiniciarJogo()">🔄 Reiniciar</button>
+                        <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                    </div>
+                `;
+                return;
+            }
+
+            if (estadoJogoLocal.tipo === "casais") {
+                const g = estadoJogoLocal;
+                const pergunta = PERGUNTAS_CASAL[g.indicePergunta % PERGUNTAS_CASAL.length];
+                const resps = g.respostas ? Object.values(g.respostas) : [];
+                const listaResps = resps.length
+                    ? resps.map(r => `<div class="quiz-resposta"><strong>${escaparHTML(r.nome)}:</strong> ${escaparHTML(r.texto)}</div>`).join("")
+                    : `<div style="font-size:11px;color:#5c7691;text-align:center;">Nenhuma resposta ainda.</div>`;
+
+                container.innerHTML = `
+                    <div class="jogo-titulo">💕 Quiz do Casal</div>
+                    <div class="quiz-pergunta">${escaparHTML(pergunta)}</div>
+                    <input type="text" id="quiz-resp-input" class="quiz-input" placeholder="Escreva sua resposta sincera..." onkeypress="if(event.key==='Enter') enviarRespostaCasal()">
+                    <div class="jogo-actions">
+                        <button type="button" onclick="enviarRespostaCasal()">💬 Responder</button>
+                        <button type="button" onclick="proximaPerguntaCasal()">➡️ Próxima Pergunta</button>
+                        <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                    </div>
+                    <div style="margin-top:8px;">${listaResps}</div>
+                `;
+                return;
+            }
+
+            if (estadoJogoLocal.tipo === "forca") {
+                const g = estadoJogoLocal;
+                const usadas = Array.isArray(g.letrasUsadas) ? g.letrasUsadas : [];
+                const palavraExibida = g.palavra.split("").map(ch => usadas.includes(ch) ? ch : "_").join(" ");
+                const venceu = g.palavra.split("").every(ch => usadas.includes(ch));
+                const perdeu = g.erros >= g.maxErros && !venceu;
+
+                let estadoMsg = `Dica: ${escaparHTML(g.dica)}`;
+                if (venceu) estadoMsg = `🎉 Parabéns! Palavra descoberta: <strong>${escaparHTML(g.palavra)}</strong>`;
+                else if (perdeu) estadoMsg = `💀 Fim de jogo! A palavra era: <strong>${escaparHTML(g.palavra)}</strong>`;
+
+                const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(letra => {
+                    const foiUsada = usadas.includes(letra);
+                    let cls = "forca-letra";
+                    if (foiUsada) {
+                        cls += g.palavra.includes(letra) ? " usada acerto" : " usada erro";
+                    }
+                    return `<div class="${cls}" onclick="chutarLetraForca('${letra}')">${letra}</div>`;
+                }).join("");
+
+                container.innerHTML = `
+                    <div class="jogo-titulo">🔤 Forca</div>
+                    <div class="jogo-info">${estadoMsg}</div>
+                    <div class="forca-erros">Erros: ${g.erros} / ${g.maxErros}</div>
+                    <div class="forca-palavra">${escaparHTML(palavraExibida)}</div>
+                    <div class="forca-letras">${alfabeto}</div>
+                    <div class="jogo-actions">
+                        <button type="button" onclick="reiniciarJogo()">🔄 Nova Palavra</button>
+                        <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                    </div>
+                `;
+            }
+        }
+
+        /* ================= RÁDIO ================= */
+        function setRadioStatus(texto) {
+            const el = document.getElementById("radio-status");
+            if (el) el.innerText = texto;
+        }
+
+        function trocarEstacao() {
+            const select = document.getElementById("radio-estacao");
+            const audio = document.getElementById("radio-player");
+            if (!select || !audio) return;
+            const estavaTocando = !audio.paused;
+            audio.src = select.value;
+            audio.load();
+            if (estavaTocando) {
+                playRadio();
+            } else {
+                setRadioStatus("Estação alterada (Parado)");
+            }
+        }
+
+        function playRadio() {
+            const select = document.getElementById("radio-estacao");
+            const audio = document.getElementById("radio-player");
+            if (!audio) return;
+            if (select && audio.src !== select.value) {
+                audio.src = select.value;
+            }
+            setRadioStatus("Conectando...");
+            audio.play().then(() => {
+                const nomeEstacao = select ? select.options[select.selectedIndex].text : "Rádio";
+                setRadioStatus(`Tocando: ${nomeEstacao}`);
+            }).catch(() => {
+                setRadioStatus("Erro ao reproduzir stream");
+            });
+        }
+
+        function pauseRadio() {
+            const audio = document.getElementById("radio-player");
+            if (!audio) return;
+            audio.pause();
+            setRadioStatus("Pausado");
+        }
+
+        function setVolume(val) {
+            const audio = document.getElementById("radio-player");
+            if (!audio) return;
+            audio.volume = Math.max(0, Math.min(1, parseFloat(val) || 0));
         }
 
         function escutarMensagensGlobais() {
@@ -1008,293 +1277,8 @@
             carregarNaoLidas();
             escutarMensagensGlobais();
         }
-
-        // ============ RÁDIO ============
-        const radioPlayer = document.getElementById("radio-player");
-        const radioPanel = document.getElementById("radio-panel");
-        const radioStatus = document.getElementById("radio-status");
-        const radioBarPlay = document.getElementById("radio-bar-play");
-        const radioBarPause = document.getElementById("radio-bar-pause");
-
-        function toggleRadio() { radioPanel.style.display = (radioPanel.style.display === "block") ? "none" : "block"; }
-        function playRadio() {
-            radioPlayer.play().then(() => {
-                radioStatus.innerText = "Tocando...";
-                radioBarPlay.style.display = "none";
-                radioBarPause.style.display = "inline-block";
-                radioPanel.style.display = "none";
-            }).catch(e => { console.error("Erro ao tocar rádio:", e); alert("Não foi possível iniciar a rádio. Verifique sua conexão."); });
-        }
-        function pauseRadio() {
-            radioPlayer.pause();
-            radioStatus.innerText = "Rádio Clássica";
-            radioBarPlay.style.display = "inline-block";
-            radioBarPause.style.display = "none";
-        }
-        function setVolume(valor) {
-            radioPlayer.volume = parseFloat(valor);
-            document.getElementById("radio-volume").value = valor;
-            document.getElementById("radio-volume-bar").value = valor;
-            }
-
-
-                    // ============ CONTROLE DE JOGOS ============
-        let jogoAberto = null;
-        let refJogoAtual = null;
-        let jogoAtual = null;
-        let meuSimbolo = null;
-
-        function fecharJogoAtual() {
-            if (refJogoAtual) { refJogoAtual.off(); refJogoAtual = null; }
-            jogoAtual = null;
-            jogoAberto = null;
-            const c = document.getElementById("jogo-container");
-            if (c) c.remove();
-            document.querySelectorAll(".btn-jogo-chat").forEach(b => b.classList.remove("ativo"));
-        }
-
-        function abrirJogo(tipo) {
-            if (!contatoAtual || !meuUsuario) { alert("Abra uma conversa primeiro."); return; }
-            if (jogoAberto === tipo) { fecharJogoAtual(); return; }
-            fecharJogoAtual();
-            jogoAberto = tipo;
-            document.getElementById("btn-jogo-" + tipo).classList.add("ativo");
-            if (tipo === "velha") abrirJogoVelha();
-            else if (tipo === "casais") abrirJogoCasais();
-            else if (tipo === "forca") abrirJogoForca();
-        }
-
-        // ============ JOGO DA VELHA ============
-        function abrirJogoVelha() {
-            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
-            const jogoId = `velha_${salaId}`;
-            const refJogo = rtdb.ref(`jogos/${jogoId}`);
-            refJogo.once("value").then(snap => {
-                if (!snap.val()) {
-                    refJogo.set({
-                        tipo: "velha", jogador1: meuUsuario.id, jogador1_nome: meuUsuario.nome,
-                        jogador2: contatoAtual.id, jogador2_nome: contatoAtual.nome,
-                        tabuleiro: ["", "", "", "", "", "", "", "", ""],
-                        turno: meuUsuario.id, vencedor: null, status: "ativo", criadoEm: Date.now()
-                    });
-                }
-                refJogoAtual = refJogo;
-                refJogo.on("value", (snap) => {
-                    jogoAtual = snap.val();
-                    if (!jogoAtual) return;
-                    meuSimbolo = (jogoAtual.jogador1 === meuUsuario.id) ? "X" : "O";
-                    renderizarJogoVelha();
-                });
-            });
-        }
-
-        function renderizarJogoVelha() {
-            const box = document.getElementById("chat-messages");
-            let container = document.getElementById("jogo-container");
-            if (!container) {
-                container = document.createElement("div");
-                container.id = "jogo-container";
-                box.appendChild(container);
-            }
-            const vencedor = jogoAtual.vencedor;
-            const empate = jogoAtual.status === "empate";
-            const vezDe = jogoAtual.turno === meuUsuario.id ? "Sua vez" : "Vez do outro";
-            let info = vencedor ? (vencedor === meuUsuario.id ? "🏆 Você venceu!" : "🏆 Você perdeu!") : (empate ? "🤝 Empate!" : vezDe);
-            container.innerHTML = `
-                <div class="jogo-titulo">🎮 Jogo da Velha — Você é ${meuSimbolo}</div>
-                <div class="jogo-info">${info}</div>
-                <div class="jogo-velha-board" id="jogo-velha-board"></div>
-                <div class="jogo-actions">
-                    <button onclick="reiniciarJogoVelha()">🔄 Reiniciar</button>
-                    <button onclick="fecharJogoAtual()">✕ Fechar</button>
-                </div>`;
-            const board = document.getElementById("jogo-velha-board");
-            jogoAtual.tabuleiro.forEach((valor, index) => {
-                const cel = document.createElement("div");
-                cel.className = "jogo-velha-celula" + (valor ? " ocupada" : "");
-                cel.textContent = valor;
-                cel.onclick = () => jogarVelha(index);
-                board.appendChild(cel);
-            });
-            box.scrollTop = box.scrollHeight;
-        }
-
-        async function jogarVelha(index) {
-            if (!jogoAtual || !refJogoAtual) return;
-            if (jogoAtual.vencedor || jogoAtual.status === "empate") return;
-            if (jogoAtual.turno !== meuUsuario.id) { alert("Não é sua vez."); return; }
-            if (jogoAtual.tabuleiro[index]) return;
-            const novoTabuleiro = [...jogoAtual.tabuleiro];
-            novoTabuleiro[index] = meuSimbolo;
-            const vencedor = verificarVencedorVelha(novoTabuleiro);
-            const empate = !vencedor && novoTabuleiro.every(c => c !== "");
-            const proximoTurno = (jogoAtual.turno === jogoAtual.jogador1) ? jogoAtual.jogador2 : jogoAtual.jogador1;
-            await refJogoAtual.update({
-                tabuleiro: novoTabuleiro,
-                turno: vencedor || empate ? jogoAtual.turno : proximoTurno,
-                vencedor: vencedor ? meuUsuario.id : null,
-                status: empate ? "empate" : (vencedor ? "finalizado" : "ativo")
-            });
-            if (vencedor) tocarSom("selo"); else tocarSom("msg");
-        }
-
-        function verificarVencedorVelha(t) {
-            const linhas = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]];
-            for (const [a,b,c] of linhas) if (t[a] && t[a] === t[b] && t[a] === t[c]) return t[a];
-            return null;
-        }
-
-        async function reiniciarJogoVelha() {
-            if (!refJogoAtual || !jogoAtual) return;
-            await refJogoAtual.update({ tabuleiro: ["", "", "", "", "", "", "", "", ""], turno: jogoAtual.jogador1, vencedor: null, status: "ativo" });
-        }
-
-        // ============ QUIZ DO CASAL ============
-        const PERGUNTAS_CASAIS = [
-            "Qual a comida favorita do seu par?", "Qual o filme que vocês mais gostam de assistir juntos?",
-            "Qual a maior mania do seu par?", "Qual o sonho de viagem do seu par?",
-            "Qual a cor favorita do seu par?", "O que seu par mais valoriza em você?",
-            "Qual foi o momento mais marcante de vocês dois?", "Qual a música que lembra vocês dois?",
-            "Qual o maior medo do seu par?", "O que seu par mais gosta de fazer no tempo livre?"
-        ];
-
-        function abrirJogoCasais() {
-            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
-            const jogoId = `casais_${salaId}`;
-            const refJogo = rtdb.ref(`jogos/${jogoId}`);
-            refJogo.once("value").then(snap => {
-                if (!snap.val()) {
-                    refJogo.set({
-                        tipo: "casais", jogador1: meuUsuario.id, jogador1_nome: meuUsuario.nome,
-                        jogador2: contatoAtual.id, jogador2_nome: contatoAtual.nome,
-                        rodada: 0, respostas: {}, criadoEm: Date.now()
-                    });
-                }
-                refJogoAtual = refJogo;
-                refJogo.on("value", (snap) => { jogoAtual = snap.val(); if (jogoAtual) renderizarJogoCasais(); });
-            });
-        }
-
-        function renderizarJogoCasais() {
-            const box = document.getElementById("chat-messages");
-            let container = document.getElementById("jogo-container");
-            if (!container) { container = document.createElement("div"); container.id = "jogo-container"; box.appendChild(container); }
-            const rodada = jogoAtual.rodada || 0;
-            const pergunta = PERGUNTAS_CASAIS[rodada % PERGUNTAS_CASAIS.length];
-            const respostasRodada = jogoAtual.respostas?.[rodada] || {};
-            const minhaResp = respostasRodada[meuUsuario.id];
-            const outroId = jogoAtual.jogador1 === meuUsuario.id ? jogoAtual.jogador2 : jogoAtual.jogador1;
-            const outroNome = jogoAtual.jogador1 === meuUsuario.id ? jogoAtual.jogador2_nome : jogoAtual.jogador1_nome;
-            const outroResp = respostasRodada[outroId];
-            const ambosResponderam = minhaResp && outroResp;
-            let html = `<div class="jogo-titulo">💕 Quiz do Casal — Rodada ${rodada + 1}</div><div class="quiz-pergunta">${pergunta}</div>`;
-            if (!minhaResp) {
-                html += `<input type="text" id="quiz-resposta-input" class="quiz-input" placeholder="Sua resposta..." maxlength="100">
-                    <div class="jogo-actions"><button onclick="enviarRespostaCasais()">Enviar resposta</button><button onclick="fecharJogoAtual()">✕ Fechar</button></div>`;
-            } else {
-                html += `<div class="quiz-resposta"><strong>Você:</strong> ${escaparHTML(minhaResp)}</div>`;
-                html += outroResp
-                    ? `<div class="quiz-resposta"><strong>${escaparHTML(outroNome)}:</strong> ${escaparHTML(outroResp)}</div>`
-                    : `<div class="quiz-resposta" style="color:#999;">Aguardando resposta de ${escaparHTML(outroNome)}...</div>`;
-                html += `<div class="jogo-actions">`;
-                if (ambosResponderam) html += `<button onclick="proximaRodadaCasais()">➡️ Próxima pergunta</button>`;
-                html += `<button onclick="fecharJogoAtual()">✕ Fechar</button></div>`;
-            }
-            container.innerHTML = html;
-            box.scrollTop = box.scrollHeight;
-        }
-
-        async function enviarRespostaCasais() {
-            if (!refJogoAtual || !jogoAtual) return;
-            const input = document.getElementById("quiz-resposta-input");
-            const texto = input.value.trim();
-            if (!texto) { alert("Digite uma resposta."); return; }
-            const rodada = jogoAtual.rodada || 0;
-            await refJogoAtual.child(`respostas/${rodada}/${meuUsuario.id}`).set(texto);
-        }
-
-        async function proximaRodadaCasais() {
-            if (!refJogoAtual || !jogoAtual) return;
-            await refJogoAtual.update({ rodada: (jogoAtual.rodada || 0) + 1 });
-        }
-
-        // ============ ADIVINHE A PALAVRA ============
-        const PALAVRAS_FORCA = ["AMOR", "SAUDADE", "BEIJO", "ABRACO", "CORACAO", "FLOR", "LUA", "ESTRELA", "SONHO", "FELICIDADE", "AMIZADE", "CASAMENTO", "NOIVADO", "PAIXAO", "CARINHO", "PRIMAVERA", "MUSICA", "POESIA", "JARDIM", "SORRISO"];
-
-        function abrirJogoForca() {
-            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
-            const jogoId = `forca_${salaId}`;
-            const refJogo = rtdb.ref(`jogos/${jogoId}`);
-            refJogo.once("value").then(snap => {
-                if (!snap.val()) {
-                    const palavra = PALAVRAS_FORCA[Math.floor(Math.random() * PALAVRAS_FORCA.length)];
-                    refJogo.set({
-                        tipo: "forca", jogador1: meuUsuario.id, jogador1_nome: meuUsuario.nome,
-                        jogador2: contatoAtual.id, jogador2_nome: contatoAtual.nome,
-                        palavra, dica: "Tema: amor e sentimentos", letrasTentadas: {}, criadoEm: Date.now()
-                    });
-                }
-                refJogoAtual = refJogo;
-                refJogo.on("value", (snap) => { jogoAtual = snap.val(); if (jogoAtual) renderizarJogoForca(); });
-            });
-        }
-
-        function renderizarJogoForca() {
-            const box = document.getElementById("chat-messages");
-            let container = document.getElementById("jogo-container");
-            if (!container) { container = document.createElement("div"); container.id = "jogo-container"; box.appendChild(container); }
-            const palavra = jogoAtual.palavra;
-            const tentadas = jogoAtual.letrasTentadas || {};
-            const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-            const letrasCertas = new Set();
-            let erros = 0;
-            Object.keys(tentadas).forEach(l => { if (palavra.includes(l)) letrasCertas.add(l); else erros++; });
-            const palavraExibida = palavra.split("").map(l => letrasCertas.has(l) ? l : "_").join(" ");
-            const venceu = palavra.split("").every(l => letrasCertas.has(l));
-            const perdeu = erros >= 6;
-            let html = `<div class="jogo-titulo">🔤 Adivinhe a Palavra</div><div class="jogo-info">${escaparHTML(jogoAtual.dica || "")}</div><div class="forca-palavra">${palavraExibida}</div><div class="forca-erros">Erros: ${erros} / 6 ${perdeu ? "— 💀 A palavra era " + palavra : ""}</div>`;
-            if (venceu) html += `<div class="jogo-info" style="color:#2e8b57;">🏆 Você acertou!</div>`;
-            else if (!perdeu) html += `<div class="forca-letras" id="forca-letras"></div>`;
-            html += `<div class="jogo-actions"><button onclick="reiniciarJogoForca()">🔄 Nova palavra</button><button onclick="fecharJogoAtual()">✕ Fechar</button></div>`;
-            container.innerHTML = html;
-            box.scrollTop = box.scrollHeight;
-            if (!venceu && !perdeu) {
-                const letrasDiv = document.getElementById("forca-letras");
-                alfabeto.forEach(letra => {
-                    const btn = document.createElement("div");
-                    btn.className = "forca-letra";
-                    btn.textContent = letra;
-                    if (tentadas[letra] !== undefined) {
-                        btn.classList.add("usada");
-                        btn.classList.add(palavra.includes(letra) ? "acerto" : "erro");
-                    } else {
-                        btn.onclick = () => tentarLetra(letra);
-                    }
-                    letrasDiv.appendChild(btn);
-                });
-            }
-        }
-
-        async function tentarLetra(letra) {
-            if (!refJogoAtual || !jogoAtual) return;
-            await refJogoAtual.child(`letrasTentadas/${letra}`).set(true);
-            tocarSom(jogoAtual.palavra.includes(letra) ? "msg" : "nudge");
-        }
-
-        async function reiniciarJogoForca() {
-            if (!refJogoAtual) return;
-            const palavra = PALAVRAS_FORCA[Math.floor(Math.random() * PALAVRAS_FORCA.length)];
-            await refJogoAtual.update({ palavra, letrasTentadas: {} });
-        }
-
-        auth.onAuthStateChanged(async (user) => {
-            if (user) await carregarApp(user.uid);
-        });
     </script>
 </body>
 </html>
 
 
-
-    
-        
