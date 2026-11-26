@@ -98,10 +98,12 @@
         .chat-photo { max-width: 220px; border-radius: 6px; border: 2px solid #8cb4d8; margin-top: 4px; display: block; }
         .bottom-composer { border-top: 1px solid #c2dcf2; background: #f3f8fd; }
         .composer-tools { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-bottom: 1px solid #dcebfa; background: #eaf3fc; flex-wrap: wrap; }
-        .icon-tool { background: transparent; border: 1px solid transparent; border-radius: 4px; padding: 3px 7px; font-size: 12px; cursor: pointer; color: #1e4268; display: flex; align-items: center; gap: 4px; }
+        .icon-tool { background: linear-gradient(180deg, #ffffff 0%, #e4f0fc 100%); border: 1px solid #9ec2e6; border-radius: 14px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; color: #143961; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.1); }
+        .icon-tool:hover { background: linear-gradient(180deg, #ffffff 0%, #cde3fa 100%); border-color: #5b8fc4; }
         .composer-input-row { display: flex; gap: 8px; padding: 8px 12px; background: white; }
         .composer-input-row input { flex: 1; border: none; outline: none; font-size: 13px; padding: 4px; }
-        .btn-send-aero { background: linear-gradient(180deg, #f8fbff 0%, #d4e7fa 100%); border: 1px solid #8cb4d8; color: #174978; font-weight: bold; padding: 6px 16px; border-radius: 4px; cursor: pointer; font-size: 12px; }
+        .btn-send-aero { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 6px 16px; border-radius: 14px; cursor: pointer; font-size: 12px; box-shadow: 0 1px 3px rgba(15, 45, 80, 0.16); }
+        .btn-send-aero:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
         @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-7px, -5px); } 40% { transform: translate(7px, 5px); } 60% { transform: translate(-7px, 5px); } 80% { transform: translate(7px, -5px); } }
         .shake { animation: nudgeShake 0.45s ease-in-out; }
         .search-result-row { display: flex; align-items: center; gap: 8px; padding: 8px; background: #fff8e1; border: 1px solid #e6c76a; border-radius: 5px; margin-bottom: 4px; }
@@ -115,40 +117,40 @@
         .btn-add-contato:disabled { opacity: 0.6; cursor: not-allowed; }
         .empty-contacts { text-align: center; font-size: 11px; color: #5c7691; padding: 14px 8px; line-height: 1.4; }
         .badge-nao-lidas { background: #e84118; color: white; font-size: 10px; font-weight: bold; border-radius: 10px; padding: 1px 6px; min-width: 18px; text-align: center; margin-left: auto; flex-shrink: 0; }
-        .jogos-bar { display: flex; gap: 6px; padding: 6px 12px; background: #eaf3fc; border-bottom: 1px solid #dcebfa; flex-wrap: wrap; }
-        .btn-jogo-chat { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-size: 11px; font-weight: bold; padding: 4px 8px; border-radius: 4px; cursor: pointer; }
+        .jogos-bar { display: flex; gap: 8px; padding: 6px 12px; background: #eaf3fc; border-bottom: 1px solid #dcebfa; flex-wrap: wrap; align-items: center; }
+        .btn-jogo-chat { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-size: 11.5px; font-weight: bold; padding: 5px 12px; border-radius: 14px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.12); }
         .btn-jogo-chat:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .btn-jogo-chat.ativo { background: #cbe4fa; border-color: #2e6da4; box-shadow: inset 0 1px 3px rgba(0,0,0,0.15); }
-        #jogo-container { background: #f9fcff; border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 4px 0 10px 0; }
-        .jogo-titulo { text-align: center; font-size: 13px; font-weight: bold; color: #103c66; margin-bottom: 8px; }
-        .jogo-info { text-align: center; font-size: 12px; color: #174978; margin: 6px 0; font-weight: bold; }
-        .jogo-actions { text-align: center; margin-top: 10px; display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
-        .jogo-actions button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 12px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+        .btn-jogo-chat.ativo { background: linear-gradient(180deg, #bfe0fc 0%, #8fc2f0 100%); border-color: #265c91; box-shadow: inset 0 1px 3px rgba(10, 35, 70, 0.2); }
+        #jogo-container { background: linear-gradient(180deg, #f9fcff 0%, #eef6fd 100%); border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 4px 0 10px 0; box-shadow: 0 3px 10px rgba(15, 45, 80, 0.08); }
+        .jogo-titulo { text-align: center; font-size: 13.5px; font-weight: bold; color: #103c66; margin-bottom: 6px; }
+        .jogo-info { text-align: center; font-size: 12px; color: #174978; margin: 6px 0; font-weight: 600; line-height: 1.4; }
+        .jogo-actions { text-align: center; margin-top: 10px; display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; }
+        .jogo-actions button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 13px; border-radius: 14px; font-size: 11px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.12); }
         .jogo-actions button:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .jogo-velha-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 280px; margin: 8px auto; }
-        .jogo-velha-celula { background: #f0f6fc; border: 2px solid #8cb4d8; border-radius: 6px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 34px; font-weight: bold; color: #103c66; cursor: pointer; user-select: none; }
-        .jogo-velha-celula:hover { background: #dcecfb; }
-        .jogo-velha-celula.ocupada { cursor: not-allowed; }
-        .quiz-pergunta { background: #fff8e1; border: 1px solid #e6c76a; border-radius: 6px; padding: 10px 12px; margin: 8px 0; font-size: 13px; color: #2b210e; line-height: 1.4; }
-        .quiz-input { width: 100%; padding: 7px 10px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 13px; margin: 6px 0; }
-        .quiz-resposta { background: #eef6fc; border: 1px solid #c5dff7; border-radius: 6px; padding: 8px 10px; margin: 4px 0; font-size: 12px; }
+        .jogo-velha-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 260px; margin: 8px auto; }
+        .jogo-velha-celula { background: #f0f6fc; border: 2px solid #8cb4d8; border-radius: 6px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; color: #103c66; cursor: pointer; user-select: none; }
+        .jogo-velha-celula:hover:not(.ocupada) { background: #dcecfb; }
+        .jogo-velha-celula.ocupada { cursor: default; background: #e8f1fa; }
+        .quiz-pergunta { background: #fff8e1; border: 1px solid #e6c76a; border-radius: 6px; padding: 10px 12px; margin: 8px 0; font-size: 13px; color: #2b210e; line-height: 1.45; }
+        .quiz-input { width: 100%; padding: 7px 10px; border: 1px solid #8cb4d8; border-radius: 5px; font-size: 13px; margin: 6px 0; background: white; }
+        .quiz-resposta { background: #eef6fc; border: 1px solid #c5dff7; border-radius: 6px; padding: 8px 10px; margin: 5px 0; font-size: 12px; }
         .quiz-resposta strong { color: #103c66; }
-        .forca-palavra { text-align: center; font-size: 26px; font-weight: bold; letter-spacing: 8px; color: #103c66; margin: 10px 0; font-family: 'Courier New', monospace; }
+        .forca-palavra { text-align: center; font-size: 25px; font-weight: bold; letter-spacing: 8px; color: #103c66; margin: 10px 0; font-family: 'Courier New', monospace; }
         .forca-letras { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 320px; margin: 10px auto; }
-        .forca-letra { background: #f0f6fc; border: 1px solid #8cb4d8; border-radius: 4px; padding: 6px 0; text-align: center; font-weight: bold; font-size: 13px; cursor: pointer; color: #103c66; user-select: none; }
-        .forca-letra:hover { background: #dcecfb; }
-        .forca-letra.usada { background: #ddd; color: #999; cursor: not-allowed; }
-        .forca-letra.acerto { background: #c8f7c8; border-color: #2e8b57; }
-        .forca-letra.erro { background: #f7c8c8; border-color: #c94a4a; }
+        .forca-letra { background: linear-gradient(180deg, #ffffff 0%, #e1effc 100%); border: 1px solid #8cb4d8; border-radius: 5px; padding: 6px 0; text-align: center; font-weight: bold; font-size: 13px; cursor: pointer; color: #103c66; user-select: none; }
+        .forca-letra:hover:not(.usada) { background: #cfe6fc; }
+        .forca-letra.usada { cursor: default; opacity: 0.85; }
+        .forca-letra.acerto { background: #c8f7c8; border-color: #2e8b57; color: #16472b; }
+        .forca-letra.erro { background: #f7c8c8; border-color: #c94a4a; color: #6e1c1c; }
         .forca-erros { text-align: center; font-size: 12px; color: #c94a4a; font-weight: bold; margin: 4px 0; }
 
-        .radio-bar-bottom { background: #eaf3fc; border-top: 1px solid #c2dcf2; padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
-        .radio-controls { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .radio-controls button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+        .radio-bar-bottom { background: linear-gradient(180deg, #f2f8fe 0%, #e2effc 100%); border-top: 1px solid #c2dcf2; padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
+        .radio-controls { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
+        .radio-controls button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 12px; border-radius: 14px; font-size: 11.5px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.14); }
         .radio-controls button:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .radio-controls .radio-label { font-weight: bold; font-size: 12px; color: #103c66; margin-right: 4px; }
-        .radio-controls input[type="range"] { width: 100px; }
-        .radio-controls select { padding: 4px 8px; border: 1px solid #5284b8; border-radius: 4px; font-size: 12px; color: #0d3259; background: white; cursor: pointer; font-weight: bold; }
+        .radio-controls .radio-label { font-weight: bold; font-size: 12px; color: #103c66; margin-right: 2px; }
+        .radio-controls input[type="range"] { width: 105px; accent-color: #2b6cb0; cursor: pointer; }
+        .radio-controls select { padding: 5px 10px; border: 1px solid #5284b8; border-radius: 12px; font-size: 12px; color: #0d3259; background: white; cursor: pointer; font-weight: bold; max-width: 240px; }
 
         @media (max-width: 768px) {
             .main-workspace { flex-direction: column; height: auto; }
@@ -439,19 +441,22 @@
                     <div class="radio-controls">
                         <span class="radio-label">📻 Rádio:</span>
                         <select id="radio-estacao" onchange="trocarEstacao()">
-                            <option value="https://relay.publicdomainradio.org/classical.mp3">Public Domain Classical</option>
+                            <option value="https://audio.bbnradio.org:8443/Portuguese">BBN Português</option>
+                            <option value="https://audio.bbnradio.org:8443/English">BBN Inglês</option>
+                            <option value="https://audio.bbnradio.org:8443/Spanish">BBN Espanhol</option>
+                            <option value="https://audio.bbnradio.org:8443/German">BBN Alemão</option>
                             <option value="https://stream.srg-ssr.ch/srgssr/rsc_de/mp3/128">Radio Swiss Classic</option>
                             <option value="https://ice1.somafm.com/dronezone-128-mp3">SomaFM Drone Zone</option>
                             <option value="https://ice1.somafm.com/deepspaceone-128-mp3">SomaFM Deep Space One</option>
                             <option value="https://ice1.somafm.com/lush-128-mp3">SomaFM Lush</option>
                             <option value="https://ice1.somafm.com/u80s-128-mp3">SomaFM Underground 80s</option>
                             <option value="https://ice1.somafm.com/defcon-128-mp3">SomaFM DEF CON</option>
-                            <option value="https://ice1.somafm.com/fluid-128-mp3">SomaFM Fluid (Hip Hop Instrumental)</option>
                         </select>
                         <button type="button" onclick="playRadio()">▶️ Tocar</button>
                         <button type="button" onclick="pauseRadio()">⏸️ Pausar</button>
+                        <button type="button" onclick="proximaEstacao()">⏭️ Próxima</button>
                     </div>
-                    <div class="radio-controls" style="margin-top: 4px;">
+                    <div class="radio-controls" style="margin-top: 2px;">
                         <span style="font-size: 11px; color: #5c7691;">🔊 Volume:</span>
                         <input type="range" id="radio-volume" min="0" max="1" step="0.01" value="0.5" oninput="setVolume(this.value)">
                         <span id="radio-status" style="font-size: 11px; color: #5c7691; margin-left: 8px;">Parado</span>
@@ -459,7 +464,7 @@
                 </div>
 
                 <audio id="radio-player" preload="none" crossorigin="anonymous">
-                    <source src="https://relay.publicdomainradio.org/classical.mp3" type="audio/mpeg">
+                    <source src="https://audio.bbnradio.org:8443/Portuguese" type="audio/mpeg">
                 </audio>
             </div>
         </div>
@@ -512,6 +517,14 @@
             { palavra: "COMPROMISSO", dica: "Segundo estágio do Corte" },
             { palavra: "GENTILEZA", dica: "Atenção e cuidado no trato" }
         ];
+
+        function formatarAutor(nome, idRemetente) {
+            const nomeEscapado = escaparHTML(nome);
+            if (meuUsuario && idRemetente === meuUsuario.id) {
+                return `${nomeEscapado} (você)`;
+            }
+            return nomeEscapado;
+        }
 
         function toggleSenha(idInput, btn) {
             const input = document.getElementById(idInput);
@@ -874,6 +887,7 @@
             let estagioConfirmado = "conhecendo";
             lista.forEach(m => { if (m.texto && m.texto.startsWith("[ACEITO]")) estagioConfirmado = m.estagio || "conhecendo"; });
             lista.forEach((m, index) => {
+                const autorFormatado = formatarAutor(m.remetente_nome, m.remetente_id);
                 if (m.texto && m.texto.startsWith("[PROPOSTA]")) {
                     const est = m.estagio;
                     const jaResp = lista.slice(index + 1).some(n => n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]")));
@@ -881,7 +895,7 @@
                         box.innerHTML += `<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando...</span></div>`;
                     } else {
                         const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
-                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${escaparHTML(m.remetente_nome)}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
+                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${autorFormatado}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
                     }
                 } else if (m.texto && m.texto.startsWith("[ACEITO]")) {
                     box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
@@ -891,10 +905,10 @@
                     box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`;
                 } else if (m.foto_url && /^data:image\/(png|jpeg|jpg|gif|webp);base64,/i.test(m.foto_url)) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} enviou foto:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo" alt="Foto privada"></div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} enviou foto:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo" alt="Foto privada"></div></div>`;
                 } else if (m.texto) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${escaparHTML(m.remetente_nome)} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`;
+                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`;
                 }
             });
             document.getElementById("stage-select").value = estagioConfirmado;
@@ -964,12 +978,13 @@
         }
 
         function criarEstadoInicialJogo(tipo) {
+            const idsOrdenados = [meuUsuario.id, contatoAtual.id].sort();
             if (tipo === "velha") {
                 return {
                     tipo: "velha",
                     tabuleiro: ["", "", "", "", "", "", "", "", ""],
                     turno: "X",
-                    jogadores: { X: meuUsuario.id, O: contatoAtual.id },
+                    jogadores: { X: idsOrdenados[0], O: idsOrdenados[1] },
                     vencedor: null
                 };
             }
@@ -1047,7 +1062,8 @@
         async function jogarVelha(pos) {
             if (!estadoJogoLocal || estadoJogoLocal.tipo !== "velha" || !contatoAtual || !meuUsuario) return;
             const g = estadoJogoLocal;
-            if (g.vencedor || g.tabuleiro[pos]) return;
+            const tab = Array.isArray(g.tabuleiro) ? [...g.tabuleiro] : ["", "", "", "", "", "", "", "", ""];
+            if (g.vencedor || tab[pos]) return;
 
             const meuSimbolo = (g.jogadores && g.jogadores.X === meuUsuario.id) ? "X" : "O";
             if (g.turno !== meuSimbolo) {
@@ -1055,14 +1071,13 @@
                 return;
             }
 
-            const novoTab = [...g.tabuleiro];
-            novoTab[pos] = meuSimbolo;
-            const venc = verificarVencedorVelha(novoTab);
+            tab[pos] = meuSimbolo;
+            const venc = verificarVencedorVelha(tab);
             const proxTurno = meuSimbolo === "X" ? "O" : "X";
 
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
             await rtdb.ref(`jogos/${salaId}/velha`).update({
-                tabuleiro: novoTab,
+                tabuleiro: tab,
                 turno: proxTurno,
                 vencedor: venc
             });
@@ -1076,6 +1091,7 @@
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
             await rtdb.ref(`jogos/${salaId}/casais/respostas/${meuUsuario.id}`).set({
                 nome: meuUsuario.nome,
+                uid: meuUsuario.id,
                 texto: txt
             });
             if (input) input.value = "";
@@ -1125,13 +1141,21 @@
 
             if (estadoJogoLocal.tipo === "velha") {
                 const g = estadoJogoLocal;
+                const tab = Array.isArray(g.tabuleiro) ? g.tabuleiro : ["", "", "", "", "", "", "", "", ""];
                 const meuSimbolo = (g.jogadores && g.jogadores.X === meuUsuario.id) ? "X" : "O";
-                let statusTxt = `Vez de: <strong>${g.turno}</strong> (Você é <strong>${meuSimbolo}</strong>)`;
-                if (g.vencedor === "EMPATE") statusTxt = "🤝 Empate!";
-                else if (g.vencedor) statusTxt = `🏆 Vencedor: <strong>${g.vencedor}</strong>!`;
+                const nomeTurno = g.turno === meuSimbolo ? `${escaparHTML(meuUsuario.nome)} (você)` : escaparHTML(contatoAtual.nome);
 
-                const celulas = g.tabuleiro.map((val, i) =>
-                    `<div class="jogo-velha-celula ${val ? "ocupada" : ""}" onclick="jogarVelha(${i})">${escaparHTML(val)}</div>`
+                let statusTxt = `Vez de: <strong>${nomeTurno} (${g.turno})</strong> • Você é <strong>${meuSimbolo}</strong>`;
+                if (g.vencedor === "EMPATE") {
+                    statusTxt = "🤝 Empate entre vocês!";
+                } else if (g.vencedor) {
+                    const euVenci = g.vencedor === meuSimbolo;
+                    const nomeVencedor = euVenci ? `${escaparHTML(meuUsuario.nome)} (você)` : escaparHTML(contatoAtual.nome);
+                    statusTxt = `🏆 Vencedor: <strong>${nomeVencedor} (${g.vencedor})</strong>!`;
+                }
+
+                const celulas = tab.map((val, i) =>
+                    `<div class="jogo-velha-celula ${val || g.vencedor ? "ocupada" : ""}" onclick="jogarVelha(${i})">${escaparHTML(val)}</div>`
                 ).join("");
 
                 container.innerHTML = `
@@ -1149,13 +1173,23 @@
             if (estadoJogoLocal.tipo === "casais") {
                 const g = estadoJogoLocal;
                 const pergunta = PERGUNTAS_CASAL[g.indicePergunta % PERGUNTAS_CASAL.length];
-                const resps = g.respostas ? Object.values(g.respostas) : [];
+                const respsObj = g.respostas || {};
+                const resps = Object.values(respsObj);
+                const jaRespondi = Boolean(respsObj[meuUsuario.id]);
+                const outroRespondeu = Boolean(respsObj[contatoAtual.id]);
+
+                let statusQuiz = "Ambos podem responder com calma.";
+                if (jaRespondi && outroRespondeu) statusQuiz = "💬 Ambos já responderam! Podem comentar ou ir para a próxima.";
+                else if (jaRespondi) statusQuiz = `⏳ Você respondeu. Aguardando ${escaparHTML(contatoAtual.nome)}.`;
+                else if (outroRespondeu) statusQuiz = `💡 ${escaparHTML(contatoAtual.nome)} já respondeu! Agora é a sua vez.`;
+
                 const listaResps = resps.length
-                    ? resps.map(r => `<div class="quiz-resposta"><strong>${escaparHTML(r.nome)}:</strong> ${escaparHTML(r.texto)}</div>`).join("")
+                    ? resps.map(r => `<div class="quiz-resposta"><strong>${formatarAutor(r.nome, r.uid || "")}:</strong> ${escaparHTML(r.texto)}</div>`).join("")
                     : `<div style="font-size:11px;color:#5c7691;text-align:center;">Nenhuma resposta ainda.</div>`;
 
                 container.innerHTML = `
                     <div class="jogo-titulo">💕 Quiz do Casal</div>
+                    <div class="jogo-info">${statusQuiz}</div>
                     <div class="quiz-pergunta">${escaparHTML(pergunta)}</div>
                     <input type="text" id="quiz-resp-input" class="quiz-input" placeholder="Escreva sua resposta sincera..." onkeypress="if(event.key==='Enter') enviarRespostaCasal()">
                     <div class="jogo-actions">
@@ -1175,8 +1209,8 @@
                 const venceu = g.palavra.split("").every(ch => usadas.includes(ch));
                 const perdeu = g.erros >= g.maxErros && !venceu;
 
-                let estadoMsg = `Dica: ${escaparHTML(g.dica)}`;
-                if (venceu) estadoMsg = `🎉 Parabéns! Palavra descoberta: <strong>${escaparHTML(g.palavra)}</strong>`;
+                let estadoMsg = `Dica: ${escaparHTML(g.dica)} • Jogando juntos com ${escaparHTML(contatoAtual.nome)}`;
+                if (venceu) estadoMsg = `🎉 Vocês acertaram! Palavra: <strong>${escaparHTML(g.palavra)}</strong>`;
                 else if (perdeu) estadoMsg = `💀 Fim de jogo! A palavra era: <strong>${escaparHTML(g.palavra)}</strong>`;
 
                 const alfabeto = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("").map(letra => {
@@ -1218,8 +1252,16 @@
             if (estavaTocando) {
                 playRadio();
             } else {
-                setRadioStatus("Estação alterada (Parado)");
+                setRadioStatus(`Estação selecionada: ${select.options[select.selectedIndex].text} (Parado)`);
             }
+        }
+
+        function proximaEstacao() {
+            const select = document.getElementById("radio-estacao");
+            if (!select || select.options.length === 0) return;
+            select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
+            trocarEstacao();
+            playRadio();
         }
 
         function playRadio() {
