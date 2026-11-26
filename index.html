@@ -121,7 +121,7 @@
         .btn-jogo-chat { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-size: 11.5px; font-weight: bold; padding: 5px 12px; border-radius: 14px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.12); }
         .btn-jogo-chat:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
         .btn-jogo-chat.ativo { background: linear-gradient(180deg, #bfe0fc 0%, #8fc2f0 100%); border-color: #265c91; box-shadow: inset 0 1px 3px rgba(10, 35, 70, 0.2); }
-        #jogo-container { background: linear-gradient(180deg, #f9fcff 0%, #eef6fd 100%); border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 4px 0 10px 0; box-shadow: 0 3px 10px rgba(15, 45, 80, 0.08); }
+        #jogo-container { background: linear-gradient(180deg, #f9fcff 0%, #eef6fd 100%); border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 0 0 8px 0; box-shadow: 0 3px 10px rgba(15, 45, 80, 0.08); }
         .jogo-titulo { text-align: center; font-size: 13.5px; font-weight: bold; color: #103c66; margin-bottom: 6px; }
         .jogo-info { text-align: center; font-size: 12px; color: #174978; margin: 6px 0; font-weight: 600; line-height: 1.4; }
         .jogo-actions { text-align: center; margin-top: 10px; display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; }
@@ -402,6 +402,9 @@
                         </div>
                     </div>
                 </div>
+
+                <div id="jogo-slot" style="padding: 0 20px;"></div>
+
                 <div class="messages-canvas" id="chat-messages">
                     <div class="welcome-board">
                         <h2>Bem-vindo ao Corte Messenger</h2>
@@ -441,10 +444,10 @@
                     <div class="radio-controls">
                         <span class="radio-label">📻 Rádio:</span>
                         <select id="radio-estacao" onchange="trocarEstacao()">
-                            <option value="https://audio.bbnradio.org:8443/Portuguese">BBN Português</option>
-                            <option value="https://audio.bbnradio.org:8443/English">BBN Inglês</option>
-                            <option value="https://audio.bbnradio.org:8443/Spanish">BBN Espanhol</option>
-                            <option value="https://audio.bbnradio.org:8443/German">BBN Alemão</option>
+                            <option value="https://stream2.bbnradio.org:8443/portuguese.aac" data-fallbacks="https://stream2.bbnradio.org/portuguese">BBN Português</option>
+                            <option value="https://stream2.bbnradio.org:8443/english" data-fallbacks="https://stream2.bbnradio.org/english">BBN Inglês</option>
+                            <option value="https://stream2.bbnradio.org:8443/spanish.aac" data-fallbacks="https://stream2.bbnradio.org/spanish">BBN Espanhol</option>
+                            <option value="https://stream2.bbnradio.org:8443/german.aac" data-fallbacks="https://stream2.bbnradio.org/german">BBN Alemão</option>
                             <option value="https://stream.srg-ssr.ch/srgssr/rsc_de/mp3/128">Radio Swiss Classic</option>
                             <option value="https://ice1.somafm.com/dronezone-128-mp3">SomaFM Drone Zone</option>
                             <option value="https://ice1.somafm.com/deepspaceone-128-mp3">SomaFM Deep Space One</option>
@@ -463,9 +466,7 @@
                     </div>
                 </div>
 
-                <audio id="radio-player" preload="none" crossorigin="anonymous">
-                    <source src="https://audio.bbnradio.org:8443/Portuguese" type="audio/mpeg">
-                </audio>
+                <audio id="radio-player" preload="none"></audio>
             </div>
         </div>
     </div>
@@ -499,6 +500,8 @@
         let jogoAtivo = null;
         let refJogoAtual = null;
         let estadoJogoLocal = null;
+        let candidatosRadio = [];
+        let indiceCandidatoRadio = 0;
 
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
 
@@ -761,14 +764,13 @@
 
         function renderizarContatos() {
             const area = document.getElementById("contact-list-area");
-            area.innerHTML = "";
+            if (!area) return;
             const ids = Object.keys(meusContatos);
             const meusContatosList = listaUsuarios.filter(u => ids.includes(u.id));
 
             const topbarEmpty = document.getElementById("topbar-empty");
             if (topbarEmpty && !contatoAtual) {
-                if (meusContatosList.length === 0) topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Use a busca acima para adicionar seu primeiro contato.</div>`;
-                else topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Selecione um contato salvo na lista à esquerda para começar.</div>`;
+                topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">${meusContatosList.length === 0 ? "Use a busca acima para adicionar seu primeiro contato." : "Selecione um contato salvo na lista à esquerda para começar."}</div>`;
             }
 
             if (meusContatosList.length === 0) {
@@ -776,36 +778,55 @@
                 return;
             }
 
-            area.innerHTML += `<div class="contacts-header">▾ Contatos (${meusContatosList.length})</div>`;
+            const frag = document.createDocumentFragment();
+            const header = document.createElement("div");
+            header.className = "contacts-header";
+            header.textContent = `▾ Contatos (${meusContatosList.length})`;
+            frag.appendChild(header);
+
             meusContatosList.forEach(u => {
-                const activeClass = (contatoAtual && contatoAtual.id === u.id) ? "active" : "";
+                const isActive = Boolean(contatoAtual && contatoAtual.id === u.id);
                 const qtdNaoLidas = naoLidas[u.id] || 0;
-                const badge = qtdNaoLidas > 0 ? `<span class="badge-nao-lidas">${qtdNaoLidas > 99 ? "99+" : qtdNaoLidas}</span>` : "";
-                area.innerHTML += `
-                    <div class="contact-row ${activeClass}" onclick="abrirChat('${u.id}')">
-                        <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${u.status || 'offline'}"></span></div>
-                        <div class="contact-info"><div class="contact-title">${escaparHTML(u.nome)}</div><div class="contact-sub">${escaparHTML(u.subnick || "")}</div></div>
-                        ${badge}
-                    </div>`;
+                const row = document.createElement("div");
+                row.className = `contact-row ${isActive ? "active" : ""}`;
+                row.addEventListener("click", () => abrirChat(u.id));
+                row.innerHTML = `
+                    <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${escaparHTML(u.status || 'offline')}"></span></div>
+                    <div class="contact-info"><div class="contact-title">${escaparHTML(u.nome)}</div><div class="contact-sub">${escaparHTML(u.subnick || "")}</div></div>
+                    ${qtdNaoLidas > 0 ? `<span class="badge-nao-lidas">${qtdNaoLidas > 99 ? "99+" : qtdNaoLidas}</span>` : ""}
+                `;
+                frag.appendChild(row);
             });
+
+            area.innerHTML = "";
+            area.appendChild(frag);
         }
 
         function buscarUsuarios() {
-            const termo = document.getElementById("search-input").value.toLowerCase().trim();
+            const inputEl = document.getElementById("search-input");
             const resultadosEl = document.getElementById("search-results");
-            resultadosEl.innerHTML = "";
-            if (!termo) return;
+            if (!inputEl || !resultadosEl) return;
+            const termo = inputEl.value.toLowerCase().trim();
+            if (!termo) {
+                if (resultadosEl.innerHTML !== "") resultadosEl.innerHTML = "";
+                return;
+            }
             const achados = listaUsuarios.filter(u => u.usuario && u.usuario.toLowerCase().includes(termo));
-            if (achados.length === 0) { resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Nenhum usuário encontrado.</div>`; return; }
-            achados.slice(0, 5).forEach(u => {
-                const btn = meusContatos[u.id] ? `<button class="btn-add-contato" disabled>✓ Adicionado</button>` : `<button class="btn-add-contato" onclick="adicionarContato('${u.id}')">➕ Adicionar</button>`;
-                resultadosEl.innerHTML += `
+            if (achados.length === 0) {
+                resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Nenhum usuário encontrado.</div>`;
+                return;
+            }
+            resultadosEl.innerHTML = achados.slice(0, 5).map(u => {
+                const btn = meusContatos[u.id]
+                    ? `<button type="button" class="btn-add-contato" disabled>✓ Adicionado</button>`
+                    : `<button type="button" class="btn-add-contato" onclick="adicionarContato('${escaparHTML(u.id)}')">➕ Adicionar</button>`;
+                return `
                     <div class="search-result-row">
-                        <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${u.status || 'offline'}"></span></div>
+                        <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${escaparHTML(u.status || 'offline')}"></span></div>
                         <div class="search-result-info"><div class="search-result-name">${escaparHTML(u.nome)}</div><div class="search-result-user">@${escaparHTML(u.usuario || "sem_usuario")}</div></div>
                         ${btn}
                     </div>`;
-            });
+            }).join("");
         }
 
         async function adicionarContato(idContato) {
@@ -822,21 +843,28 @@
         }
 
         function abrirChat(id) {
-            contatoAtual = listaUsuarios.find(u => u.id === id);
-            if (!contatoAtual) return;
+            const selecionado = listaUsuarios.find(u => u.id === id);
+            if (!selecionado || !meuUsuario) return;
+            contatoAtual = selecionado;
+
+            if (refChatAtual) { refChatAtual.off(); refChatAtual = null; }
+            fecharJogoAtual();
             zerarNaoLidas(contatoAtual.id);
             renderizarContatos();
+
             document.getElementById("topbar-empty").style.display = "none";
             document.getElementById("topbar-active").style.display = "flex";
             document.getElementById("active-contact-name").innerText = contatoAtual.nome;
             document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
-            if (refChatAtual) refChatAtual.off();
-            fecharJogoAtual();
+
+            const box = document.getElementById("chat-messages");
+            box.innerHTML = `<div style="text-align:center;font-size:12px;color:#5c7691;margin:auto;">Carregando conversa...</div>`;
 
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
             refChatAtual = rtdb.ref(`mensagens/${salaId}`);
             let primeiraCarga = true;
             refChatAtual.on("value", (snapshot) => {
+                if (!contatoAtual || contatoAtual.id !== id) return;
                 const dados = snapshot.val();
                 const lista = dados ? Object.values(dados) : [];
                 exibirMensagensNaTela(lista);
@@ -845,8 +873,8 @@
                     if (ultima.remetente_id !== meuUsuario.id) {
                         if (ultima.texto && ultima.texto.includes("chamou a atenção")) {
                             tocarSom("nudge");
-                            const box = document.getElementById("workspace-box");
-                            box.classList.remove("shake"); void box.offsetWidth; box.classList.add("shake");
+                            const ws = document.getElementById("workspace-box");
+                            ws.classList.remove("shake"); void ws.offsetWidth; ws.classList.add("shake");
                         } else if (ultima.texto && ultima.texto.startsWith("[ACEITO]")) tocarSom("selo");
                         else tocarSom("msg");
                     }
@@ -880,37 +908,42 @@
 
         function exibirMensagensNaTela(lista) {
             const box = document.getElementById("chat-messages");
-            const jogoEl = document.getElementById("jogo-container");
-            const jogoHTML = jogoEl ? jogoEl.outerHTML : "";
-            box.innerHTML = jogoHTML;
+            if (!box) return;
 
             let estagioConfirmado = "conhecendo";
             lista.forEach(m => { if (m.texto && m.texto.startsWith("[ACEITO]")) estagioConfirmado = m.estagio || "conhecendo"; });
+
+            const partes = [];
             lista.forEach((m, index) => {
                 const autorFormatado = formatarAutor(m.remetente_nome, m.remetente_id);
                 if (m.texto && m.texto.startsWith("[PROPOSTA]")) {
                     const est = m.estagio;
                     const jaResp = lista.slice(index + 1).some(n => n.texto && (n.texto.startsWith("[ACEITO]") || n.texto.startsWith("[RECUSADO]")));
                     if (m.remetente_id === meuUsuario.id) {
-                        box.innerHTML += `<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando...</span></div>`;
+                        partes.push(`<div class="msg-system"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span>Você propôs <strong>${nomesEstagios[est]}</strong>. Aguardando...</span></div>`);
                     } else {
                         const btns = jaResp ? "" : `<div style="margin-top:5px;display:flex;gap:6px;justify-content:center;"><button onclick="responderProposta('${est}',true)" style="background:#2e8b57;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✓ Aceitar</button><button onclick="responderProposta('${est}',false)" style="background:#b22222;color:white;border:none;padding:3px 9px;border-radius:4px;font-size:11px;cursor:pointer;">✕ Manter</button></div>`;
-                        box.innerHTML += `<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${autorFormatado}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`;
+                        partes.push(`<div class="msg-system" style="flex-direction:column;"><div style="display:flex;align-items:center;gap:6px;"><svg width="20" height="20"><use href="#crest-${est}"></use></svg><span><strong>${autorFormatado}</strong> propôs <strong>${nomesEstagios[est]}</strong></span></div>${btns}</div>`);
                     }
                 } else if (m.texto && m.texto.startsWith("[ACEITO]")) {
-                    box.innerHTML += `<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`;
+                    partes.push(`<div class="msg-system" style="background:#e6f7e6;border-color:#9cd99c;color:#1b5e20;"><svg width="20" height="20"><use href="#crest-${m.estagio}"></use></svg><span><strong>Confirmado!</strong> Selo atualizado para <strong>${nomesEstagios[m.estagio]}</strong>.</span></div>`);
                 } else if (m.texto && m.texto.startsWith("[RECUSADO]")) {
-                    box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`;
+                    partes.push(`<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`);
                 } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
-                    box.innerHTML += `<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`;
+                    partes.push(`<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`);
                 } else if (m.foto_url && /^data:image\/(png|jpeg|jpg|gif|webp);base64,/i.test(m.foto_url)) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} enviou foto:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo" alt="Foto privada"></div></div>`;
+                    partes.push(`<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} enviou foto:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo" alt="Foto privada"></div></div>`);
                 } else if (m.texto) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
-                    box.innerHTML += `<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`;
+                    partes.push(`<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} diz:</div><div class="msg-bubble">${escaparHTML(m.texto)}</div></div>`);
                 }
             });
+
+            box.innerHTML = partes.length
+                ? partes.join("")
+                : `<div style="text-align:center;font-size:12px;color:#5c7691;margin:auto;">Nenhuma mensagem ainda. Comece com respeito!</div>`;
+
             document.getElementById("stage-select").value = estagioConfirmado;
             document.querySelector("#active-stage-svg use").setAttribute("href", `#crest-${estagioConfirmado}`);
             box.scrollTop = box.scrollHeight;
@@ -973,8 +1006,8 @@
             jogoAtivo = null;
             estadoJogoLocal = null;
             atualizarBotoesJogo();
-            const el = document.getElementById("jogo-container");
-            if (el) el.remove();
+            const slot = document.getElementById("jogo-slot");
+            if (slot) slot.innerHTML = "";
         }
 
         function criarEstadoInicialJogo(tipo) {
@@ -1024,6 +1057,11 @@
             jogoAtivo = tipo;
             atualizarBotoesJogo();
 
+            const slot = document.getElementById("jogo-slot");
+            if (slot) {
+                slot.innerHTML = `<div id="jogo-container"><div class="jogo-info">Carregando jogo...</div></div>`;
+            }
+
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
             const jogoRef = rtdb.ref(`jogos/${salaId}/${tipo}`);
             refJogoAtual = jogoRef;
@@ -1067,7 +1105,7 @@
 
             const meuSimbolo = (g.jogadores && g.jogadores.X === meuUsuario.id) ? "X" : "O";
             if (g.turno !== meuSimbolo) {
-                alert(`Aguarde a vez do jogador ${g.turno}.`);
+                alert(`Aguarde a vez de ${contatoAtual.nome} (${g.turno}).`);
                 return;
             }
 
@@ -1129,15 +1167,8 @@
         }
 
         function renderizarJogo() {
-            const box = document.getElementById("chat-messages");
-            if (!box || !jogoAtivo || !estadoJogoLocal) return;
-
-            let container = document.getElementById("jogo-container");
-            if (!container) {
-                container = document.createElement("div");
-                container.id = "jogo-container";
-                box.prepend(container);
-            }
+            const slot = document.getElementById("jogo-slot");
+            if (!slot || !jogoAtivo || !estadoJogoLocal) return;
 
             if (estadoJogoLocal.tipo === "velha") {
                 const g = estadoJogoLocal;
@@ -1158,13 +1189,15 @@
                     `<div class="jogo-velha-celula ${val || g.vencedor ? "ocupada" : ""}" onclick="jogarVelha(${i})">${escaparHTML(val)}</div>`
                 ).join("");
 
-                container.innerHTML = `
-                    <div class="jogo-titulo">❌⭕ Jogo da Velha</div>
-                    <div class="jogo-info">${statusTxt}</div>
-                    <div class="jogo-velha-board">${celulas}</div>
-                    <div class="jogo-actions">
-                        <button type="button" onclick="reiniciarJogo()">🔄 Reiniciar</button>
-                        <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                slot.innerHTML = `
+                    <div id="jogo-container">
+                        <div class="jogo-titulo">❌⭕ Jogo da Velha</div>
+                        <div class="jogo-info">${statusTxt}</div>
+                        <div class="jogo-velha-board">${celulas}</div>
+                        <div class="jogo-actions">
+                            <button type="button" onclick="reiniciarJogo()">🔄 Reiniciar</button>
+                            <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                        </div>
                     </div>
                 `;
                 return;
@@ -1187,17 +1220,19 @@
                     ? resps.map(r => `<div class="quiz-resposta"><strong>${formatarAutor(r.nome, r.uid || "")}:</strong> ${escaparHTML(r.texto)}</div>`).join("")
                     : `<div style="font-size:11px;color:#5c7691;text-align:center;">Nenhuma resposta ainda.</div>`;
 
-                container.innerHTML = `
-                    <div class="jogo-titulo">💕 Quiz do Casal</div>
-                    <div class="jogo-info">${statusQuiz}</div>
-                    <div class="quiz-pergunta">${escaparHTML(pergunta)}</div>
-                    <input type="text" id="quiz-resp-input" class="quiz-input" placeholder="Escreva sua resposta sincera..." onkeypress="if(event.key==='Enter') enviarRespostaCasal()">
-                    <div class="jogo-actions">
-                        <button type="button" onclick="enviarRespostaCasal()">💬 Responder</button>
-                        <button type="button" onclick="proximaPerguntaCasal()">➡️ Próxima Pergunta</button>
-                        <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                slot.innerHTML = `
+                    <div id="jogo-container">
+                        <div class="jogo-titulo">💕 Quiz do Casal</div>
+                        <div class="jogo-info">${statusQuiz}</div>
+                        <div class="quiz-pergunta">${escaparHTML(pergunta)}</div>
+                        <input type="text" id="quiz-resp-input" class="quiz-input" placeholder="Escreva sua resposta sincera..." onkeypress="if(event.key==='Enter') enviarRespostaCasal()">
+                        <div class="jogo-actions">
+                            <button type="button" onclick="enviarRespostaCasal()">💬 Responder</button>
+                            <button type="button" onclick="proximaPerguntaCasal()">➡️ Próxima Pergunta</button>
+                            <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                        </div>
+                        <div style="margin-top:8px;">${listaResps}</div>
                     </div>
-                    <div style="margin-top:8px;">${listaResps}</div>
                 `;
                 return;
             }
@@ -1222,15 +1257,17 @@
                     return `<div class="${cls}" onclick="chutarLetraForca('${letra}')">${letra}</div>`;
                 }).join("");
 
-                container.innerHTML = `
-                    <div class="jogo-titulo">🔤 Forca</div>
-                    <div class="jogo-info">${estadoMsg}</div>
-                    <div class="forca-erros">Erros: ${g.erros} / ${g.maxErros}</div>
-                    <div class="forca-palavra">${escaparHTML(palavraExibida)}</div>
-                    <div class="forca-letras">${alfabeto}</div>
-                    <div class="jogo-actions">
-                        <button type="button" onclick="reiniciarJogo()">🔄 Nova Palavra</button>
-                        <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                slot.innerHTML = `
+                    <div id="jogo-container">
+                        <div class="jogo-titulo">🔤 Forca</div>
+                        <div class="jogo-info">${estadoMsg}</div>
+                        <div class="forca-erros">Erros: ${g.erros} / ${g.maxErros}</div>
+                        <div class="forca-palavra">${escaparHTML(palavraExibida)}</div>
+                        <div class="forca-letras">${alfabeto}</div>
+                        <div class="jogo-actions">
+                            <button type="button" onclick="reiniciarJogo()">🔄 Nova Palavra</button>
+                            <button type="button" onclick="fecharJogoAtual()">✖ Fechar</button>
+                        </div>
                     </div>
                 `;
             }
@@ -1242,12 +1279,20 @@
             if (el) el.innerText = texto;
         }
 
+        function obterCandidatosEstacao(select) {
+            const opt = select.options[select.selectedIndex];
+            const extras = (opt && opt.dataset.fallbacks) ? opt.dataset.fallbacks.split(",").map(s => s.trim()).filter(Boolean) : [];
+            return [select.value, ...extras];
+        }
+
         function trocarEstacao() {
             const select = document.getElementById("radio-estacao");
             const audio = document.getElementById("radio-player");
             if (!select || !audio) return;
             const estavaTocando = !audio.paused;
-            audio.src = select.value;
+            candidatosRadio = obterCandidatosEstacao(select);
+            indiceCandidatoRadio = 0;
+            audio.src = candidatosRadio[0] || select.value;
             audio.load();
             if (estavaTocando) {
                 playRadio();
@@ -1260,24 +1305,47 @@
             const select = document.getElementById("radio-estacao");
             if (!select || select.options.length === 0) return;
             select.selectedIndex = (select.selectedIndex + 1) % select.options.length;
-            trocarEstacao();
+            candidatosRadio = obterCandidatosEstacao(select);
+            indiceCandidatoRadio = 0;
+            const audio = document.getElementById("radio-player");
+            if (audio) {
+                audio.src = candidatosRadio[0];
+                audio.load();
+            }
             playRadio();
         }
 
-        function playRadio() {
+        function tentarReproduzirCandidato() {
             const select = document.getElementById("radio-estacao");
             const audio = document.getElementById("radio-player");
             if (!audio) return;
-            if (select && audio.src !== select.value) {
-                audio.src = select.value;
+            if (!candidatosRadio.length && select) {
+                candidatosRadio = obterCandidatosEstacao(select);
+                indiceCandidatoRadio = 0;
             }
-            setRadioStatus("Conectando...");
+            const urlAtual = candidatosRadio[indiceCandidatoRadio] || (select ? select.value : "");
+            if (!urlAtual) return;
+            if (audio.src !== urlAtual) {
+                audio.src = urlAtual;
+            }
+            const nomeEstacao = select ? select.options[select.selectedIndex].text : "Rádio";
+            setRadioStatus(`Conectando: ${nomeEstacao}...`);
             audio.play().then(() => {
-                const nomeEstacao = select ? select.options[select.selectedIndex].text : "Rádio";
                 setRadioStatus(`Tocando: ${nomeEstacao}`);
             }).catch(() => {
-                setRadioStatus("Erro ao reproduzir stream");
+                if (indiceCandidatoRadio + 1 < candidatosRadio.length) {
+                    indiceCandidatoRadio += 1;
+                    audio.src = candidatosRadio[indiceCandidatoRadio];
+                    audio.load();
+                    tentarReproduzirCandidato();
+                } else {
+                    setRadioStatus(`Stream indisponível no momento (${nomeEstacao})`);
+                }
             });
+        }
+
+        function playRadio() {
+            tentarReproduzirCandidato();
         }
 
         function pauseRadio() {
@@ -1311,9 +1379,21 @@
             refUsuariosGlobal = rtdb.ref("usuarios");
             refUsuariosGlobal.on("value", (snapshot) => {
                 const dados = snapshot.val() || {};
-                listaUsuarios = Object.values(dados).filter(u => u.id !== meuUsuario.id).sort((a, b) => a.nome.localeCompare(b.nome));
-                renderizarContatos();
-                buscarUsuarios();
+                const novaLista = Object.values(dados).filter(u => u.id !== meuUsuario.id).sort((a, b) => a.nome.localeCompare(b.nome));
+                const mudou = JSON.stringify(novaLista) !== JSON.stringify(listaUsuarios);
+                listaUsuarios = novaLista;
+                if (contatoAtual) {
+                    const atualizado = listaUsuarios.find(u => u.id === contatoAtual.id);
+                    if (atualizado) {
+                        contatoAtual = atualizado;
+                        document.getElementById("active-contact-name").innerText = contatoAtual.nome;
+                        document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
+                    }
+                }
+                if (mudou) {
+                    renderizarContatos();
+                    buscarUsuarios();
+                }
             });
             carregarMeusContatos();
             carregarNaoLidas();
