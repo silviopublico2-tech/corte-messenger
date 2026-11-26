@@ -448,7 +448,7 @@
                             <option value="https://stream2.bbnradio.org:8443/english" data-fallbacks="https://stream2.bbnradio.org/english">BBN Inglês</option>
                             <option value="https://stream2.bbnradio.org:8443/spanish.aac" data-fallbacks="https://stream2.bbnradio.org/spanish">BBN Espanhol</option>
                             <option value="https://stream2.bbnradio.org:8443/german.aac" data-fallbacks="https://stream2.bbnradio.org/german">BBN Alemão</option>
-                            <option value="https://stream.srg-ssr.ch/srgssr/rsc_de/mp3/128">Radio Swiss Classic</option>
+                            <option value="https://stream.srg-ssr.ch/m/rsc_de/mp3_128" data-fallbacks="https://stream.srg-ssr.ch/m/rsc_de/aacp_96,https://livestreaming-node-4.srg-ssr.ch/srgssr/rsc_de/aac/96,https://stream.srg-ssr.ch/m/rsc_fr/mp3_128">Radio Swiss Classic</option>
                             <option value="https://ice1.somafm.com/dronezone-128-mp3">SomaFM Drone Zone</option>
                             <option value="https://ice1.somafm.com/deepspaceone-128-mp3">SomaFM Deep Space One</option>
                             <option value="https://ice1.somafm.com/lush-128-mp3">SomaFM Lush</option>
@@ -504,6 +504,11 @@
         let indiceCandidatoRadio = 0;
 
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
+        const nomesJogos = {
+            velha: "❌⭕ Jogo da Velha",
+            casais: "💕 Quiz do Casal",
+            forca: "🔤 Forca"
+        };
 
         const PERGUNTAS_CASAL = [
             "Qual foi a primeira impressão que você teve ao conversar por aqui?",
@@ -1066,22 +1071,41 @@
             const jogoRef = rtdb.ref(`jogos/${salaId}/${tipo}`);
             refJogoAtual = jogoRef;
 
-            const snap = await jogoRef.get();
-            if (!snap.exists()) {
-                await jogoRef.set(criarEstadoInicialJogo(tipo));
-            }
-
-            jogoRef.on("value", (s) => {
-                if (jogoAtivo !== tipo) return;
-                estadoJogoLocal = s.val();
+            try {
+                const snap = await jogoRef.get();
+                let estadoAtual = snap.val();
+                if (!estadoAtual) {
+                    estadoAtual = criarEstadoInicialJogo(tipo);
+                    await jogoRef.set(estadoAtual);
+                }
+                estadoJogoLocal = estadoAtual;
                 renderizarJogo();
-            });
+
+                await gravarEventoNoChat({
+                    texto: `[SISTEMA] 🎮 ${meuUsuario.nome} convidou você para jogar ${nomesJogos[tipo] || tipo}!`,
+                    estagio: document.getElementById("stage-select").value
+                });
+                tocarSom("msg");
+
+                jogoRef.on("value", (s) => {
+                    if (jogoAtivo !== tipo) return;
+                    estadoJogoLocal = s.val();
+                    renderizarJogo();
+                });
+            } catch (err) {
+                if (slot) {
+                    slot.innerHTML = `<div id="jogo-container"><div class="jogo-info">❌ Erro ao abrir jogo: ${escaparHTML(traduzirErro(err))}</div></div>`;
+                }
+            }
         }
 
         async function reiniciarJogo() {
             if (!contatoAtual || !meuUsuario || !jogoAtivo) return;
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
-            await rtdb.ref(`jogos/${salaId}/${jogoAtivo}`).set(criarEstadoInicialJogo(jogoAtivo));
+            const novoEstado = criarEstadoInicialJogo(jogoAtivo);
+            estadoJogoLocal = novoEstado;
+            renderizarJogo();
+            await rtdb.ref(`jogos/${salaId}/${jogoAtivo}`).set(novoEstado);
         }
 
         function verificarVencedorVelha(b) {
@@ -1402,5 +1426,4 @@
     </script>
 </body>
 </html>
-
 
