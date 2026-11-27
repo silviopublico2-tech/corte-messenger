@@ -36,11 +36,11 @@
         .olho-senha:hover { color: #103c66; background: rgba(140, 180, 216, 0.2); }
 
         #app-container { display: none; }
-        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 720px; overflow: hidden; }
-        .left-sidebar { width: 300px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
+        .main-workspace { display: flex; background: #ffffff; border: 1px solid #7da7cf; border-radius: 6px; height: 730px; overflow: hidden; }
+        .left-sidebar { width: 310px; background: linear-gradient(180deg, #e6f2fc 0%, #f5faff 40%, #eef5fc 100%); border-right: 1px solid #b5d1eb; display: flex; flex-direction: column; flex-shrink: 0; }
         .profile-hero { padding: 8px 10px 6px 10px; text-align: center; border-bottom: 1px solid #cde0f2; }
-        .hero-crest { width: 64px; height: 64px; margin: 0 auto 4px auto; filter: drop-shadow(0 3px 6px rgba(15, 35, 65, 0.22)); }
-        .hero-crest svg { width: 64px; height: 64px; }
+        .hero-crest { width: 58px; height: 58px; margin: 0 auto 4px auto; filter: drop-shadow(0 3px 6px rgba(15, 35, 65, 0.22)); }
+        .hero-crest svg { width: 58px; height: 58px; }
         .my-status-row { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 14px; font-weight: bold; color: #112d4e; }
         #my-name-display { font-size: 15px; font-weight: bold; }
         .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
@@ -49,37 +49,47 @@
         .dot-away { background: #fbc531; }
         .dot-offline { background: #95a5a6; }
         .subnick-edit { width: 100%; margin-top: 4px; background: rgba(255,255,255,0.65); border: 1px solid transparent; border-radius: 4px; padding: 3px 6px; font-size: 11px; color: #4a637d; text-align: center; }
-        .subnick-hint { display: block; text-align: center; font-size: 10px; color: #5c7691; margin-top: 2px; margin-bottom: 8px; font-style: italic; }
-        .btn-desconectar { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 6px; border-radius: 4px; width: 100%; cursor: pointer; font-size: 12px; margin-bottom: 4px; }
+        .subnick-hint { display: block; text-align: center; font-size: 10px; color: #5c7691; margin-top: 2px; margin-bottom: 6px; font-style: italic; }
+        .hero-btn-row { display: flex; gap: 5px; margin-bottom: 4px; }
+        .btn-valores-perfil { flex: 1; background: linear-gradient(180deg, #fbf4e1 0%, #eedbb0 100%); border: 1px solid #c9a236; color: #2b210e; font-weight: bold; padding: 5px 6px; border-radius: 4px; cursor: pointer; font-size: 11.5px; }
+        .btn-valores-perfil:hover { background: linear-gradient(180deg, #fffaf0 0%, #f5e6c4 100%); }
+        .btn-desconectar { flex: 1; background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 6px; border-radius: 4px; cursor: pointer; font-size: 11.5px; }
         .btn-desconectar:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
         .btn-excluir { background: transparent; border: none; color: #a33; font-size: 10px; text-decoration: underline; cursor: pointer; width: 100%; text-align: center; }
         .btn-excluir:hover { color: #d00; }
         .aviso-senha { background: #fff8e1; border: 1px solid #e6c76a; border-left: 4px solid #c9a236; border-radius: 4px; padding: 8px 12px; font-size: 11.5px; color: #5c4a1a; margin: 8px 0; text-align: center; line-height: 1.4; }
         .search-box { padding: 6px 8px; border-bottom: 1px solid #d5e5f5; }
         .search-box input { width: 100%; padding: 5px 10px; border: 1px solid #a6c5e3; border-radius: 4px; font-size: 12px; }
+        .btn-buscar-afinidade { width: 100%; margin-top: 5px; background: linear-gradient(180deg, #fbf4e1 0%, #eedbb0 100%); border: 1px solid #c9a236; color: #2b210e; font-weight: bold; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer; }
+        .btn-buscar-afinidade:hover { background: linear-gradient(180deg, #fffaf0 0%, #f5e6c4 100%); }
         .contacts-scroll { flex: 1; overflow-y: auto; padding: 4px 6px; }
-        .contacts-header { font-size: 11px; font-weight: bold; color: #2b547e; padding: 1px 4px 4px 4px; }
-        .contact-row { display: flex; align-items: center; gap: 8px; padding: 5px 7px; border-radius: 5px; cursor: pointer; margin-bottom: 1px; }
+        .contacts-header { font-size: 11px; font-weight: bold; color: #2b547e; padding: 2px 4px 4px 4px; }
+        .contact-row { display: flex; align-items: center; gap: 8px; padding: 5px 7px; border-radius: 5px; cursor: pointer; margin-bottom: 2px; }
         .contact-row:hover { background: #dcecfb; }
         .contact-row.active { background: #cbe4fa; border: 1px solid #8cbce8; }
         .contact-crest-avatar { position: relative; width: 32px; height: 32px; flex-shrink: 0; }
         .contact-crest-avatar svg { width: 32px; height: 32px; }
         .contact-crest-avatar .status-dot { position: absolute; bottom: 0; right: 0; width: 9px; height: 9px; }
         .contact-info { overflow: hidden; flex: 1; }
-        .contact-title { font-size: 13.5px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; }
+        .contact-title { font-size: 13px; font-weight: bold; color: #1b3654; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.15; display: flex; align-items: center; gap: 4px; }
         .contact-sub { font-size: 11px; color: #5c7691; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.1; }
+        .selo-afinidade { font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 8px; background: #fbf4e1; border: 1px solid #c9a236; color: #5c4308; flex-shrink: 0; }
+        .selo-afinidade.alta { background: #e6f7e6; border-color: #2e8b57; color: #16472b; }
+
         .right-stage { flex: 1; display: flex; flex-direction: column; background: #ffffff; min-width: 0; }
-        .stage-topbar { background: linear-gradient(180deg, #f2f8fe 0%, #dcebfa 100%); border-bottom: 1px solid #b5d1eb; padding: 9px 15px; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
+        .stage-topbar { background: linear-gradient(180deg, #f2f8fe 0%, #dcebfa 100%); border-bottom: 1px solid #b5d1eb; padding: 8px 14px; display: flex; justify-content: space-between; align-items: center; min-height: 44px; }
         .stage-topbar-title { font-size: 14px; font-weight: 600; color: #1e4268; margin: auto; }
-        .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; }
-        .stage-pill { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #8cbce8; padding: 3px 10px; border-radius: 6px; }
-        .stage-pill svg { width: 28px; height: 28px; }
-        .stage-pill select { border: none; font-size: 12px; font-weight: bold; color: #103c66; background: transparent; outline: none; }
-        #active-contact-name { font-size: 15px; }
-        #active-contact-subnick { font-size: 12.5px; }
-        .btn-fechar-chat { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); border: 1px solid #8f2d2d; color: white; font-size: 11px; font-weight: bold; padding: 3px 9px; border-radius: 4px; cursor: pointer; margin-left: 8px; }
+        .active-chat-bar { width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .stage-pill { display: flex; align-items: center; gap: 6px; background: white; border: 1px solid #8cbce8; padding: 3px 8px; border-radius: 6px; }
+        .stage-pill svg { width: 24px; height: 24px; }
+        .stage-pill select { border: none; font-size: 11.5px; font-weight: bold; color: #103c66; background: transparent; outline: none; }
+        .btn-ver-afinidade { background: linear-gradient(180deg, #fbf4e1 0%, #eedbb0 100%); border: 1px solid #c9a236; color: #2b210e; font-size: 11px; font-weight: bold; padding: 4px 9px; border-radius: 6px; cursor: pointer; }
+        .btn-ver-afinidade:hover { background: linear-gradient(180deg, #fffaf0 0%, #f5e6c4 100%); }
+        #active-contact-name { font-size: 14.5px; }
+        #active-contact-subnick { font-size: 11.5px; }
+        .btn-fechar-chat { background: linear-gradient(180deg, #f29b9b 0%, #c94a4a 100%); border: 1px solid #8f2d2d; color: white; font-size: 11px; font-weight: bold; padding: 3px 9px; border-radius: 4px; cursor: pointer; }
         .btn-fechar-chat:hover { background: linear-gradient(180deg, #f7b0b0 0%, #d95a5a 100%); }
-        .messages-canvas { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
+        .messages-canvas { flex: 1; padding: 16px 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; background: #ffffff; }
         .welcome-board { margin: auto; text-align: center; max-width: 520px; width: 100%; }
         .welcome-board h2 { font-family: Georgia, serif; font-size: 24px; color: #1a2b3c; margin-bottom: 18px; font-weight: normal; }
         .three-crests-row { display: flex; justify-content: space-around; gap: 10px; margin-bottom: 22px; }
@@ -90,89 +100,84 @@
         .corte-definition-box .word { font-family: Georgia, serif; font-size: 17px; color: #1b2a38; margin-bottom: 4px; }
         .corte-definition-box .word span { font-style: italic; font-size: 13px; color: #555; }
         .corte-definition-box .meaning { font-size: 12.5px; color: #2c3e50; line-height: 1.45; }
+
+        /* Painel Questionário & Comparativo de Valores */
+        .painel-valores { background: linear-gradient(180deg, #fcf9f2 0%, #f5eedc 100%); border: 1.5px solid #c9a236; border-radius: 8px; padding: 14px 16px; text-align: left; }
+        .painel-valores h3 { font-family: Georgia, serif; font-size: 16px; color: #2b210e; margin-bottom: 4px; }
+        .painel-valores p.desc { font-size: 12px; color: #5c4a1a; margin-bottom: 12px; line-height: 1.4; }
+        .questao-card { background: #ffffff; border: 1px solid #dfd3b8; border-radius: 6px; padding: 10px 12px; margin-bottom: 10px; }
+        .questao-card label.q-titulo { display: block; font-size: 12.5px; font-weight: bold; color: #173454; margin-bottom: 6px; }
+        .questao-card select { width: 100%; padding: 6px 8px; border: 1px solid #8cb4d8; border-radius: 4px; font-size: 12px; color: #1b2a38; background: #f9fcff; }
+        .comparativo-item { background: #ffffff; border: 1px solid #dfd3b8; border-radius: 6px; padding: 8px 10px; margin-bottom: 8px; font-size: 12px; }
+        .comparativo-item.igual { border-left: 4px solid #2e8b57; }
+        .comparativo-item.diferente { border-left: 4px solid #c9a236; }
+        .comparativo-titulo { font-weight: bold; color: #103c66; margin-bottom: 4px; }
+        .comparativo-linha { color: #2c3e50; line-height: 1.35; margin-top: 2px; }
+
         .msg { font-size: 13px; }
         .msg-sender { font-size: 11px; color: #5c7691; margin-bottom: 2px; }
         .msg-bubble { background: #f0f6fc; border: 1px solid #cce0f5; padding: 8px 12px; border-radius: 6px; display: inline-block; max-width: 80%; color: #111; word-break: break-word; }
         .msg.me .msg-bubble { background: #e3f2fd; border-color: #9ec9f0; }
         .msg-system { align-self: center; background: #eef6fc; border: 1px solid #c5dff7; color: #174978; font-size: 11px; padding: 6px 12px; border-radius: 10px; display: flex; align-items: center; gap: 6px; text-align: center; }
         .chat-photo { max-width: 220px; border-radius: 6px; border: 2px solid #8cb4d8; margin-top: 4px; display: block; }
+        .chat-audio { max-width: 260px; height: 34px; margin-top: 4px; display: block; }
+        .convite-jogo-banner { background: #fff8e1; border: 1.5px solid #e6c76a; border-left: 4px solid #c9a236; border-radius: 6px; padding: 8px 12px; margin: 0 0 8px 0; display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 12px; color: #2b210e; }
+        .btn-entrar-jogo { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 4px 11px; border-radius: 12px; font-size: 11px; cursor: pointer; }
         .bottom-composer { border-top: 1px solid #c2dcf2; background: #f3f8fd; }
         .composer-tools { display: flex; align-items: center; gap: 8px; padding: 5px 12px; border-bottom: 1px solid #dcebfa; background: #eaf3fc; flex-wrap: wrap; }
         .icon-tool { background: linear-gradient(180deg, #ffffff 0%, #e4f0fc 100%); border: 1px solid #9ec2e6; border-radius: 14px; padding: 4px 10px; font-size: 12px; font-weight: 600; cursor: pointer; color: #143961; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.1); }
         .icon-tool:hover { background: linear-gradient(180deg, #ffffff 0%, #cde3fa 100%); border-color: #5b8fc4; }
+        .icon-tool.gravando { background: linear-gradient(180deg, #ffd6d6 0%, #f29b9b 100%); border-color: #b22222; color: #6e1c1c; }
         .composer-input-row { display: flex; gap: 8px; padding: 8px 12px; background: white; }
         .composer-input-row input { flex: 1; border: none; outline: none; font-size: 13px; padding: 4px; }
         .btn-send-aero { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 6px 16px; border-radius: 14px; cursor: pointer; font-size: 12px; box-shadow: 0 1px 3px rgba(15, 45, 80, 0.16); }
-        .btn-send-aero:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
         @keyframes nudgeShake { 0%, 100% { transform: translate(0, 0); } 20% { transform: translate(-7px, -5px); } 40% { transform: translate(7px, 5px); } 60% { transform: translate(-7px, 5px); } 80% { transform: translate(7px, -5px); } }
         .shake { animation: nudgeShake 0.45s ease-in-out; }
-        .search-result-row { display: flex; align-items: center; gap: 8px; padding: 8px; background: #fff8e1; border: 1px solid #e6c76a; border-radius: 5px; margin-bottom: 4px; }
-        .search-result-row .contact-crest-avatar { width: 32px; height: 32px; }
-        .search-result-row .contact-crest-avatar svg { width: 32px; height: 32px; }
+        .search-result-row { display: flex; align-items: center; gap: 8px; padding: 7px; background: #fff8e1; border: 1px solid #e6c76a; border-radius: 5px; margin-bottom: 4px; }
+        .search-result-row .contact-crest-avatar { width: 30px; height: 30px; }
+        .search-result-row .contact-crest-avatar svg { width: 30px; height: 30px; }
         .search-result-info { flex: 1; overflow: hidden; }
-        .search-result-name { font-size: 13px; font-weight: bold; color: #1b3654; }
-        .search-result-user { font-size: 11px; color: #5c7691; }
-        .btn-add-contato { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 4px 10px; border-radius: 4px; font-size: 11px; cursor: pointer; }
-        .btn-add-contato:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+        .search-result-name { font-size: 12.5px; font-weight: bold; color: #1b3654; }
+        .search-result-user { font-size: 10.5px; color: #5c7691; }
+        .btn-add-contato { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 4px 9px; border-radius: 4px; font-size: 11px; cursor: pointer; }
         .btn-add-contato:disabled { opacity: 0.6; cursor: not-allowed; }
         .empty-contacts { text-align: center; font-size: 11px; color: #5c7691; padding: 14px 8px; line-height: 1.4; }
         .badge-nao-lidas { background: #e84118; color: white; font-size: 10px; font-weight: bold; border-radius: 10px; padding: 1px 6px; min-width: 18px; text-align: center; margin-left: auto; flex-shrink: 0; }
         .jogos-bar { display: flex; gap: 8px; padding: 6px 12px; background: #eaf3fc; border-bottom: 1px solid #dcebfa; flex-wrap: wrap; align-items: center; }
         .btn-jogo-chat { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-size: 11.5px; font-weight: bold; padding: 5px 12px; border-radius: 14px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.12); }
-        .btn-jogo-chat:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .btn-jogo-chat.ativo { background: linear-gradient(180deg, #bfe0fc 0%, #8fc2f0 100%); border-color: #265c91; box-shadow: inset 0 1px 3px rgba(10, 35, 70, 0.2); }
-        #jogo-container { background: linear-gradient(180deg, #f9fcff 0%, #eef6fd 100%); border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 0 0 8px 0; box-shadow: 0 3px 10px rgba(15, 45, 80, 0.08); }
+        .btn-jogo-chat.ativo { background: linear-gradient(180deg, #bfe0fc 0%, #8fc2f0 100%); border-color: #265c91; }
+        #jogo-container { background: linear-gradient(180deg, #f9fcff 0%, #eef6fd 100%); border: 2px solid #8cbce8; border-radius: 8px; padding: 12px; margin: 0 0 8px 0; }
         .jogo-titulo { text-align: center; font-size: 13.5px; font-weight: bold; color: #103c66; margin-bottom: 6px; }
         .jogo-info { text-align: center; font-size: 12px; color: #174978; margin: 6px 0; font-weight: 600; line-height: 1.4; }
         .jogo-actions { text-align: center; margin-top: 10px; display: flex; gap: 7px; justify-content: center; flex-wrap: wrap; }
-        .jogo-actions button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 13px; border-radius: 14px; font-size: 11px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.12); }
-        .jogo-actions button:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
-        .jogo-velha-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 260px; margin: 8px auto; }
-        .jogo-velha-celula { background: #f0f6fc; border: 2px solid #8cb4d8; border-radius: 6px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: bold; color: #103c66; cursor: pointer; user-select: none; }
-        .jogo-velha-celula:hover:not(.ocupada) { background: #dcecfb; }
+        .jogo-actions button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 13px; border-radius: 14px; font-size: 11px; cursor: pointer; }
+        .jogo-velha-board { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-width: 240px; margin: 8px auto; }
+        .jogo-velha-celula { background: #f0f6fc; border: 2px solid #8cb4d8; border-radius: 6px; aspect-ratio: 1 / 1; display: flex; align-items: center; justify-content: center; font-size: 30px; font-weight: bold; color: #103c66; cursor: pointer; user-select: none; }
         .jogo-velha-celula.ocupada { cursor: default; background: #e8f1fa; }
         .quiz-pergunta { background: #fff8e1; border: 1px solid #e6c76a; border-radius: 6px; padding: 10px 12px; margin: 8px 0; font-size: 13px; color: #2b210e; line-height: 1.45; }
         .quiz-input { width: 100%; padding: 7px 10px; border: 1px solid #8cb4d8; border-radius: 5px; font-size: 13px; margin: 6px 0; background: white; }
         .quiz-resposta { background: #eef6fc; border: 1px solid #c5dff7; border-radius: 6px; padding: 8px 10px; margin: 5px 0; font-size: 12px; }
-        .quiz-resposta strong { color: #103c66; }
-        .forca-palavra { text-align: center; font-size: 25px; font-weight: bold; letter-spacing: 8px; color: #103c66; margin: 10px 0; font-family: 'Courier New', monospace; }
+        .forca-palavra { text-align: center; font-size: 24px; font-weight: bold; letter-spacing: 8px; color: #103c66; margin: 10px 0; font-family: 'Courier New', monospace; }
         .forca-letras { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; max-width: 320px; margin: 10px auto; }
         .forca-letra { background: linear-gradient(180deg, #ffffff 0%, #e1effc 100%); border: 1px solid #8cb4d8; border-radius: 5px; padding: 6px 0; text-align: center; font-weight: bold; font-size: 13px; cursor: pointer; color: #103c66; user-select: none; }
-        .forca-letra:hover:not(.usada) { background: #cfe6fc; }
         .forca-letra.usada { cursor: default; opacity: 0.85; }
         .forca-letra.acerto { background: #c8f7c8; border-color: #2e8b57; color: #16472b; }
         .forca-letra.erro { background: #f7c8c8; border-color: #c94a4a; color: #6e1c1c; }
         .forca-erros { text-align: center; font-size: 12px; color: #c94a4a; font-weight: bold; margin: 4px 0; }
-
         .radio-bar-bottom { background: linear-gradient(180deg, #f2f8fe 0%, #e2effc 100%); border-top: 1px solid #c2dcf2; padding: 8px 12px; display: flex; flex-direction: column; gap: 6px; }
         .radio-controls { display: flex; align-items: center; gap: 7px; flex-wrap: wrap; }
-        .radio-controls button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 12px; border-radius: 14px; font-size: 11.5px; cursor: pointer; box-shadow: 0 1px 2px rgba(15, 45, 80, 0.14); }
-        .radio-controls button:hover { background: linear-gradient(180deg, #ffffff 0%, #e3f1fd 48%, #b8d8f7 100%); }
+        .radio-controls button { background: linear-gradient(180deg, #ffffff 0%, #d4e8fb 48%, #a6cdf2 100%); border: 1px solid #5284b8; color: #0d3259; font-weight: bold; padding: 5px 12px; border-radius: 14px; font-size: 11.5px; cursor: pointer; }
         .radio-controls .radio-label { font-weight: bold; font-size: 12px; color: #103c66; margin-right: 2px; }
         .radio-controls input[type="range"] { width: 105px; accent-color: #2b6cb0; cursor: pointer; }
         .radio-controls select { padding: 5px 10px; border: 1px solid #5284b8; border-radius: 12px; font-size: 12px; color: #0d3259; background: white; cursor: pointer; font-weight: bold; max-width: 240px; }
 
         @media (max-width: 768px) {
             .main-workspace { flex-direction: column; height: auto; }
-            .left-sidebar { width: 100%; max-height: 420px; border-right: none; border-bottom: 1px solid #b5d1eb; }
-            .right-stage { min-height: 380px; }
+            .left-sidebar { width: 100%; max-height: 440px; border-right: none; border-bottom: 1px solid #b5d1eb; }
+            .right-stage { min-height: 400px; }
             .login-crest-item svg, .crest-item svg { width: 82px; height: 82px; }
             .login-grid-row { flex-direction: column; align-items: stretch; gap: 4px; }
             .login-grid-row label { text-align: left; min-width: auto; }
-            .profile-hero { padding: 6px 8px 4px 8px; }
-            .hero-crest { width: 56px; height: 56px; }
-            .hero-crest svg { width: 56px; height: 56px; }
-            .my-status-row { font-size: 13px; }
-            .subnick-edit { font-size: 10px; padding: 2px 4px; }
-            .search-box { padding: 4px 6px; }
-            .search-box input { padding: 4px 8px; font-size: 12px; }
-            .contact-row { padding: 4px 6px; }
-            .contact-crest-avatar { width: 30px; height: 30px; }
-            .contact-crest-avatar svg { width: 30px; height: 30px; }
-            .contact-title { font-size: 13px; }
-            .contact-sub { font-size: 10.5px; }
-            .contacts-scroll { padding: 3px 5px; }
-            .forca-letras { grid-template-columns: repeat(6, 1fr); }
         }
     </style>
 </head>
@@ -331,7 +336,7 @@
                 </div>
                 <div class="login-grid-row">
                     <label>Frase de Intenção:</label>
-                    <input type="text" id="cadastro-subnick" placeholder="Ex: Buscando conversas reais ☕">
+                    <input type="text" id="cadastro-subnick" placeholder="Ex: Buscando casamento cristão ☕">
                 </div>
                 <div class="login-grid-row">
                     <label>Status Inicial:</label>
@@ -357,7 +362,7 @@
         <div class="main-workspace" id="workspace-box">
             <div class="left-sidebar">
                 <div class="profile-hero">
-                    <div class="hero-crest"><svg width="64" height="64"><use href="#crest-conhecendo"></use></svg></div>
+                    <div class="hero-crest"><svg width="58" height="58"><use href="#crest-conhecendo"></use></svg></div>
                     <div class="my-status-row">
                         <span id="my-status-dot" class="status-dot dot-online"></span>
                         <span id="my-name-display">Usuário</span>
@@ -369,12 +374,16 @@
                     </div>
                     <input type="text" id="my-subnick-display" class="subnick-edit" onchange="atualizarMeuPerfil()" placeholder="Sua frase de intenção...">
                     <span class="subnick-hint">Você pode trocar esta frase quando quiser</span>
-                    <button class="btn-desconectar" onclick="sairDoCorte()">🚪 Desconectar</button>
+                    <div class="hero-btn-row">
+                        <button class="btn-valores-perfil" onclick="abrirQuestionarioValores()">📋 Meus Valores</button>
+                        <button class="btn-desconectar" onclick="sairDoCorte()">🚪 Sair</button>
+                    </div>
                     <button class="btn-excluir" onclick="excluirMinhaConta()">Excluir minha conta</button>
                 </div>
                 <div class="search-box">
-                    <input type="text" id="search-input" placeholder="🔍 Digite o usuário (ex: joao_silva)" onkeyup="buscarUsuarios()">
-                    <div id="search-results" style="margin-top:6px;"></div>
+                    <input type="text" id="search-input" placeholder="🔍 Buscar usuário (ex: joao_silva)" onkeyup="buscarUsuarios()">
+                    <button type="button" class="btn-buscar-afinidade" onclick="verificarAfinidadeNaRede()">✨ Verificar quem tem afinidade de vida</button>
+                    <div id="search-results" style="margin-top:6px; max-height: 210px; overflow-y: auto;"></div>
                 </div>
                 <div class="contacts-scroll" id="contact-list-area"></div>
             </div>
@@ -382,14 +391,15 @@
                 <div class="stage-topbar">
                     <div id="topbar-empty" class="stage-topbar-title" style="text-align:center;">
                         <div>Nenhuma conversa selecionada</div>
-                        <div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Selecione um contato salvo na lista à esquerda para começar.</div>
+                        <div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">Preencha "Meus Valores" à esquerda ou selecione um contato para conversar.</div>
                     </div>
                     <div id="topbar-active" class="active-chat-bar" style="display: none;">
                         <div>
                             <strong id="active-contact-name" style="color: #103c66;">Nome</strong>
                             <div id="active-contact-subnick" style="color: #5c7691;">Subnick</div>
                         </div>
-                        <div style="display:flex; align-items:center; gap:6px;">
+                        <div style="display:flex; align-items:center; gap:6px; flex-wrap: wrap;">
+                            <button type="button" class="btn-ver-afinidade" id="btn-afinidade-chat" onclick="abrirComparativoAfinidade()">⚖️ Afinidade</button>
                             <div class="stage-pill">
                                 <svg id="active-stage-svg"><use href="#crest-conhecendo"></use></svg>
                                 <select id="stage-select" onchange="alterarEstagio()">
@@ -403,6 +413,7 @@
                     </div>
                 </div>
 
+                <div id="convite-jogo-slot" style="padding: 0 20px;"></div>
                 <div id="jogo-slot" style="padding: 0 20px;"></div>
 
                 <div class="messages-canvas" id="chat-messages">
@@ -429,6 +440,7 @@
                 <div class="bottom-composer">
                     <div class="composer-tools">
                         <button class="icon-tool" onclick="chamarAtencao()">⚡ Chamar atenção</button>
+                        <button class="icon-tool" id="btn-gravar-audio" onclick="alternarGravacaoAudio()">🎤 Áudio</button>
                         <label class="icon-tool">📎 Foto Privada<input type="file" id="photo-upload" accept="image/*" style="display: none;" onchange="enviarFotoPrivada(event)"></label>
                         <button class="icon-tool" onclick="inserirEmoticon('😊')">😊</button>
                         <button class="icon-tool" onclick="inserirEmoticon('☕')">☕</button>
@@ -491,6 +503,7 @@
         let listaUsuarios = [];
         let contatoAtual = null;
         let refChatAtual = null;
+        let refConviteJogoAtual = null;
         let refUsuariosGlobal = null;
         let meusContatos = {};
         let refContatosGlobal = null;
@@ -500,8 +513,242 @@
         let jogoAtivo = null;
         let refJogoAtual = null;
         let estadoJogoLocal = null;
+        let conviteJogoAtual = null;
         let candidatosRadio = [];
         let indiceCandidatoRadio = 0;
+
+        let mediaRecorder = null;
+        let audioChunks = [];
+        let gravandoAudio = false;
+
+        /* ================= QUESTIONÁRIO DE VALORES TRADICIONAIS ================= */
+        const QUESTOES_VALORES = [
+            {
+                id: "visao_mundo",
+                titulo: "1. Visão de Mundo e Espectro Social",
+                peso: 15,
+                opcoes: {
+                    conservador: "Conservador(a)",
+                    tradicional: "Tradicional",
+                    moderado: "Moderado(a)"
+                }
+            },
+            {
+                id: "lideranca_casamento",
+                titulo: "2. Liderança e Papéis no Casamento",
+                peso: 20,
+                opcoes: {
+                    tradicional: "Tradicional: Homem líder/provedor principal e mulher auxiliadora/gestora do lar",
+                    equilibrada: "Equilibrada: Liderança compartilhada com papéis tradicionais bem definidos",
+                    igualitaria: "Igualitária: Igualdade total nas decisões e divisão das tarefas"
+                }
+            },
+            {
+                id: "foco_esposa",
+                titulo: "3. Foco da Esposa (Lar vs. Carreira)",
+                peso: 15,
+                opcoes: {
+                    lar: "Prioridade no Lar: Dona de casa e mãe em tempo integral",
+                    equilibrio: "Equilíbrio: Carreira flexível/meio período priorizando a família",
+                    carreira: "Foco Profissional: Carreira em tempo integral com apoio mútuo"
+                }
+            },
+            {
+                id: "autoridade_menores",
+                titulo: "4. Autoridade Pacificadora com Menores no Lar",
+                peso: 15,
+                opcoes: {
+                    plena: "Intervenção verbal imediata à luz da fé contra agressões ou discussões entre menores, com respaldo mútuo",
+                    contencao: "Contenção verbal imediata, deixando a conversa educativa para o pai/mãe biológico(a)",
+                    nao_intervir: "Não intervenção direta nos conflitos entre os filhos do outro"
+                }
+            },
+            {
+                id: "passado_arrependimento",
+                titulo: "5. Postura sobre Relacionamentos Passados",
+                peso: 15,
+                opcoes: {
+                    arrependimento: "Há arrependimento genuíno; se pudesse voltar atrás, não teria vivido aquelas relações",
+                    aprendizado: "Enxerga como aprendizado e superação, sem desejar que fossem diferentes",
+                    legitimacao: "Considera que foram uniões legítimas ou não vê motivo para arrependimento"
+                }
+            },
+            {
+                id: "vertente_igreja",
+                titulo: "6. Participação em Igreja/Paróquia de Outra Vertente Cristã",
+                peso: 10,
+                opcoes: {
+                    respeito_eventual: "Participa com respeito em visitas ou datas especiais, mantendo sua identidade de fé",
+                    acompanhar_dialogo: "Acompanha regularmente ou alterna visitas com diálogo e respeito às convicções",
+                    recusa: "Prefere não frequentar igreja ou paróquia de outra vertente"
+                }
+            },
+            {
+                id: "bebida_fumo",
+                titulo: "7. Postura sobre Bebidas Alcoólicas e Tabagismo",
+                peso: 10,
+                opcoes: {
+                    contra_total: "Totalmente contra beber e fumar (são vícios que abalam a fé e dão mau exemplo aos menores)",
+                    abstinencia_tolera: "Não bebe nem fuma, mas tolera uso social muito moderado fora do ambiente dos menores",
+                    social: "Uso social ocasional de bebida alcoólica, sem fumar"
+                }
+            }
+        ];
+
+        function calcularAfinidade(valoresA, valoresB) {
+            if (!valoresA || !valoresB) return null;
+            let pesoTotal = 0;
+            let pontosObtidos = 0;
+            QUESTOES_VALORES.forEach(q => {
+                const respA = valoresA[q.id];
+                const respB = valoresB[q.id];
+                if (respA && respB) {
+                    pesoTotal += q.peso;
+                    if (respA === respB) pontosObtidos += q.peso;
+                }
+            });
+            if (pesoTotal === 0) return null;
+            return Math.round((pontosObtidos / pesoTotal) * 100);
+        }
+
+        function abrirQuestionarioValores() {
+            if (!meuUsuario) return;
+            const box = document.getElementById("chat-messages");
+            if (!box) return;
+            const atuais = meuUsuario.valores || {};
+
+            const camposHtml = QUESTOES_VALORES.map(q => {
+                const opts = Object.entries(q.opcoes).map(([val, texto]) =>
+                    `<option value="${val}" ${atuais[q.id] === val ? "selected" : ""}>${escaparHTML(texto)}</option>`
+                ).join("");
+                return `
+                    <div class="questao-card">
+                        <label class="q-titulo" for="val-${q.id}">${escaparHTML(q.titulo)}</label>
+                        <select id="val-${q.id}">
+                            <option value="">-- Selecione sua posição --</option>
+                            ${opts}
+                        </select>
+                    </div>
+                `;
+            }).join("");
+
+            box.innerHTML = `
+                <div class="painel-valores">
+                    <h3>📋 Meus Valores Tradicionais & Critérios de Vida</h3>
+                    <p class="desc">Suas respostas ficam salvas no seu perfil e permitem verificar automaticamente quais senhoritas ou senhores compartilham da mesma visão de família, fé e conduta.</p>
+                    ${camposHtml}
+                    <div style="display:flex; gap:8px; justify-content:center; margin-top:12px; flex-wrap:wrap;">
+                        <button type="button" class="btn-aero-pill" style="padding:7px 24px; font-size:13px;" onclick="salvarQuestionarioValores()">💾 Salvar Meus Valores</button>
+                        <button type="button" class="btn-aero-pill" style="padding:7px 18px; font-size:13px; opacity:0.8;" onclick="voltarTelaChat()">Voltar</button>
+                    </div>
+                </div>
+            `;
+            box.scrollTop = 0;
+        }
+
+        async function salvarQuestionarioValores() {
+            if (!meuUsuario) return;
+            const novosValores = {};
+            QUESTOES_VALORES.forEach(q => {
+                const el = document.getElementById(`val-${q.id}`);
+                if (el && el.value) novosValores[q.id] = el.value;
+            });
+            meuUsuario.valores = novosValores;
+            await rtdb.ref(`usuarios/${meuUsuario.id}/valores`).set(novosValores);
+            renderizarContatos();
+            alert("Seus valores foram salvos! Agora você já pode verificar a afinidade com outros usuários.");
+            verificarAfinidadeNaRede();
+            voltarTelaChat();
+        }
+
+        function voltarTelaChat() {
+            if (contatoAtual) {
+                abrirChat(contatoAtual.id);
+            } else {
+                fecharChat();
+            }
+        }
+
+        function abrirComparativoAfinidade() {
+            if (!meuUsuario || !contatoAtual) return;
+            const box = document.getElementById("chat-messages");
+            if (!box) return;
+
+            const meusV = meuUsuario.valores || {};
+            const delesV = contatoAtual.valores || {};
+            const pct = calcularAfinidade(meusV, delesV);
+
+            const resumoPct = pct !== null
+                ? `<strong>Índice de Afinidade de Vida: ${pct}%</strong>`
+                : `<em>Um ou ambos ainda não preencheram o questionário de valores.</em>`;
+
+            const linhas = QUESTOES_VALORES.map(q => {
+                const mResp = meusV[q.id] ? q.opcoes[meusV[q.id]] : "Não respondido";
+                const cResp = delesV[q.id] ? q.opcoes[delesV[q.id]] : "Não respondido";
+                const igual = meusV[q.id] && delesV[q.id] && meusV[q.id] === delesV[q.id];
+                return `
+                    <div class="comparativo-item ${igual ? "igual" : "diferente"}">
+                        <div class="comparativo-titulo">${igual ? "✅" : "💬"} ${escaparHTML(q.titulo)}</div>
+                        <div class="comparativo-linha"><strong>Você:</strong> ${escaparHTML(mResp)}</div>
+                        <div class="comparativo-linha"><strong>${escaparHTML(contatoAtual.nome)}:</strong> ${escaparHTML(cResp)}</div>
+                    </div>
+                `;
+            }).join("");
+
+            box.innerHTML = `
+                <div class="painel-valores">
+                    <h3>⚖️ Comparativo de Valores com ${escaparHTML(contatoAtual.nome)}</h3>
+                    <p class="desc">${resumoPct}</p>
+                    ${linhas}
+                    <div style="text-align:center; margin-top:10px;">
+                        <button type="button" class="btn-aero-pill" style="padding:6px 22px; font-size:12.5px;" onclick="abrirChat('${escaparHTML(contatoAtual.id)}')">💬 Voltar para a Conversa</button>
+                    </div>
+                </div>
+            `;
+            box.scrollTop = 0;
+        }
+
+        function verificarAfinidadeNaRede() {
+            const resultadosEl = document.getElementById("search-results");
+            if (!resultadosEl || !meuUsuario) return;
+
+            if (!meuUsuario.valores || Object.keys(meuUsuario.valores).length === 0) {
+                resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c4a1a;background:#fff8e1;border:1px solid #e6c76a;padding:6px;border-radius:4px;text-align:center;">Preencha primeiro <strong>📋 Meus Valores</strong> acima para comparar afinidade.</div>`;
+                return;
+            }
+
+            if (listaUsuarios.length === 0) {
+                resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Ainda não há outros usuários cadastrados no banco.</div>`;
+                return;
+            }
+
+            const ranqueados = listaUsuarios.map(u => ({
+                usuario: u,
+                afinidade: calcularAfinidade(meuUsuario.valores, u.valores)
+            })).sort((a, b) => (b.afinidade ?? -1) - (a.afinidade ?? -1));
+
+            const comValores = ranqueados.filter(r => r.afinidade !== null);
+            if (comValores.length === 0) {
+                resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Há ${listaUsuarios.length} usuário(s) na rede, mas nenhum preencheu o questionário de valores ainda.</div>`;
+                return;
+            }
+
+            resultadosEl.innerHTML = comValores.map(({ usuario: u, afinidade }) => {
+                const btn = meusContatos[u.id]
+                    ? `<button type="button" class="btn-add-contato" onclick="abrirChat('${escaparHTML(u.id)}')">💬 Conversar</button>`
+                    : `<button type="button" class="btn-add-contato" onclick="adicionarContato('${escaparHTML(u.id)}')">➕ Adicionar</button>`;
+                return `
+                    <div class="search-result-row">
+                        <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${escaparHTML(u.status || 'offline')}"></span></div>
+                        <div class="search-result-info">
+                            <div class="search-result-name">${escaparHTML(u.nome)} <span class="selo-afinidade ${afinidade >= 70 ? "alta" : ""}">🛡️ ${afinidade}%</span></div>
+                            <div class="search-result-user">${escaparHTML(u.subnick || "@" + (u.usuario || ""))}</div>
+                        </div>
+                        ${btn}
+                    </div>
+                `;
+            }).join("");
+        }
 
         const nomesEstagios = { conhecendo: "Conversar", compromisso: "Compromisso", noivado: "Noivado" };
         const nomesJogos = {
@@ -616,7 +863,6 @@
             const subnick = document.getElementById("cadastro-subnick").value.trim() || "Buscando conversas reais ☕";
             const status = document.getElementById("cadastro-status").value;
 
-            erroEl.innerText = "🔍 Validando dados...";
             const erroUsuario = validarUsuario(usuario);
             if (erroUsuario) { erroEl.innerText = "❌ " + erroUsuario; return; }
             if (senha.length < 8) { erroEl.innerText = "❌ Senha precisa ter no mínimo 8 caracteres."; return; }
@@ -629,7 +875,6 @@
             const btn = document.getElementById("btn-cadastrar");
             btn.innerText = "Verificando nome..."; btn.disabled = true;
 
-            erroEl.innerText = "🔍 Etapa 1/3: verificando se o nome existe...";
             try {
                 const nomeSnap = await rtdb.ref(`nomes_usuarios/${usuario}`).get();
                 if (nomeSnap.exists()) {
@@ -641,7 +886,6 @@
                 btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
-            erroEl.innerText = "🔍 Etapa 2/3: criando conta...";
             let cred;
             try { cred = await auth.createUserWithEmailAndPassword(usuarioParaEmail(usuario), senha); }
             catch (err) {
@@ -651,7 +895,6 @@
 
             const uid = cred.user.uid;
 
-            erroEl.innerText = "🔍 Etapa 3/3: salvando nome...";
             try {
                 const nomeRef = rtdb.ref(`nomes_usuarios/${usuario}`);
                 const resultado = await nomeRef.transaction(current => {
@@ -667,7 +910,6 @@
                 btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
-            erroEl.innerText = "🔍 Salvando perfil...";
             try {
                 await rtdb.ref(`usuarios/${uid}`).set({ id: uid, usuario, nome, subnick, status });
                 rtdb.ref(`usuarios/${uid}/status`).onDisconnect().set("offline");
@@ -676,7 +918,6 @@
                 btn.innerText = "Criar Conta ➤"; btn.disabled = false; return;
             }
 
-            erroEl.innerText = "✅ Cadastro concluído! Entrando...";
             await carregarApp(uid);
         }
 
@@ -702,7 +943,7 @@
             await rtdb.ref(`usuarios/${uid}/status`).set("online");
             rtdb.ref(`usuarios/${uid}/status`).onDisconnect().set("offline");
             const snap = await rtdb.ref(`usuarios/${uid}`).get();
-            const dados = snap.val() || { id: uid, nome: "Usuário", subnick: "", status: "online" };
+            const dados = snap.val() || { id: uid, nome: "Usuário", subnick: "", status: "online", valores: {} };
             meuUsuario = { id: uid, ...dados };
             document.getElementById("my-name-display").innerText = meuUsuario.nome;
             document.getElementById("my-subnick-display").value = meuUsuario.subnick || "";
@@ -773,13 +1014,8 @@
             const ids = Object.keys(meusContatos);
             const meusContatosList = listaUsuarios.filter(u => ids.includes(u.id));
 
-            const topbarEmpty = document.getElementById("topbar-empty");
-            if (topbarEmpty && !contatoAtual) {
-                topbarEmpty.innerHTML = `<div>Nenhuma conversa selecionada</div><div style="font-size:11px;font-weight:normal;color:#5c7691;margin-top:2px;">${meusContatosList.length === 0 ? "Use a busca acima para adicionar seu primeiro contato." : "Selecione um contato salvo na lista à esquerda para começar."}</div>`;
-            }
-
             if (meusContatosList.length === 0) {
-                area.innerHTML = `<div class="contacts-header">▾ Contatos (0)</div><div class="empty-contacts">Nenhum contato ainda.<br>Digite o usuário de alguém na busca acima para adicionar.</div>`;
+                area.innerHTML = `<div class="contacts-header">▾ Contatos (0)</div><div class="empty-contacts">Nenhum contato ainda.<br>Use a busca ou clique em "Verificar quem tem afinidade de vida".</div>`;
                 return;
             }
 
@@ -792,12 +1028,18 @@
             meusContatosList.forEach(u => {
                 const isActive = Boolean(contatoAtual && contatoAtual.id === u.id);
                 const qtdNaoLidas = naoLidas[u.id] || 0;
+                const pct = meuUsuario ? calcularAfinidade(meuUsuario.valores, u.valores) : null;
+                const seloHtml = pct !== null ? `<span class="selo-afinidade ${pct >= 70 ? "alta" : ""}">${pct}%</span>` : "";
+
                 const row = document.createElement("div");
                 row.className = `contact-row ${isActive ? "active" : ""}`;
                 row.addEventListener("click", () => abrirChat(u.id));
                 row.innerHTML = `
                     <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${escaparHTML(u.status || 'offline')}"></span></div>
-                    <div class="contact-info"><div class="contact-title">${escaparHTML(u.nome)}</div><div class="contact-sub">${escaparHTML(u.subnick || "")}</div></div>
+                    <div class="contact-info">
+                        <div class="contact-title"><span>${escaparHTML(u.nome)}</span>${seloHtml}</div>
+                        <div class="contact-sub">${escaparHTML(u.subnick || "")}</div>
+                    </div>
                     ${qtdNaoLidas > 0 ? `<span class="badge-nao-lidas">${qtdNaoLidas > 99 ? "99+" : qtdNaoLidas}</span>` : ""}
                 `;
                 frag.appendChild(row);
@@ -816,19 +1058,21 @@
                 if (resultadosEl.innerHTML !== "") resultadosEl.innerHTML = "";
                 return;
             }
-            const achados = listaUsuarios.filter(u => u.usuario && u.usuario.toLowerCase().includes(termo));
+            const achados = listaUsuarios.filter(u => (u.usuario && u.usuario.toLowerCase().includes(termo)) || (u.nome && u.nome.toLowerCase().includes(termo)));
             if (achados.length === 0) {
                 resultadosEl.innerHTML = `<div style="font-size:11px;color:#5c7691;text-align:center;padding:6px;">Nenhum usuário encontrado.</div>`;
                 return;
             }
-            resultadosEl.innerHTML = achados.slice(0, 5).map(u => {
+            resultadosEl.innerHTML = achados.slice(0, 6).map(u => {
+                const pct = meuUsuario ? calcularAfinidade(meuUsuario.valores, u.valores) : null;
+                const seloHtml = pct !== null ? `<span class="selo-afinidade ${pct >= 70 ? "alta" : ""}">🛡️ ${pct}%</span>` : "";
                 const btn = meusContatos[u.id]
                     ? `<button type="button" class="btn-add-contato" disabled>✓ Adicionado</button>`
                     : `<button type="button" class="btn-add-contato" onclick="adicionarContato('${escaparHTML(u.id)}')">➕ Adicionar</button>`;
                 return `
                     <div class="search-result-row">
                         <div class="contact-crest-avatar"><svg><use href="#crest-conhecendo"></use></svg><span class="status-dot dot-${escaparHTML(u.status || 'offline')}"></span></div>
-                        <div class="search-result-info"><div class="search-result-name">${escaparHTML(u.nome)}</div><div class="search-result-user">@${escaparHTML(u.usuario || "sem_usuario")}</div></div>
+                        <div class="search-result-info"><div class="search-result-name">${escaparHTML(u.nome)} ${seloHtml}</div><div class="search-result-user">@${escaparHTML(u.usuario || "sem_usuario")}</div></div>
                         ${btn}
                     </div>`;
             }).join("");
@@ -847,6 +1091,51 @@
             } catch (err) { alert("Erro ao adicionar: " + traduzirErro(err)); }
         }
 
+        function escutarConviteJogoSala(salaId) {
+            if (refConviteJogoAtual) { refConviteJogoAtual.off(); refConviteJogoAtual = null; }
+            conviteJogoAtual = null;
+            renderizarConviteJogo();
+
+            refConviteJogoAtual = rtdb.ref(`convites_jogos/${salaId}`);
+            refConviteJogoAtual.on("value", (snap) => {
+                const dados = snap.val();
+                if (!dados || !meuUsuario) {
+                    conviteJogoAtual = null;
+                    renderizarConviteJogo();
+                    return;
+                }
+                const convites = Object.values(dados)
+                    .filter(c => c && c.para === meuUsuario.id && c.tipo)
+                    .sort((a, b) => (b.timestamp || 0) - (a.timestamp || 0));
+
+                conviteJogoAtual = convites[0] || null;
+                renderizarConviteJogo();
+            });
+        }
+
+        function renderizarConviteJogo() {
+            const slot = document.getElementById("convite-jogo-slot");
+            if (!slot) return;
+            if (!conviteJogoAtual || !contatoAtual || jogoAtivo === conviteJogoAtual.tipo) {
+                slot.innerHTML = "";
+                return;
+            }
+            const nomeJogo = nomesJogos[conviteJogoAtual.tipo] || conviteJogoAtual.tipo;
+            slot.innerHTML = `
+                <div class="convite-jogo-banner">
+                    <span>🎮 <strong>${escaparHTML(conviteJogoAtual.deNome || contatoAtual.nome)}</strong> chamou você para jogar <strong>${escaparHTML(nomeJogo)}</strong>!</span>
+                    <button type="button" class="btn-entrar-jogo" onclick="aceitarConviteJogo('${escaparHTML(conviteJogoAtual.tipo)}')">▶️ Entrar no Jogo</button>
+                </div>
+            `;
+        }
+
+        async function aceitarConviteJogo(tipo) {
+            if (!contatoAtual || !meuUsuario) return;
+            const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            await rtdb.ref(`convites_jogos/${salaId}/${tipo}`).remove();
+            await abrirJogo(tipo, false);
+        }
+
         function abrirChat(id) {
             const selecionado = listaUsuarios.find(u => u.id === id);
             if (!selecionado || !meuUsuario) return;
@@ -862,10 +1151,16 @@
             document.getElementById("active-contact-name").innerText = contatoAtual.nome;
             document.getElementById("active-contact-subnick").innerText = contatoAtual.subnick || "";
 
+            const pct = calcularAfinidade(meuUsuario.valores, contatoAtual.valores);
+            const btnAf = document.getElementById("btn-afinidade-chat");
+            if (btnAf) btnAf.innerText = pct !== null ? `⚖️ Afinidade (${pct}%)` : "⚖️ Afinidade";
+
             const box = document.getElementById("chat-messages");
             box.innerHTML = `<div style="text-align:center;font-size:12px;color:#5c7691;margin:auto;">Carregando conversa...</div>`;
 
             const salaId = gerarIdSala(meuUsuario.id, contatoAtual.id);
+            escutarConviteJogoSala(salaId);
+
             refChatAtual = rtdb.ref(`mensagens/${salaId}`);
             let primeiraCarga = true;
             refChatAtual.on("value", (snapshot) => {
@@ -890,6 +1185,9 @@
 
         function fecharChat() {
             if (refChatAtual) { refChatAtual.off(); refChatAtual = null; }
+            if (refConviteJogoAtual) { refConviteJogoAtual.off(); refConviteJogoAtual = null; }
+            conviteJogoAtual = null;
+            renderizarConviteJogo();
             fecharJogoAtual();
             contatoAtual = null;
             document.getElementById("topbar-active").style.display = "none";
@@ -936,6 +1234,9 @@
                     partes.push(`<div class="msg-system"><span>${escaparHTML(m.texto.replace("[RECUSADO]", ""))}</span></div>`);
                 } else if (m.texto && m.texto.startsWith("[SISTEMA]")) {
                     partes.push(`<div class="msg-system"><span>${escaparHTML(m.texto.replace("[SISTEMA]", ""))}</span></div>`);
+                } else if (m.audio_url && /^data:audio\/(webm|ogg|mp4|mpeg|wav);base64,/i.test(m.audio_url)) {
+                    const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
+                    partes.push(`<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} enviou áudio:</div><div class="msg-bubble"><audio src="${m.audio_url}" class="chat-audio" controls preload="metadata"></audio></div></div>`);
                 } else if (m.foto_url && /^data:image\/(png|jpeg|jpg|gif|webp);base64,/i.test(m.foto_url)) {
                     const isMe = m.remetente_id === meuUsuario.id ? "me" : "";
                     partes.push(`<div class="msg ${isMe}"><div class="msg-sender">${autorFormatado} enviou foto:</div><div class="msg-bubble"><img src="${m.foto_url}" class="chat-photo" alt="Foto privada"></div></div>`);
@@ -986,6 +1287,57 @@
             await gravarEventoNoChat({ texto: `[SISTEMA] ⚡ ${meuUsuario.nome} chamou a atenção!`, estagio: document.getElementById("stage-select").value });
         }
 
+        async function alternarGravacaoAudio() {
+            if (!contatoAtual || !meuUsuario) {
+                alert("Selecione uma conversa primeiro para enviar áudio.");
+                return;
+            }
+            const btn = document.getElementById("btn-gravar-audio");
+            if (!gravandoAudio) {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioChunks = [];
+                    mediaRecorder = new MediaRecorder(stream);
+                    mediaRecorder.ondataavailable = (e) => {
+                        if (e.data && e.data.size > 0) audioChunks.push(e.data);
+                    };
+                    mediaRecorder.onstop = async () => {
+                        stream.getTracks().forEach(t => t.stop());
+                        const blob = new Blob(audioChunks, { type: mediaRecorder.mimeType || "audio/webm" });
+                        if (blob.size > 1500000) {
+                            alert("O áudio ficou maior que 1,5 MB. Grave um áudio mais curto.");
+                            return;
+                        }
+                        const reader = new FileReader();
+                        reader.onload = async function(ev) {
+                            await gravarEventoNoChat({
+                                audio_url: ev.target.result,
+                                estagio: document.getElementById("stage-select").value
+                            });
+                        };
+                        reader.readAsDataURL(blob);
+                    };
+                    mediaRecorder.start();
+                    gravandoAudio = true;
+                    if (btn) {
+                        btn.textContent = "⏹️ Enviar Áudio";
+                        btn.classList.add("gravando");
+                    }
+                } catch (err) {
+                    alert("Não foi possível acessar o microfone.");
+                }
+            } else {
+                gravandoAudio = false;
+                if (btn) {
+                    btn.textContent = "🎤 Áudio";
+                    btn.classList.remove("gravando");
+                }
+                if (mediaRecorder && mediaRecorder.state !== "inactive") {
+                    mediaRecorder.stop();
+                }
+            }
+        }
+
         function inserirEmoticon(emoji) { const input = document.getElementById("message-input"); input.value += emoji; input.focus(); }
 
         function enviarFotoPrivada(event) {
@@ -1011,6 +1363,7 @@
             jogoAtivo = null;
             estadoJogoLocal = null;
             atualizarBotoesJogo();
+            renderizarConviteJogo();
             const slot = document.getElementById("jogo-slot");
             if (slot) slot.innerHTML = "";
         }
@@ -1048,7 +1401,7 @@
             return null;
         }
 
-        async function abrirJogo(tipo) {
+        async function abrirJogo(tipo, enviarConvite = true) {
             if (!contatoAtual || !meuUsuario) {
                 alert("Selecione uma conversa primeiro para jogar.");
                 return;
@@ -1061,6 +1414,7 @@
             if (refJogoAtual) { refJogoAtual.off(); refJogoAtual = null; }
             jogoAtivo = tipo;
             atualizarBotoesJogo();
+            renderizarConviteJogo();
 
             const slot = document.getElementById("jogo-slot");
             if (slot) {
@@ -1081,11 +1435,21 @@
                 estadoJogoLocal = estadoAtual;
                 renderizarJogo();
 
-                await gravarEventoNoChat({
-                    texto: `[SISTEMA] 🎮 ${meuUsuario.nome} convidou você para jogar ${nomesJogos[tipo] || tipo}!`,
-                    estagio: document.getElementById("stage-select").value
-                });
-                tocarSom("msg");
+                if (enviarConvite) {
+                    await rtdb.ref(`convites_jogos/${salaId}/${tipo}`).set({
+                        tipo,
+                        de: meuUsuario.id,
+                        deNome: meuUsuario.nome,
+                        para: contatoAtual.id,
+                        timestamp: Date.now()
+                    });
+
+                    await gravarEventoNoChat({
+                        texto: `[SISTEMA] 🎮 ${meuUsuario.nome} convidou você para jogar ${nomesJogos[tipo] || tipo}!`,
+                        estagio: document.getElementById("stage-select").value
+                    });
+                    tocarSom("msg");
+                }
 
                 jogoRef.on("value", (s) => {
                     if (jogoAtivo !== tipo) return;
@@ -1426,4 +1790,5 @@
     </script>
 </body>
 </html>
+
 
